@@ -14,11 +14,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 public class ConfApp {
 
-
     public static void main(String[] args) {
         SpringApplication.run(ConfApp.class, args);
 
     }
-
 
 }

@@ -3,9 +3,6 @@ package com.chat.core.model;
 
 import org.msgpack.annotation.Index;
 import org.msgpack.annotation.Message;
-
-
-
 /**
  *
  *  数据包  所有 netty 传递的数据包
@@ -16,7 +13,6 @@ import org.msgpack.annotation.Message;
  */
 @Message
 public class NPack {
-
     /**
      * 名字
      */
@@ -48,7 +44,6 @@ public class NPack {
     public NPack(String router, String json) {
         this.router = router;
         this.json = json;
-        this.timestamp = timestamp;
     }
 
     public NPack(String router) {

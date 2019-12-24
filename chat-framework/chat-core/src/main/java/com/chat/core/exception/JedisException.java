@@ -1,14 +1,13 @@
 package com.chat.core.exception;
 
 /**
- * TODO
+ *
  *
  * @date:2019/11/11 12:20
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 
 public class JedisException extends RuntimeException {
-
 
     /**
      * Constructs a new runtime exception with the specified cause and a
