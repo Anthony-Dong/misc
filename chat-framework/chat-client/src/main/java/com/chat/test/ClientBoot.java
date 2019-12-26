@@ -36,13 +36,15 @@ public class ClientBoot {
             }
 
         };
+
+
         new Thread(() -> {
             try {
                 ChatClient.run(8888, context);
             } catch (Exception e) {
-                //
             }
         }).start();
+
 
         ChannelHandlerContext channelHandlerContext = context.getContext();
 

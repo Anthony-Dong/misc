@@ -30,7 +30,6 @@ public class ServerBoot {
                 System.out.println("onRemove");
             }
 
-
             @Override
             public void onRegister(ChannelHandlerContext context) {
                 context.writeAndFlush(new NPack("注册成功"));
