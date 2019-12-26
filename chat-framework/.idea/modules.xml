@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/chat-conf/chat-conf.iml" filepath="$PROJECT_DIR$/chat-conf/chat-conf.iml" />
       <module fileurl="file://$PROJECT_DIR$/chat-core/chat-core.iml" filepath="$PROJECT_DIR$/chat-core/chat-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/chat-framework.iml" filepath="$PROJECT_DIR$/.idea/chat-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chat-http-server/chat-http-server.iml" filepath="$PROJECT_DIR$/chat-http-server/chat-http-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/chat-server/chat-server.iml" filepath="$PROJECT_DIR$/chat-server/chat-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/chat-server-springboot-start/chat-server-springboot-start.iml" filepath="$PROJECT_DIR$/chat-server-springboot-start/chat-server-springboot-start.iml" />
     </modules>

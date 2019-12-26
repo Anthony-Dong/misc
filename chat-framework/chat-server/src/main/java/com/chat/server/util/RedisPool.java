@@ -1,16 +1,15 @@
 package com.chat.server.util;
 
 
-import com.chat.core.exception.JedisException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
 
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.stream.IntStream;
 
 /**
- *  由于 redis' 的部分原因 ,依赖的问题我们将redis 放在了 client 端
+ * 由于 redis' 的部分原因 ,依赖的问题我们将redis 放在了 client 端
  *
  * @date:2019/11/11 12:01
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
@@ -18,16 +17,13 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class RedisPool {
 
+    private final ThreadLocal<Jedis> threadLocal;
 
-    private ThreadLocal<Jedis> threadLocal;
-
-    private static final Logger logger = LoggerFactory.getLogger(RedisPool.class);
-
-    private RedisConnectionQueue queue;
+    private final RedisConnectionQueue queue;
 
 
     public RedisPool(Integer capacity, HostAndPort hostAndPort) {
-        queue = new RedisConnectionQueue(capacity, hostAndPort);
+        this.queue = new RedisConnectionQueue(capacity, hostAndPort);
         this.threadLocal = new ThreadLocal<>();
     }
 
@@ -47,41 +43,33 @@ public class RedisPool {
         }
     }
 
-    public class RedisConnectionQueue {
-
-        private Integer capacity;
+    static class RedisConnectionQueue {
 
         private Boolean useFlag;
 
-        private ArrayBlockingQueue<Jedis> queue;
-
-        private HostAndPort hostAndPort;
+        private BlockingQueue<Jedis> queue;
 
 
-        public RedisConnectionQueue(Integer capacity, HostAndPort hostAndPort) {
-            this.capacity = capacity;
-            this.hostAndPort = hostAndPort;
+        RedisConnectionQueue(final Integer capacity, final HostAndPort hostAndPort) {
             this.queue = new ArrayBlockingQueue<>(capacity);
-            for (Integer integer = 0; integer < capacity; integer++) {
-                this.queue.offer(new Jedis(hostAndPort));
-            }
+            IntStream.range(0, capacity).forEach(e -> this.queue.offer(new Jedis(hostAndPort)));
         }
 
-        public Jedis takeConnection() {
+        Jedis takeConnection() {
             Jedis connection = null;
             try {
                 connection = queue.take();
                 return connection;
             } catch (InterruptedException e) {
-                throw new JedisException("take 失败");
+                return null;
             }
         }
 
-        public void putConnection(Jedis connection) {
+        void putConnection(Jedis connection) {
             try {
                 queue.put(connection);
             } catch (InterruptedException e) {
-                throw new JedisException("put失败");
+                e.printStackTrace();
             }
         }
     }

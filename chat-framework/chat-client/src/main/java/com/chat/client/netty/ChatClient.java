@@ -1,10 +1,15 @@
 package com.chat.client.netty;
 
 
+import com.chat.client.hander.ChatClientContext;
+import com.chat.client.hander.ClientChatHandlerConstant;
 import com.chat.core.ServerNode;
+import com.chat.core.annotation.NotNull;
+import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
 import com.chat.core.listener.ChatEventListener;
 import com.chat.core.listener.ChatEventType;
+import com.chat.core.util.NamedThreadFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -13,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
+import java.util.Map;
 
 /**
  * chat client
@@ -20,7 +26,7 @@ import java.net.InetSocketAddress;
  * @date:2019/11/10 11:35
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-public class ChatClient implements ServerNode {
+public class ChatClient extends ServerNode {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatClient.class);
 
@@ -47,22 +53,12 @@ public class ChatClient implements ServerNode {
 
 
     /**
-     * 构造方法
-     *
-     * @param address  address   服务器地址
-     * @param listener listener  事件监听器
-     */
-    public ChatClient(InetSocketAddress address, ChatEventListener listener) {
-        this(new NioEventLoopGroup(1), address, listener);
-    }
-
-    /**
      * 启动
      *
      * @throws Exception sync() 异常往外抛出
      */
     @Override
-    public void start() throws Exception {
+    protected void start() throws Exception {
 
         logger.info("[客户端] 开始启动 Host : {}  Port : {} .", this.address.getHostName(), this.address.getPort());
 
@@ -73,10 +69,9 @@ public class ChatClient implements ServerNode {
                 .channel(NioSocketChannel.class)
                 .handler(new ChatClientChannelInitializer(listener));
 
-
         try {
 
-            ChannelFuture channelFuture = bootstrap.connect(address).sync();
+            final ChannelFuture channelFuture = bootstrap.connect(address).sync();
 
             // 发送事件
             listener.onChatEvent(new ChatEvent() {
@@ -95,7 +90,6 @@ public class ChatClient implements ServerNode {
             // 阻塞执行线程
             channelFuture.channel().closeFuture().sync();
         } finally {
-
             // 关闭
             listener.onChatEvent(new ChatEvent() {
                 @Override
@@ -116,9 +110,39 @@ public class ChatClient implements ServerNode {
      * 当出现异常可以直接关闭
      */
     @Override
-    public void shutDown() {
+    protected void shutDown() {
         if (workerGroup != null) {
             workerGroup.shutdownGracefully();
         }
     }
+
+
+    /**
+     * 启动项
+     *
+     * @param workerThread 工作线程  默认一个就行
+     * @param address      服务器地址
+     * @param context      上下文
+     * @throws Exception
+     */
+    public static void run(int workerThread, InetSocketAddress address, @NotNull ChatClientContext context) throws Exception {
+        ClientChatHandlerConstant constant = new ClientChatHandlerConstant(context);
+        Map<ChatEventType, ChatEventHandler> handlerMap = constant.getHandlerMap();
+
+        ChatClient client = new ChatClient(new NioEventLoopGroup(workerThread, new NamedThreadFactory("chat-client")), address, event -> {
+            ChatEventHandler handler = handlerMap.get(event.eventType());
+            handler.handler(event);
+        });
+        client.start();
+    }
+
+
+    public static void run(InetSocketAddress address, @NotNull ChatClientContext context) throws Exception {
+        run(1, address, context);
+    }
+
+    public static void run(int port, @NotNull ChatClientContext context) throws Exception {
+        run(new InetSocketAddress(port), context);
+    }
+
 }

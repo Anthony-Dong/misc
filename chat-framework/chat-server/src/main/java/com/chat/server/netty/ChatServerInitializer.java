@@ -28,7 +28,7 @@ public class ChatServerInitializer extends ChannelInitializer<Channel> {
         pipeline.addLast("encoder", new PackageEncoder());
 
         // 心跳检测
-        pipeline.addLast("idleStateHandler", new IdleStateHandler(0, 0, 120));
+        pipeline.addLast("idleStateHandler", new IdleStateHandler(0, 0, 90));
 
         // 心跳检测处理器
         pipeline.addLast("serverHeartBeatHandler", new ChatServerHeartBeatHandler());

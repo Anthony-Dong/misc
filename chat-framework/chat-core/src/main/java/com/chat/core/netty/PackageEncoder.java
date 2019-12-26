@@ -23,12 +23,13 @@ public class PackageEncoder extends MessageToByteEncoder<NPack> {
         // 获取 message 长度
         int length = body.length;
 
+
         // 协议头 - 长度 - 2字节
         out.writeShort(Constants.PROTOCOL_VERSION);
 
 
-        // 数据长度 - 2字节
-        out.writeShort(length);
+        // 数据长度 - 4字节
+        out.writeInt(length);
 
         // 数据体 - 长度字节
         out.writeBytes(body);

@@ -13,7 +13,6 @@ import java.net.URLEncoder;
  * @author kingston
  */
 public class HttpUtil {
-
     /**
      * 拼接字符串的  例如 a,1,b,2 结果就是 a=1&b=2
      *

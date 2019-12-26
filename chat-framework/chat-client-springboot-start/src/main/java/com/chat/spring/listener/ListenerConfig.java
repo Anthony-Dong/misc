@@ -1,7 +1,6 @@
 package com.chat.spring.listener;
 
 
-import com.chat.core.model.ChatThreadFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 

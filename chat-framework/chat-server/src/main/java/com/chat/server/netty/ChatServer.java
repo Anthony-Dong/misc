@@ -2,11 +2,16 @@ package com.chat.server.netty;
 
 
 import java.net.InetSocketAddress;
+import java.util.Map;
 
 import com.chat.core.ServerNode;
+import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
 import com.chat.core.listener.ChatEventListener;
 import com.chat.core.listener.ChatEventType;
+import com.chat.core.util.NamedThreadFactory;
+import com.chat.server.handler.ChatServerContext;
+import com.chat.server.handler.ServerChatHandlerConstant;
 import com.chat.server.handler.ServerStartChatEventHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -20,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * 服务器端
  */
 
-public class ChatServer implements ServerNode {
+public class ChatServer extends ServerNode {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatServer.class);
     /**
@@ -52,7 +57,7 @@ public class ChatServer implements ServerNode {
         this.address = address;
         this.listener = listener;
         this.bossGroup = new NioEventLoopGroup(1);
-        this.workerGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors());
+        this.workerGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors(), new NamedThreadFactory("chat-server"));
     }
 
     /**
@@ -61,10 +66,8 @@ public class ChatServer implements ServerNode {
      * @throws Exception 服务器异常关闭
      */
     @Override
-    public void start() throws Exception {
-
+    protected void start() throws Exception {
         logger.info("[服务器] 开始启动 Host : {}  Port : {}.", address.getHostName(), address.getPort());
-
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap
                 .group(bossGroup, workerGroup) // 添加组
@@ -75,7 +78,6 @@ public class ChatServer implements ServerNode {
 
         try {
             ChannelFuture channelFuture = serverBootstrap.bind(address).sync();
-
             /**
              * {@link ServerStartChatEventHandler}  处理器
              */
@@ -91,11 +93,9 @@ public class ChatServer implements ServerNode {
                 }
             });
 
-
             // 当前启动线程到这里阻塞中
             channelFuture.channel().closeFuture().sync();
         } finally {
-
 
             /**
              * {@link com.chat.server.handler.ServerShutdownChatEventHandler}  处理器
@@ -121,13 +121,35 @@ public class ChatServer implements ServerNode {
      * @throws Exception 异常
      */
     @Override
-    public void shutDown() throws Exception {
+    protected void shutDown() throws Exception {
         if (bossGroup != null) {
             bossGroup.shutdownGracefully();
         }
         if (workerGroup != null) {
             workerGroup.shutdownGracefully();
         }
+    }
+
+
+    /**
+     * 这是个阻塞方法, 只有发生异常, 才会停止
+     *
+     * @param address 服务器地址
+     * @param context 上下文
+     * @throws Exception
+     */
+    public static void run(InetSocketAddress address, ChatServerContext context) throws Exception {
+        final ServerChatHandlerConstant constant = new ServerChatHandlerConstant(context);
+        final Map<ChatEventType, ChatEventHandler> handlerMap = constant.SERVER_MAP;
+        final ChatServer server = new ChatServer(address, event -> {
+            ChatEventHandler handler = handlerMap.get(event.eventType());
+            handler.handler(event);
+        });
+        server.start();
+    }
+
+    public static void run(int port, ChatServerContext context) throws Exception {
+        run(new InetSocketAddress(port), context);
     }
 
 }

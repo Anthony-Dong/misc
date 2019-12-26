@@ -15,9 +15,12 @@ import io.netty.handler.timeout.IdleStateEvent;
 
 public class ClientHeartBeatHandler extends ChannelDuplexHandler {
 
-    private ChatEventListener listener;
+    /**
+     * 其实么啥用 发送心跳包 , 我感觉没必要做监听
+     */
+    private final ChatEventListener listener;
 
-    public ClientHeartBeatHandler(ChatEventListener listener) {
+    ClientHeartBeatHandler(ChatEventListener listener) {
         this.listener = listener;
     }
 
@@ -25,10 +28,10 @@ public class ClientHeartBeatHandler extends ChannelDuplexHandler {
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
             // 从下往上遍历
-            ctx.channel().writeAndFlush(Constants.HEART_BEAT_NPACK);
+            ctx.writeAndFlush(Constants.HEART_BEAT_NPACK);
         } else {
-            // 交给父类处理
-            super.userEventTriggered(ctx, evt);
+            // 交给其他处理
+            ctx.fireUserEventTriggered(evt);
         }
     }
 }

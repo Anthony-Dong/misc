@@ -1,11 +1,10 @@
 package com.chat.test;
 
-import com.chat.core.handler.ChatEventHandler;
-import com.chat.core.listener.ChatEventType;
+import com.chat.core.model.NPack;
+import com.chat.server.handler.ChatServerContext;
 import com.chat.server.netty.ChatServer;
-import com.chat.server.handler.ServerChatHandlerConstant;
+import io.netty.channel.ChannelHandlerContext;
 
-import java.net.InetSocketAddress;
 import java.util.Map;
 
 /**
@@ -15,17 +14,34 @@ import java.util.Map;
 public class ServerBoot {
 
     public static void main(String[] args) {
-        final Map<ChatEventType, ChatEventHandler> serverMap = ServerChatHandlerConstant.SERVER_MAP;
+        ChatServerContext context = new ChatServerContext() {
+            @Override
+            public void onStart() {
+                System.out.println("start");
+            }
 
-        ChatServer chatServer = new ChatServer(new InetSocketAddress(8888), event -> {
-            ChatEventHandler handler = serverMap.get(event.eventType());
-            handler.handler(event);
-        });
+            @Override
+            public void onFail() {
+                System.out.println("onFail");
+            }
+
+            @Override
+            public void onRemove(ChannelHandlerContext context) {
+                System.out.println("onRemove");
+            }
+
+
+            @Override
+            public void onRegister(ChannelHandlerContext context) {
+                context.writeAndFlush(new NPack("注册成功"));
+                System.out.println("onRegister");
+            }
+        };
 
         try {
-            chatServer.start();
-        } catch (Exception ignored) {
-            // ...
+            ChatServer.run(8888, context);
+        } catch (Exception e) {
+            //
         }
     }
 }

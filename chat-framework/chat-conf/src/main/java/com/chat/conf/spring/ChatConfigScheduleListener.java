@@ -2,7 +2,6 @@ package com.chat.conf.spring;
 
 
 import com.alibaba.fastjson.TypeReference;
-import com.chat.core.model.ChatThreadFactory;
 import com.chat.core.model.NServerInfo;
 import com.chat.core.util.HttpUtil;
 import com.chat.conf.model.ConfConstant;

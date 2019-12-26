@@ -10,6 +10,7 @@
         <module name="chat-client-springboot-start" />
         <module name="chat-conf" />
         <module name="chat-core" />
+        <module name="chat-http-server" />
         <module name="chat-server" />
         <module name="chat-server-springboot-start" />
       </profile>
@@ -19,6 +20,7 @@
       <module name="chat-client-springboot-start" target="1.8" />
       <module name="chat-conf" target="1.8" />
       <module name="chat-core" target="1.8" />
+      <module name="chat-http-server" target="1.8" />
       <module name="chat-server" target="1.8" />
       <module name="chat-server-springboot-start" target="1.8" />
     </bytecodeTargetLevel>

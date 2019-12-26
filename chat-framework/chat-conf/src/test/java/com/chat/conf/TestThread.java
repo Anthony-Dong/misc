@@ -1,6 +1,5 @@
 package com.chat.conf;
 
-import com.chat.core.model.ChatThreadFactory;
 import com.chat.conf.model.ConfConstant;
 import org.junit.Test;
 

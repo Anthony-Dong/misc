@@ -25,11 +25,11 @@ public class ChatClientChannelInitializer extends ChannelInitializer<SocketChann
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline pipeline = socketChannel.pipeline();
 
-        // out 编码器
+        // out 编码器 , 最好放在第一个
         pipeline.addLast("encoder", new PackageEncoder());
 
         // 心跳检测 , 如果60S 我们收不到服务器发来的请求 , 我们就发送一个心跳包
-        pipeline.addLast("nettyHeartBeatHandler", new IdleStateHandler(5, 0, 0));
+        pipeline.addLast("nettyHeartBeatHandler", new IdleStateHandler(40, 0, 0));
 
         // 处理器
         pipeline.addLast("heartBeatHandler", new ClientHeartBeatHandler(listener));

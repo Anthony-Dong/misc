@@ -2,8 +2,6 @@ package com.chat.client.util;
 
 
 import com.chat.core.exception.JedisException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
 
@@ -18,13 +16,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class RedisPool {
 
-
     private ThreadLocal<Jedis> threadLocal;
 
-    private static final Logger logger = LoggerFactory.getLogger(RedisPool.class);
-
     private RedisConnectionQueue queue;
-
 
     public RedisPool(Integer capacity, HostAndPort hostAndPort) {
         queue = new RedisConnectionQueue(capacity, hostAndPort);
@@ -32,7 +26,7 @@ public class RedisPool {
     }
 
 
-    public Jedis get() {
+    public Jedis get() throws Exception {
         if (null == threadLocal.get()) {
             threadLocal.set(queue.takeConnection());
         }
@@ -40,7 +34,7 @@ public class RedisPool {
     }
 
 
-    public void remove(Jedis jedis) {
+    public void remove(Jedis jedis) throws Exception {
         if (null != threadLocal.get()) {
             threadLocal.remove();
             queue.putConnection(jedis);
@@ -67,7 +61,7 @@ public class RedisPool {
             }
         }
 
-        public Jedis takeConnection() {
+        public Jedis takeConnection() throws Exception{
             Jedis connection = null;
             try {
                 connection = queue.take();
@@ -77,7 +71,7 @@ public class RedisPool {
             }
         }
 
-        public void putConnection(Jedis connection) {
+        public void putConnection(Jedis connection)  throws Exception{
             try {
                 queue.put(connection);
             } catch (InterruptedException e) {

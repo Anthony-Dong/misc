@@ -1,8 +1,8 @@
 package com.chat.server.handler;
 
+import com.chat.core.exception.HandlerException;
 import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
-import com.chat.core.model.NPack;
 import com.chat.server.netty.ChatServerHandler;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
@@ -15,16 +15,27 @@ import org.slf4j.LoggerFactory;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public class ServerChannelRegisteredChatEventHandler implements ChatEventHandler {
-    private final Logger logger = LoggerFactory.getLogger(ServerChannelRegisteredChatEventHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ServerChannelRegisteredChatEventHandler.class);
+
+
+    private final ChatServerContext chatServerContext;
+
+    ServerChannelRegisteredChatEventHandler(ChatServerContext context) {
+        this.chatServerContext = context;
+    }
 
     @Override
-    public void handler(ChatEvent event) {
+    public void handler(ChatEvent event) throws HandlerException {
         logger.info("[服务器] 客户端注册成功.");
 
         Object obj = event.event();
         if (obj instanceof ChannelHandlerContext) {
             ChannelHandlerContext context = (ChannelHandlerContext) obj;
-            context.writeAndFlush(new NPack("[服务器]", "欢迎注册成功"));
+
+            if (this.chatServerContext != null) {
+                this.chatServerContext.onRegister(context);
+            }
+            logger.info("[服务器] 客户端IP : {} 注册成功 .", context.channel().remoteAddress().toString());
         }
     }
 }

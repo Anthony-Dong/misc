@@ -19,10 +19,10 @@ public class PackageDecoder extends ByteToMessageDecoder {
      * {@link ByteToMessageDecoder#channelRead(io.netty.channel.ChannelHandlerContext, java.lang.Object)}
      * 这里对in进行释放 , 所以不需要我们去做 release操作
      *
-     * @param ctx
-     * @param in
-     * @param out
-     * @throws Exception
+     * @param ctx  ChannelHandlerContext
+     * @param in in
+     * @param out out
+     * @throws Exception Exception
      */
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
@@ -36,11 +36,11 @@ public class PackageDecoder extends ByteToMessageDecoder {
         // 进来先获取版本号 -- > ridx +2 , 一致那么我们就继续
         if (in.readShort() == Constants.PROTOCOL_VERSION) {
 
-            // 获取长度 -- > ridx +2 -- > 继续
-            short len = in.readShort();
+            // 获取长度 -- > ridx +4 -- > 继续
+            int len = in.readInt();
 
             // 如果不等于
-            if (len != (short) (totalLength - Constants.PROTOCOL_HEAD_LENGTH)) {
+            if (len != (totalLength - Constants.PROTOCOL_HEAD_LENGTH)) {
                 // 复位 ....
                 in.readerIndex(start);
                 // 返回

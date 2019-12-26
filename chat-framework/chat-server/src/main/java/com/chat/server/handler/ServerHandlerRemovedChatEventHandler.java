@@ -18,15 +18,23 @@ import org.slf4j.LoggerFactory;
  */
 
 public class ServerHandlerRemovedChatEventHandler implements ChatEventHandler {
-    private final Logger logger = LoggerFactory.getLogger(ServerHandlerRemovedChatEventHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ServerHandlerRemovedChatEventHandler.class);
+
+    private final ChatServerContext chatServerContext;
+
+    ServerHandlerRemovedChatEventHandler(ChatServerContext context) {
+        this.chatServerContext = context;
+    }
 
     @Override
     public void handler(ChatEvent event) {
         Object o = event.event();
-
         if (o instanceof ChannelHandlerContext) {
             ChannelHandlerContext context = (ChannelHandlerContext) o;
-            logger.info("[服务器] 客户端移除成功 Address : {}.", context.channel().remoteAddress());
+            if (this.chatServerContext != null) {
+                this.chatServerContext.onRemove(context);
+            }
+            logger.info("[服务器] 客户端 IP : {} 移除成功 .", context.channel().remoteAddress().toString());
         }
     }
 }

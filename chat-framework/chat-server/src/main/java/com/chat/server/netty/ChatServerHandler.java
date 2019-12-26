@@ -6,6 +6,8 @@ import com.chat.core.listener.ChatEventType;
 import com.chat.core.model.NPack;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -13,6 +15,8 @@ import java.io.IOException;
  * 服务器 通用处理器
  */
 public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
+
+    private static final Logger logger = LoggerFactory.getLogger(ChatServerHandler.class);
 
     private ChatEventListener listener;
 
@@ -81,13 +85,14 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
         if (cause instanceof IOException) {
             ctx.close();
         } else {
-            ctx.fireChannelWritabilityChanged();
+            logger.error("[服务器] 发生异常 客户端 IP : {}  Exception : {}.", ctx.channel().remoteAddress(), cause.getMessage());
         }
     }
 
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, NPack msg) throws Exception {
+
         listener.onChatEvent(new ChatEvent() {
             @Override
             public ChatEventType eventType() {

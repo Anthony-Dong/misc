@@ -1,5 +1,6 @@
 package com.chat.core.handler;
 
+import com.chat.core.exception.HandlerException;
 import com.chat.core.listener.ChatEvent;
 import com.chat.core.listener.ChatEventType;
 
@@ -12,5 +13,5 @@ import com.chat.core.listener.ChatEventType;
 
 public interface ChatEventHandler {
 
-    void handler(ChatEvent event);
+    void handler(ChatEvent event) throws HandlerException;
 }

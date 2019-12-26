@@ -1,6 +1,7 @@
 package com.chat.client.hander;
 
 import com.chat.client.netty.ChatClient;
+import com.chat.core.exception.HandlerException;
 import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
 import org.slf4j.Logger;
@@ -18,13 +19,22 @@ import java.net.InetSocketAddress;
  */
 
 public class ClientStartChatEventHandler implements ChatEventHandler {
-    private final Logger logger = LoggerFactory.getLogger(ClientStartChatEventHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ClientStartChatEventHandler.class);
+
+    private final ChatClientContext chatClientContext;
+
+    ClientStartChatEventHandler(ChatClientContext chatClientContext) {
+        this.chatClientContext = chatClientContext;
+    }
 
     @Override
-    public void handler(ChatEvent event) {
+    public void handler(ChatEvent event) throws HandlerException {
         Object obj = event.event();
         if (obj instanceof InetSocketAddress) {
             InetSocketAddress address = (InetSocketAddress) obj;
+            if (null != chatClientContext) {
+                chatClientContext.onStart();
+            }
             logger.error("[客户端] 启动成功 Host:{} Port:{}.", address.getHostName(), address.getPort());
         }
     }

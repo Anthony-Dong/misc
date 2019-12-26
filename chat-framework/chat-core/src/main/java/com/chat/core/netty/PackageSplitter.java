@@ -30,8 +30,8 @@ public class PackageSplitter extends LengthFieldBasedFrameDecoder {
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
         // 进来先获取版本号 -- > ridx +2 , 一致那么我们就继续
         if (in.readShort() == Constants.PROTOCOL_VERSION) {
-            // 获取长度 -- > ridx +2 -- > 继续
-            short len = in.readShort();
+            // 获取长度 -- > ridx +4 -- > 继续
+            int len = in.readInt();
 
             // 创建一个零时数组 -- > 长度为 len
             byte[] read = new byte[len];

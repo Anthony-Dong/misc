@@ -1,5 +1,6 @@
 package com.chat.server.handler;
 
+import com.chat.core.exception.HandlerException;
 import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
 import com.chat.core.listener.ChatEventType;
@@ -15,13 +16,22 @@ import java.net.InetSocketAddress;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public class ServerShutdownChatEventHandler implements ChatEventHandler {
-    private final Logger logger = LoggerFactory.getLogger(ServerShutdownChatEventHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ServerShutdownChatEventHandler.class);
+
+    private final ChatServerContext chatServerContext;
+
+    ServerShutdownChatEventHandler(ChatServerContext context) {
+        this.chatServerContext = context;
+    }
 
     @Override
-    public void handler(ChatEvent event) {
+    public void handler(ChatEvent event) throws HandlerException {
         Object obj = event.event();
         if (obj instanceof InetSocketAddress) {
             InetSocketAddress address = (InetSocketAddress) obj;
+            if (this.chatServerContext != null) {
+                this.chatServerContext.onFail();
+            }
             logger.info("[服务器] 关闭成功 Host:{}  Post :{}. ", address.getHostName(), address.getPort());
         }
     }

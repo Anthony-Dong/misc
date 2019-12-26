@@ -7,7 +7,7 @@ package com.chat.core.exception;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 
-public class JedisException extends RuntimeException {
+public class JedisException extends Exception {
 
     /**
      * Constructs a new runtime exception with the specified cause and a
