@@ -32,7 +32,7 @@ public class ServerStartChatEventHandler implements ChatEventHandler {
         if (obj instanceof InetSocketAddress) {
             InetSocketAddress address = (InetSocketAddress) obj;
             if (this.chatServerContext != null) {
-                this.chatServerContext.onStart();
+                this.chatServerContext.onStart(address);
             }
             logger.info("[服务器] 启动成功 Host : {}  Post : {}.", address.getHostName(), address.getPort());
         }

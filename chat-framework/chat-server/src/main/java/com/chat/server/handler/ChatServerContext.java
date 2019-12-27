@@ -1,7 +1,9 @@
 package com.chat.server.handler;
 
+import com.chat.core.exception.ContextException;
 import io.netty.channel.ChannelHandlerContext;
 
+import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,6 +12,41 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public abstract class ChatServerContext {
+
+    public static final ChatServerContext NULL = new ChatServerContext() {
+        @Override
+        protected void onStart(InetSocketAddress address) throws ContextException {
+            super.onStart(address);
+        }
+
+        @Override
+        protected void onFail(InetSocketAddress address) throws ContextException {
+            super.onFail(address);
+        }
+
+        /**
+         * 注意  ChannelHandlerContext ,每一个客户端连接都会有一个 ChannelHandlerContext
+         * 你可以自己去维护
+         *
+         * @param context ChannelHandlerContext
+         */
+        @Override
+        protected void onRemove(ChannelHandlerContext context) throws ContextException {
+            super.onRemove(context);
+        }
+
+        /**
+         * 注意  ChannelHandlerContext ,每一个客户端连接都会有一个 ChannelHandlerContext
+         * 你可以自己去维护
+         *
+         * @param context ChannelHandlerContext
+         */
+        @Override
+        protected void onRegister(ChannelHandlerContext context) throws ContextException {
+            super.onRegister(context);
+        }
+    };
+
 
     private final String contextName;
     /**
@@ -35,12 +72,12 @@ public abstract class ChatServerContext {
     }
 
     // 启动上下文
-    protected void onStart() {
+    protected void onStart(InetSocketAddress address) throws ContextException {
 
     }
 
     // 关闭上下文
-    protected void onFail() {
+    protected void onFail(InetSocketAddress address) throws ContextException {
 
     }
 
@@ -50,7 +87,9 @@ public abstract class ChatServerContext {
      *
      * @param context ChannelHandlerContext
      */
-    protected abstract void onRemove(ChannelHandlerContext context);
+    protected void onRemove(ChannelHandlerContext context) throws ContextException {
+
+    }
 
     /**
      * 注意  ChannelHandlerContext ,每一个客户端连接都会有一个 ChannelHandlerContext
@@ -58,5 +97,7 @@ public abstract class ChatServerContext {
      *
      * @param context ChannelHandlerContext
      */
-    protected abstract void onRegister(ChannelHandlerContext context);
+    protected void onRegister(ChannelHandlerContext context) throws ContextException {
+
+    }
 }

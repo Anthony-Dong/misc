@@ -1,7 +1,6 @@
 package com.chat.conf.web;
 
 import com.chat.conf.spring.ChatConfigurationProperties;
-import com.chat.core.exception.ChatHttpRequestException;
 import com.chat.core.model.NServerInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

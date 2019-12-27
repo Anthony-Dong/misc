@@ -38,7 +38,6 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
      */
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
-        super.handlerRemoved(ctx);
         listener.onChatEvent(new ChatEvent() {
             @Override
             public ChatEventType eventType() {
@@ -50,6 +49,7 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
                 return ctx;
             }
         });
+        super.handlerRemoved(ctx);
     }
 
     /**

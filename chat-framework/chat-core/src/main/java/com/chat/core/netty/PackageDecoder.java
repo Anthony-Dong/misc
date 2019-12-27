@@ -4,77 +4,185 @@ package com.chat.core.netty;
 import com.chat.core.model.NPack;
 import com.chat.core.util.MessagePackPool;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import org.msgpack.MessagePack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 其实这个方法就行了 ..... 没必要用哪个 splitter 方法
+ * 解码器会很麻烦
+ * <p>
+ * 主要分为 4种情况
+ * <p>
+ * 1. 缓冲区只有一个数据包,此时只用做 版本校验 , 长度校验 , 然后读就可以了
+ * 2. 缓冲区有多个数据包 , 可能是整数的倍数 , 就需要迭代读取
+ * 3. 缓冲区可能有多个数据包 , 可能出现半个包的问题, 比如 2.5个 包, 此时就需要解码时注意
+ * 4. 如果出现半个+整数个, 前面根本无法解码 , 此时就无法处理 , 可能出现丢包
+ * <p>
+ * 所以我们要求的是数据传输的完整性,最低要求将数据包完整的传输和接收
+ *
+ * @date:2019/11/10 13:40
+ * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-public class PackageDecoder extends ByteToMessageDecoder {
 
+public final class PackageDecoder extends ByteToMessageDecoder {
     /**
      * {@link ByteToMessageDecoder#channelRead(io.netty.channel.ChannelHandlerContext, java.lang.Object)}
      * 这里对in进行释放 , 所以不需要我们去做 release操作
      *
-     * @param ctx  ChannelHandlerContext
-     * @param in in
+     * @param ctx ChannelHandlerContext
+     * @param in  in
      * @param out out
      * @throws Exception Exception
      */
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
 
-        // r 指针
-        int start = in.readerIndex();
+        MessagePack pack = MessagePackPool.getPack();
 
-        // 总长度 = 2+2+len
-        int totalLength = in.readableBytes();
-
-        // 进来先获取版本号 -- > ridx +2 , 一致那么我们就继续
-        if (in.readShort() == Constants.PROTOCOL_VERSION) {
-
-            // 获取长度 -- > ridx +4 -- > 继续
-            int len = in.readInt();
-
-            // 如果不等于
-            if (len != (totalLength - Constants.PROTOCOL_HEAD_LENGTH)) {
-                // 复位 ....
-                in.readerIndex(start);
-                // 返回
-                return;
-            }
-
-            // 创建一个零时数组 -- > 长度为 len
-            byte[] read = new byte[len];
-
-            // 开始读取
-            // 第一个参数是  byte数组 ,
-            // 第二个参数是  byte数组 的起始位置的索引
-            // 第三个参数是  写入byte数组的长度 要小于等于 byte数组的长度
-            in.readBytes(read, 0, len);
-
-
-            // 我是怕线程不安全
-            MessagePack pack = MessagePackPool.getPack();
-
-            // 获取messages
-            NPack messages = pack.read(read, NPack.class);
-
-            // 添加到out中
-            out.add(messages);
-
+        try {
+            handler(in, pack, out);
+        } finally {
             // 移除
             MessagePackPool.removePack();
-
-            // read数组清空引用
-            read = null;
-        } else {
-            //复原不管 , 因为我们上面读取了俩字节 , 所以需要复原
-            in.readerIndex(start);
-            return;
         }
+
+    }
+
+    /**
+     * 处理器 - 主要处理逻辑
+     */
+    private void handler(ByteBuf in, MessagePack pack, List<Object> out) {
+
+        // 如果可读
+        while (in.isReadable()) {
+
+            // 1. 记录最开始读取的位置 , 防止出错
+            int release = in.readerIndex();
+
+            // 2. 读取版本号 , 2个字节
+            short version = in.readShort();
+
+            // 3. 版本号一致 - > 继续执行
+            if (version == Constants.PROTOCOL_VERSION) {
+
+                // 4. 解码 -> 操作
+                NPack read = null;
+                byte[] bytes = null;
+
+                try {
+
+                    // 5. 读取长度 , 4个字节
+                    int len = in.readInt();
+
+                    // 6. 实例化数组
+                    bytes = new byte[len];
+
+                    // 7. 读取到数组中 , 此时可能会有异常 - > 我们抓住 indexOutOfBoundException
+                    in.readBytes(bytes, 0, len);
+
+                    // 8. 如果么问题, 就进行解码 -> 也可能出现异常 -> 抓取异常
+                    read = pack.read(bytes, NPack.class);
+
+                    // catch 抓取任何异常
+                } catch (Throwable e) {
+                    // 不做任何处理
+                } finally {
+
+                    // 清空数组引用 - 快速释放内存
+                    bytes = null;
+                }
+
+                // 解码错误-> 重置读指针位置 -> 返回
+                if (read == null) {
+                    in.readerIndex(release);
+                    return;
+                } else {
+
+                    // 一致就添加进去 - > 啥也不做
+                    out.add(read);
+                }
+            } else {
+
+                // 版本不一致 -> 重置读指针位置 -> 返回
+                in.readerIndex(release);
+                return;
+            }
+        }
+    }
+
+
+    /**
+     * 测试用例
+     *
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+
+
+        // 初始化 pack
+        MessagePack pack = MessagePackPool.getPack();
+
+
+        NPack nPack1 = NPack.buildWithJsonBody("1111", "22222", "3333");
+        byte[] write1 = pack.write(nPack1);
+        NPack nPack2 = NPack.buildWithJsonBody("BBBB", "CCCCC", "DDDD");
+        byte[] write2 = pack.write(nPack2);
+
+
+        // 模拟 in
+        ByteBuf buffer = Unpooled.buffer(100);
+        int release = buffer.readerIndex();
+
+        buffer.writeShort(Constants.PROTOCOL_VERSION);
+        buffer.writeInt(123);
+
+
+        // 1. 写一个包
+        buffer.writeShort(Constants.PROTOCOL_VERSION);
+        buffer.writeInt(write1.length);
+        buffer.writeBytes(write1, 0, write1.length);
+
+        // 2. 写第二个包
+        buffer.writeShort(Constants.PROTOCOL_VERSION);
+        buffer.writeInt(write2.length);
+        buffer.writeBytes(write2, 0, write1.length);
+
+
+        // 3. 写可能出错的地方
+        buffer.writeShort(Constants.PROTOCOL_VERSION);
+        buffer.writeInt(1111);
+
+
+        // 4. 重置
+        buffer.readerIndex(release);
+
+
+        ArrayList<Object> list = new ArrayList<>();
+
+
+        PackageDecoder decoder = new PackageDecoder();
+
+
+        decoder.decode(null, buffer, list);
+
+
+        System.out.println("=====已读======");
+        list.forEach(System.out::println);
+        System.out.println("==================");
+
+
+        System.out.println("buffer.refCnt() = " + buffer.refCnt());
+        System.out.println("buffer.writerIndex() = " + buffer.writerIndex());
+
+        System.out.println("buffer.readerIndex() = " + buffer.readerIndex());
+
+        System.out.println("buffer.readShort() = " + buffer.readShort());
+        System.out.println("buffer.readInt() = " + buffer.readInt());
+
     }
 }

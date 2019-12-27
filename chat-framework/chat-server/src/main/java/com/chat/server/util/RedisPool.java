@@ -1,9 +1,14 @@
 package com.chat.server.util;
 
 
+import com.chat.core.netty.Constants;
+import com.chat.server.spi.SaveReceivePackage;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.stream.IntStream;
@@ -39,7 +44,9 @@ public class RedisPool {
     public void remove(Jedis jedis) {
         if (null != threadLocal.get()) {
             threadLocal.remove();
-            queue.putConnection(jedis);
+            if (jedis != null) {
+                queue.putConnection(jedis);
+            }
         }
     }
 
@@ -72,5 +79,47 @@ public class RedisPool {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static final String REDIS_HOST = "redis.host";
+    private static final String REDIS_PORT = "redis.port";
+    private static final String REDIS_POOL = "redis.pool.size";
+    private static final String DEFAULT_HOST = "localhost";
+    private static final String PROPERTIES_PATH_NAME = "chat-server.properties";
+
+
+    /**
+     * 连接Redis用的
+     * 默认使用的是 系统属性,
+     * 其次使用的是:  classpath: chat-server.properties
+     *
+     * @return RedisPool
+     */
+    public static RedisPool loadRedisPool() {
+        // 属性
+        String s_host = System.getProperty(REDIS_HOST, DEFAULT_HOST);
+        String s_port = System.getProperty(REDIS_PORT);
+        String s_size = System.getProperty(REDIS_POOL);
+        if (null == s_port) {
+            Properties properties = new Properties();
+            try {
+                properties.load(SaveReceivePackage.class.getClassLoader().getResourceAsStream(PROPERTIES_PATH_NAME));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String p_host = properties.getProperty(REDIS_HOST, DEFAULT_HOST);
+            String p_port = properties.getProperty(REDIS_PORT);
+            String p_size = properties.getProperty(REDIS_POOL);
+            return new RedisPool(null == p_size ? 10 : Integer.parseInt(p_size.trim()), new HostAndPort(p_host, Integer.parseInt(p_port.trim())));
+        } else {
+            return new RedisPool(null == s_size ? 10 : Integer.parseInt(s_size.trim()), new HostAndPort(s_host, Integer.parseInt(s_port.trim())));
+        }
+    }
+
+
+    public static String redisKeyName(InetSocketAddress address) {
+        String hostName = address.getHostName();
+        int port = address.getPort();
+        return hostName + Constants.REDIS_KEY_DELIMITER + port;
     }
 }

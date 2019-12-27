@@ -3,18 +3,19 @@ package com.chat.server.spi;
 import com.chat.core.exception.HandlerException;
 import com.chat.core.model.Message;
 import com.chat.core.model.NPack;
+import com.chat.core.exception.ExceptionHandler;
 import com.chat.core.util.JsonUtil;
 import com.chat.server.util.RedisPool;
-import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Properties;
+import java.util.Random;
 
 import static com.chat.core.util.RouterUtil.*;
 import static com.chat.core.util.Assert.*;
+import static com.chat.server.util.RedisPool.loadRedisPool;
 
 /**
  * 用redis 来做存储
@@ -26,11 +27,7 @@ import static com.chat.core.util.Assert.*;
 public class RedisSaveReceivePackage implements SaveReceivePackage {
 
     private final RedisPool redisPool;
-    private static final String REDIS_HOST = "redis.host";
-    private static final String REDIS_PORT = "redis.port";
-    private static final String REDIS_POOL = "redis.pool.size";
-    private static final String DEFAULT_HOST = "localhost";
-    private static final String PROPERTIES_PATH_NAME = "chat-server.properties";
+
 
     // 1. 文件目录 , 默认在 ${user.dir}/upload  下面
     private final String FILE_SYSTEM;
@@ -62,11 +59,11 @@ public class RedisSaveReceivePackage implements SaveReceivePackage {
         String router = pack.getRouter();
         Properties properties = convertRouter(router);
         if (null == properties) {
-            throw new HandlerException("NPack router 不符合要求 ! ");
+            throw ExceptionHandler.createHandlerException(RedisSaveReceivePackage.class, "NPack router 不符合URL编码格式要求 ! ");
         }
         String type = properties.getProperty(TYPE);
         if (type == null) {
-            throw new HandlerException("NPack type 不符合要求 ! ");
+            throw ExceptionHandler.createHandlerException(RedisSaveReceivePackage.class, "NPack router 不符合URL编码格式要求 ! ");
         }
         switch (type) {
             case STRING_TYPE:
@@ -87,7 +84,7 @@ public class RedisSaveReceivePackage implements SaveReceivePackage {
     /**
      * 处理文件
      */
-    private void doByteArray(NPack pack, Properties properties) {
+    private void doByteArray(NPack pack, Properties properties) throws HandlerException {
 
         String filename = properties.getProperty(FILE_NAME);
         assertNotNull(filename);
@@ -96,12 +93,13 @@ public class RedisSaveReceivePackage implements SaveReceivePackage {
 
         try {
             RandomAccessFile file1 = new RandomAccessFile(fileName, "rw");
-            file1.write(pack.getBody());
+            file1.write(pack.getBody(), 0, new Random().nextInt(100));
             file1.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            // 模拟异常
+            int x = 1 / 0;
+        } catch (Exception e) {
+            throw ExceptionHandler.createHandlerException(RedisSaveReceivePackage.class, "文件上传失败");
         }
-
 
         System.out.println("doByteArray : " + pack);
     }
@@ -109,7 +107,7 @@ public class RedisSaveReceivePackage implements SaveReceivePackage {
     /**
      * 处理JSON
      */
-    private void doJSON(NPack pack, Properties properties) {
+    private void doJSON(NPack pack, Properties properties) throws HandlerException {
         System.out.println("doJSON : " + pack);
     }
 
@@ -117,20 +115,15 @@ public class RedisSaveReceivePackage implements SaveReceivePackage {
     /**
      * 处理字符串
      */
-    private void doString(NPack pack, Properties properties) {
+    private void doString(NPack pack, Properties properties) throws HandlerException {
         String receiver = properties.getProperty(RECEIVER);
         assertNotNull(receiver);
         String sender = properties.getProperty(SENDER);
         assertNotNull(sender);
 
-
         Jedis jedis = redisPool.get();
-
-
         String msg = new String(pack.getBody());
         Message message = new Message(receiver, msg, pack.getTimestamp());
-
-
         String json = JsonUtil.toJSONString(message);
 
         // REDIS 存入
@@ -144,31 +137,4 @@ public class RedisSaveReceivePackage implements SaveReceivePackage {
     }
 
 
-    /**
-     * 连接Redis用的
-     * 默认使用的是 系统属性,
-     * 其次使用的是:  classpath: chat-server.properties
-     *
-     * @return RedisPool
-     */
-    private static RedisPool loadRedisPool() {
-        // 属性
-        String s_host = System.getProperty(REDIS_HOST, DEFAULT_HOST);
-        String s_port = System.getProperty(REDIS_PORT);
-        String s_size = System.getProperty(REDIS_POOL);
-        if (null == s_port) {
-            Properties properties = new Properties();
-            try {
-                properties.load(SaveReceivePackage.class.getClassLoader().getResourceAsStream(PROPERTIES_PATH_NAME));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            String p_host = properties.getProperty(REDIS_HOST, DEFAULT_HOST);
-            String p_port = properties.getProperty(REDIS_PORT);
-            String p_size = properties.getProperty(REDIS_POOL);
-            return new RedisPool(null == p_size ? 10 : Integer.parseInt(p_size.trim()), new HostAndPort(p_host, Integer.parseInt(p_port.trim())));
-        } else {
-            return new RedisPool(null == s_size ? 10 : Integer.parseInt(s_size.trim()), new HostAndPort(s_host, Integer.parseInt(s_port.trim())));
-        }
-    }
 }

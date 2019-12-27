@@ -1,11 +1,12 @@
 package com.chat.test;
 
-import com.chat.core.model.NPack;
+import com.chat.core.exception.ContextException;
+import com.chat.server.context.DefaultChatServerContext;
+import com.chat.server.context.HandlerOtherOperation;
 import com.chat.server.handler.ChatServerContext;
 import com.chat.server.netty.ChatServer;
 import io.netty.channel.ChannelHandlerContext;
-
-import java.util.Map;
+import redis.clients.jedis.Jedis;
 
 /**
  * @date:2019/12/24 17:18
@@ -14,28 +15,17 @@ import java.util.Map;
 public class ServerBoot {
 
     public static void main(String[] args) {
-        ChatServerContext context = new ChatServerContext() {
+        DefaultChatServerContext context = new DefaultChatServerContext("server-1", new HandlerOtherOperation() {
             @Override
-            public void onStart() {
-                System.out.println("start");
+            public void onRemove(ChannelHandlerContext context, Jedis jedis) throws ContextException {
+                System.out.println("=====onRemove======");
             }
 
             @Override
-            public void onFail() {
-                System.out.println("onFail");
+            public void onRegister(ChannelHandlerContext context, Jedis jedis) throws ContextException {
+                System.out.println("======onRegister=====");
             }
-
-            @Override
-            public void onRemove(ChannelHandlerContext context) {
-                System.out.println("onRemove");
-            }
-
-            @Override
-            public void onRegister(ChannelHandlerContext context) {
-                context.writeAndFlush(new NPack("注册成功"));
-                System.out.println("onRegister");
-            }
-        };
+        });
 
         try {
             ChatServer.run(8888, context);

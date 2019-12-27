@@ -1760,3 +1760,472 @@
 2019-12-26 22:47:04,571 1611   [read-1] DEBUG o.netty.buffer.AbstractByteBuf  - -Dio.netty.buffer.checkBounds: true
 2019-12-26 22:47:04,573 1613   [read-1] DEBUG il.ResourceLeakDetectorFactory  - Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@430e24bb
 2019-12-26 22:47:04,874 1914   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 接收到信息 : NPack[router={注册成功}, timestamp=1577371624568].
+2019-12-26 22:58:51,940 0      [read-0] DEBUG .logging.InternalLoggerFactory  - Using SLF4J as the default logging framework
+2019-12-26 22:58:51,976 36     [read-0] DEBUG nnel.MultithreadEventLoopGroup  - -Dio.netty.eventLoopThreads: 8
+2019-12-26 22:58:52,000 60     [read-0] DEBUG nternal.InternalThreadLocalMap  - -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+2019-12-26 22:58:52,000 60     [read-0] DEBUG nternal.InternalThreadLocalMap  - -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+2019-12-26 22:58:52,010 70     [read-0] DEBUG netty.channel.nio.NioEventLoop  - -Dio.netty.noKeySetOptimization: false
+2019-12-26 22:58:52,010 70     [read-0] DEBUG netty.channel.nio.NioEventLoop  - -Dio.netty.selectorAutoRebuildThreshold: 512
+2019-12-26 22:58:52,039 99     [read-0] DEBUG til.internal.PlatformDependent  - Platform: Windows
+2019-12-26 22:58:52,041 101    [read-0] DEBUG il.internal.PlatformDependent0  - -Dio.netty.noUnsafe: false
+2019-12-26 22:58:52,042 102    [read-0] DEBUG il.internal.PlatformDependent0  - Java version: 8
+2019-12-26 22:58:52,044 104    [read-0] DEBUG il.internal.PlatformDependent0  - sun.misc.Unsafe.theUnsafe: available
+2019-12-26 22:58:52,045 105    [read-0] DEBUG il.internal.PlatformDependent0  - sun.misc.Unsafe.copyMemory: available
+2019-12-26 22:58:52,046 106    [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.Buffer.address: available
+2019-12-26 22:58:52,046 106    [read-0] DEBUG il.internal.PlatformDependent0  - direct buffer constructor: available
+2019-12-26 22:58:52,047 107    [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.Bits.unaligned: available, true
+2019-12-26 22:58:52,047 107    [read-0] DEBUG il.internal.PlatformDependent0  - jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable prior to Java9
+2019-12-26 22:58:52,047 107    [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.DirectByteBuffer.<init>(long, int): available
+2019-12-26 22:58:52,047 107    [read-0] DEBUG til.internal.PlatformDependent  - sun.misc.Unsafe: available
+2019-12-26 22:58:52,048 108    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.tmpdir: C:\Users\12986\AppData\Local\Temp (java.io.tmpdir)
+2019-12-26 22:58:52,048 108    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.bitMode: 64 (sun.arch.data.model)
+2019-12-26 22:58:52,049 109    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.maxDirectMemory: 4725932032 bytes
+2019-12-26 22:58:52,050 110    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.uninitializedArrayAllocationThreshold: -1
+2019-12-26 22:58:52,051 111    [read-0] DEBUG tty.util.internal.CleanerJava6  - java.nio.ByteBuffer.cleaner(): available
+2019-12-26 22:58:52,051 111    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.noPreferDirect: false
+2019-12-26 22:58:52,068 128    [read-0] DEBUG til.internal.PlatformDependent  - org.jctools-core.MpscChunkedArrayQueue: available
+2019-12-26 22:58:52,422 482    [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-26 22:58:52,459 519    [read-0] DEBUG netty.channel.DefaultChannelId  - -Dio.netty.processId: 7596 (auto-detected)
+2019-12-26 22:58:52,462 522    [read-0] DEBUG          io.netty.util.NetUtil  - -Djava.net.preferIPv4Stack: false
+2019-12-26 22:58:52,462 522    [read-0] DEBUG          io.netty.util.NetUtil  - -Djava.net.preferIPv6Addresses: false
+2019-12-26 22:58:53,002 1062   [read-0] DEBUG          io.netty.util.NetUtil  - Loopback interface: lo (Software Loopback Interface 1, 127.0.0.1)
+2019-12-26 22:58:53,003 1063   [read-0] DEBUG          io.netty.util.NetUtil  - Failed to get SOMAXCONN from sysctl and file \proc\sys\net\core\somaxconn. Default: 200
+2019-12-26 22:58:53,423 1483   [read-0] DEBUG netty.channel.DefaultChannelId  - -Dio.netty.machineId: 00:50:56:ff:fe:c0:00:08 (auto-detected)
+2019-12-26 22:58:53,436 1496   [read-0] DEBUG etty.util.ResourceLeakDetector  - -Dio.netty.leakDetection.level: simple
+2019-12-26 22:58:53,436 1496   [read-0] DEBUG etty.util.ResourceLeakDetector  - -Dio.netty.leakDetection.targetRecords: 4
+2019-12-26 22:58:53,478 1538   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.numHeapArenas: 8
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.numDirectArenas: 8
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.pageSize: 8192
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxOrder: 11
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.chunkSize: 16777216
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.tinyCacheSize: 512
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.smallCacheSize: 256
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.normalCacheSize: 64
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.cacheTrimInterval: 8192
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.useCacheForAllThreads: true
+2019-12-26 22:58:53,479 1539   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+2019-12-26 22:58:53,489 1549   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.allocator.type: pooled
+2019-12-26 22:58:53,489 1549   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.threadLocalDirectBufferSize: 0
+2019-12-26 22:58:53,489 1549   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.maxThreadLocalCharBufferSize: 16384
+2019-12-26 22:58:53,522 1582   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-26 22:58:53,522 1582   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-26 22:58:53,525 1585   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.maxCapacityPerThread: 4096
+2019-12-26 22:58:53,525 1585   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.maxSharedCapacityFactor: 2
+2019-12-26 22:58:53,526 1586   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.linkCapacity: 16
+2019-12-26 22:58:53,526 1586   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.ratio: 8
+2019-12-26 22:58:53,540 1600   [read-1] DEBUG o.netty.buffer.AbstractByteBuf  - -Dio.netty.buffer.checkAccessible: true
+2019-12-26 22:58:53,540 1600   [read-1] DEBUG o.netty.buffer.AbstractByteBuf  - -Dio.netty.buffer.checkBounds: true
+2019-12-26 22:58:53,541 1601   [read-1] DEBUG il.ResourceLeakDetectorFactory  - Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@231febf8
+2019-12-26 22:58:53,842 1902   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 接收到信息 : NPack[router={注册成功}, timestamp=1577372333540].
+2019-12-26 22:59:25,104 33164  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:17:09,362 0      [read-0] DEBUG .logging.InternalLoggerFactory  - Using SLF4J as the default logging framework
+2019-12-27 10:17:09,393 31     [read-0] DEBUG nnel.MultithreadEventLoopGroup  - -Dio.netty.eventLoopThreads: 8
+2019-12-27 10:17:09,408 46     [read-0] DEBUG nternal.InternalThreadLocalMap  - -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+2019-12-27 10:17:09,408 46     [read-0] DEBUG nternal.InternalThreadLocalMap  - -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+2019-12-27 10:17:09,424 62     [read-0] DEBUG netty.channel.nio.NioEventLoop  - -Dio.netty.noKeySetOptimization: false
+2019-12-27 10:17:09,424 62     [read-0] DEBUG netty.channel.nio.NioEventLoop  - -Dio.netty.selectorAutoRebuildThreshold: 512
+2019-12-27 10:17:09,455 93     [read-0] DEBUG til.internal.PlatformDependent  - Platform: Windows
+2019-12-27 10:17:09,455 93     [read-0] DEBUG il.internal.PlatformDependent0  - -Dio.netty.noUnsafe: false
+2019-12-27 10:17:09,455 93     [read-0] DEBUG il.internal.PlatformDependent0  - Java version: 8
+2019-12-27 10:17:09,455 93     [read-0] DEBUG il.internal.PlatformDependent0  - sun.misc.Unsafe.theUnsafe: available
+2019-12-27 10:17:09,455 93     [read-0] DEBUG il.internal.PlatformDependent0  - sun.misc.Unsafe.copyMemory: available
+2019-12-27 10:17:09,455 93     [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.Buffer.address: available
+2019-12-27 10:17:09,455 93     [read-0] DEBUG il.internal.PlatformDependent0  - direct buffer constructor: available
+2019-12-27 10:17:09,455 93     [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.Bits.unaligned: available, true
+2019-12-27 10:17:09,455 93     [read-0] DEBUG il.internal.PlatformDependent0  - jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable prior to Java9
+2019-12-27 10:17:09,455 93     [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.DirectByteBuffer.<init>(long, int): available
+2019-12-27 10:17:09,455 93     [read-0] DEBUG til.internal.PlatformDependent  - sun.misc.Unsafe: available
+2019-12-27 10:17:09,455 93     [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.tmpdir: C:\Users\12986\AppData\Local\Temp (java.io.tmpdir)
+2019-12-27 10:17:09,455 93     [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.bitMode: 64 (sun.arch.data.model)
+2019-12-27 10:17:09,455 93     [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.maxDirectMemory: 4725932032 bytes
+2019-12-27 10:17:09,471 109    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.uninitializedArrayAllocationThreshold: -1
+2019-12-27 10:17:09,471 109    [read-0] DEBUG tty.util.internal.CleanerJava6  - java.nio.ByteBuffer.cleaner(): available
+2019-12-27 10:17:09,471 109    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.noPreferDirect: false
+2019-12-27 10:17:09,486 124    [read-0] DEBUG til.internal.PlatformDependent  - org.jctools-core.MpscChunkedArrayQueue: available
+2019-12-27 10:17:10,330 968    [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:17:10,455 1093   [read-0] DEBUG netty.channel.DefaultChannelId  - -Dio.netty.processId: 5396 (auto-detected)
+2019-12-27 10:17:10,455 1093   [read-0] DEBUG          io.netty.util.NetUtil  - -Djava.net.preferIPv4Stack: false
+2019-12-27 10:17:10,455 1093   [read-0] DEBUG          io.netty.util.NetUtil  - -Djava.net.preferIPv6Addresses: false
+2019-12-27 10:17:10,736 1374   [read-0] DEBUG          io.netty.util.NetUtil  - Loopback interface: lo (Software Loopback Interface 1, 127.0.0.1)
+2019-12-27 10:17:10,736 1374   [read-0] DEBUG          io.netty.util.NetUtil  - Failed to get SOMAXCONN from sysctl and file \proc\sys\net\core\somaxconn. Default: 200
+2019-12-27 10:17:10,971 1609   [read-0] DEBUG netty.channel.DefaultChannelId  - -Dio.netty.machineId: 00:50:56:ff:fe:c0:00:08 (auto-detected)
+2019-12-27 10:17:10,986 1624   [read-0] DEBUG etty.util.ResourceLeakDetector  - -Dio.netty.leakDetection.level: simple
+2019-12-27 10:17:10,986 1624   [read-0] DEBUG etty.util.ResourceLeakDetector  - -Dio.netty.leakDetection.targetRecords: 4
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.numHeapArenas: 8
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.numDirectArenas: 8
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.pageSize: 8192
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxOrder: 11
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.chunkSize: 16777216
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.tinyCacheSize: 512
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.smallCacheSize: 256
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.normalCacheSize: 64
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.cacheTrimInterval: 8192
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.useCacheForAllThreads: true
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.allocator.type: pooled
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.threadLocalDirectBufferSize: 0
+2019-12-27 10:17:11,033 1671   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.maxThreadLocalCharBufferSize: 16384
+2019-12-27 10:17:11,189 1827   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:17:11,221 1859   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:17:11,221 1859   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.maxCapacityPerThread: 4096
+2019-12-27 10:17:11,221 1859   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.maxSharedCapacityFactor: 2
+2019-12-27 10:17:11,221 1859   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.linkCapacity: 16
+2019-12-27 10:17:11,221 1859   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.ratio: 8
+2019-12-27 10:17:11,236 1874   [read-1] DEBUG o.netty.buffer.AbstractByteBuf  - -Dio.netty.buffer.checkAccessible: true
+2019-12-27 10:17:11,236 1874   [read-1] DEBUG o.netty.buffer.AbstractByteBuf  - -Dio.netty.buffer.checkBounds: true
+2019-12-27 10:17:11,236 1874   [read-1] DEBUG il.ResourceLeakDetectorFactory  - Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@135d7f68
+2019-12-27 10:19:27,044 0      [read-0] DEBUG .logging.InternalLoggerFactory  - Using SLF4J as the default logging framework
+2019-12-27 10:19:27,091 47     [read-0] DEBUG nnel.MultithreadEventLoopGroup  - -Dio.netty.eventLoopThreads: 8
+2019-12-27 10:19:27,154 110    [read-0] DEBUG nternal.InternalThreadLocalMap  - -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+2019-12-27 10:19:27,154 110    [read-0] DEBUG nternal.InternalThreadLocalMap  - -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+2019-12-27 10:19:27,169 125    [read-0] DEBUG netty.channel.nio.NioEventLoop  - -Dio.netty.noKeySetOptimization: false
+2019-12-27 10:19:27,169 125    [read-0] DEBUG netty.channel.nio.NioEventLoop  - -Dio.netty.selectorAutoRebuildThreshold: 512
+2019-12-27 10:19:27,185 141    [read-0] DEBUG til.internal.PlatformDependent  - Platform: Windows
+2019-12-27 10:19:27,201 157    [read-0] DEBUG il.internal.PlatformDependent0  - -Dio.netty.noUnsafe: false
+2019-12-27 10:19:27,201 157    [read-0] DEBUG il.internal.PlatformDependent0  - Java version: 8
+2019-12-27 10:19:27,201 157    [read-0] DEBUG il.internal.PlatformDependent0  - sun.misc.Unsafe.theUnsafe: available
+2019-12-27 10:19:27,201 157    [read-0] DEBUG il.internal.PlatformDependent0  - sun.misc.Unsafe.copyMemory: available
+2019-12-27 10:19:27,201 157    [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.Buffer.address: available
+2019-12-27 10:19:27,201 157    [read-0] DEBUG il.internal.PlatformDependent0  - direct buffer constructor: available
+2019-12-27 10:19:27,201 157    [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.Bits.unaligned: available, true
+2019-12-27 10:19:27,201 157    [read-0] DEBUG il.internal.PlatformDependent0  - jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable prior to Java9
+2019-12-27 10:19:27,201 157    [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.DirectByteBuffer.<init>(long, int): available
+2019-12-27 10:19:27,201 157    [read-0] DEBUG til.internal.PlatformDependent  - sun.misc.Unsafe: available
+2019-12-27 10:19:27,201 157    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.tmpdir: C:\Users\12986\AppData\Local\Temp (java.io.tmpdir)
+2019-12-27 10:19:27,201 157    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.bitMode: 64 (sun.arch.data.model)
+2019-12-27 10:19:27,201 157    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.maxDirectMemory: 4725932032 bytes
+2019-12-27 10:19:27,216 172    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.uninitializedArrayAllocationThreshold: -1
+2019-12-27 10:19:27,216 172    [read-0] DEBUG tty.util.internal.CleanerJava6  - java.nio.ByteBuffer.cleaner(): available
+2019-12-27 10:19:27,216 172    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.noPreferDirect: false
+2019-12-27 10:19:27,232 188    [read-0] DEBUG til.internal.PlatformDependent  - org.jctools-core.MpscChunkedArrayQueue: available
+2019-12-27 10:19:27,654 610    [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:19:27,685 641    [read-0] DEBUG netty.channel.DefaultChannelId  - -Dio.netty.processId: 2220 (auto-detected)
+2019-12-27 10:19:27,685 641    [read-0] DEBUG          io.netty.util.NetUtil  - -Djava.net.preferIPv4Stack: false
+2019-12-27 10:19:27,685 641    [read-0] DEBUG          io.netty.util.NetUtil  - -Djava.net.preferIPv6Addresses: false
+2019-12-27 10:19:27,997 953    [read-0] DEBUG          io.netty.util.NetUtil  - Loopback interface: lo (Software Loopback Interface 1, 127.0.0.1)
+2019-12-27 10:19:27,997 953    [read-0] DEBUG          io.netty.util.NetUtil  - Failed to get SOMAXCONN from sysctl and file \proc\sys\net\core\somaxconn. Default: 200
+2019-12-27 10:19:28,544 1500   [read-0] DEBUG netty.channel.DefaultChannelId  - -Dio.netty.machineId: 00:50:56:ff:fe:c0:00:08 (auto-detected)
+2019-12-27 10:19:28,560 1516   [read-0] DEBUG etty.util.ResourceLeakDetector  - -Dio.netty.leakDetection.level: simple
+2019-12-27 10:19:28,560 1516   [read-0] DEBUG etty.util.ResourceLeakDetector  - -Dio.netty.leakDetection.targetRecords: 4
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.numHeapArenas: 8
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.numDirectArenas: 8
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.pageSize: 8192
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxOrder: 11
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.chunkSize: 16777216
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.tinyCacheSize: 512
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.smallCacheSize: 256
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.normalCacheSize: 64
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.cacheTrimInterval: 8192
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.useCacheForAllThreads: true
+2019-12-27 10:19:28,607 1563   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+2019-12-27 10:19:28,622 1578   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.allocator.type: pooled
+2019-12-27 10:19:28,622 1578   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.threadLocalDirectBufferSize: 0
+2019-12-27 10:19:28,622 1578   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.maxThreadLocalCharBufferSize: 16384
+2019-12-27 10:19:28,669 1625   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:19:28,669 1625   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:19:28,700 1656   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.maxCapacityPerThread: 4096
+2019-12-27 10:19:28,700 1656   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.maxSharedCapacityFactor: 2
+2019-12-27 10:19:28,700 1656   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.linkCapacity: 16
+2019-12-27 10:19:28,700 1656   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.ratio: 8
+2019-12-27 10:19:28,732 1688   [read-1] DEBUG o.netty.buffer.AbstractByteBuf  - -Dio.netty.buffer.checkAccessible: true
+2019-12-27 10:19:28,732 1688   [read-1] DEBUG o.netty.buffer.AbstractByteBuf  - -Dio.netty.buffer.checkBounds: true
+2019-12-27 10:19:28,732 1688   [read-1] DEBUG il.ResourceLeakDetectorFactory  - Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@430e24bb
+2019-12-27 10:22:04,993 0      [read-0] DEBUG .logging.InternalLoggerFactory  - Using SLF4J as the default logging framework
+2019-12-27 10:22:05,033 40     [read-0] DEBUG nnel.MultithreadEventLoopGroup  - -Dio.netty.eventLoopThreads: 8
+2019-12-27 10:22:05,053 60     [read-0] DEBUG nternal.InternalThreadLocalMap  - -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+2019-12-27 10:22:05,053 60     [read-0] DEBUG nternal.InternalThreadLocalMap  - -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+2019-12-27 10:22:05,063 70     [read-0] DEBUG netty.channel.nio.NioEventLoop  - -Dio.netty.noKeySetOptimization: false
+2019-12-27 10:22:05,063 70     [read-0] DEBUG netty.channel.nio.NioEventLoop  - -Dio.netty.selectorAutoRebuildThreshold: 512
+2019-12-27 10:22:05,083 90     [read-0] DEBUG til.internal.PlatformDependent  - Platform: Windows
+2019-12-27 10:22:05,083 90     [read-0] DEBUG il.internal.PlatformDependent0  - -Dio.netty.noUnsafe: false
+2019-12-27 10:22:05,083 90     [read-0] DEBUG il.internal.PlatformDependent0  - Java version: 8
+2019-12-27 10:22:05,083 90     [read-0] DEBUG il.internal.PlatformDependent0  - sun.misc.Unsafe.theUnsafe: available
+2019-12-27 10:22:05,091 98     [read-0] DEBUG il.internal.PlatformDependent0  - sun.misc.Unsafe.copyMemory: available
+2019-12-27 10:22:05,091 98     [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.Buffer.address: available
+2019-12-27 10:22:05,091 98     [read-0] DEBUG il.internal.PlatformDependent0  - direct buffer constructor: available
+2019-12-27 10:22:05,093 100    [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.Bits.unaligned: available, true
+2019-12-27 10:22:05,093 100    [read-0] DEBUG il.internal.PlatformDependent0  - jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable prior to Java9
+2019-12-27 10:22:05,093 100    [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.DirectByteBuffer.<init>(long, int): available
+2019-12-27 10:22:05,093 100    [read-0] DEBUG til.internal.PlatformDependent  - sun.misc.Unsafe: available
+2019-12-27 10:22:05,093 100    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.tmpdir: C:\Users\12986\AppData\Local\Temp (java.io.tmpdir)
+2019-12-27 10:22:05,093 100    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.bitMode: 64 (sun.arch.data.model)
+2019-12-27 10:22:05,093 100    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.maxDirectMemory: 4725932032 bytes
+2019-12-27 10:22:05,093 100    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.uninitializedArrayAllocationThreshold: -1
+2019-12-27 10:22:05,101 108    [read-0] DEBUG tty.util.internal.CleanerJava6  - java.nio.ByteBuffer.cleaner(): available
+2019-12-27 10:22:05,101 108    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.noPreferDirect: false
+2019-12-27 10:22:05,113 120    [read-0] DEBUG til.internal.PlatformDependent  - org.jctools-core.MpscChunkedArrayQueue: available
+2019-12-27 10:22:05,475 482    [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:22:05,515 522    [read-0] DEBUG netty.channel.DefaultChannelId  - -Dio.netty.processId: 11156 (auto-detected)
+2019-12-27 10:22:05,525 532    [read-0] DEBUG          io.netty.util.NetUtil  - -Djava.net.preferIPv4Stack: false
+2019-12-27 10:22:05,525 532    [read-0] DEBUG          io.netty.util.NetUtil  - -Djava.net.preferIPv6Addresses: false
+2019-12-27 10:22:05,935 942    [read-0] DEBUG          io.netty.util.NetUtil  - Loopback interface: lo (Software Loopback Interface 1, 127.0.0.1)
+2019-12-27 10:22:05,935 942    [read-0] DEBUG          io.netty.util.NetUtil  - Failed to get SOMAXCONN from sysctl and file \proc\sys\net\core\somaxconn. Default: 200
+2019-12-27 10:22:06,460 1467   [read-0] DEBUG netty.channel.DefaultChannelId  - -Dio.netty.machineId: 00:50:56:ff:fe:c0:00:08 (auto-detected)
+2019-12-27 10:22:06,476 1483   [read-0] DEBUG etty.util.ResourceLeakDetector  - -Dio.netty.leakDetection.level: simple
+2019-12-27 10:22:06,476 1483   [read-0] DEBUG etty.util.ResourceLeakDetector  - -Dio.netty.leakDetection.targetRecords: 4
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.numHeapArenas: 8
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.numDirectArenas: 8
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.pageSize: 8192
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxOrder: 11
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.chunkSize: 16777216
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.tinyCacheSize: 512
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.smallCacheSize: 256
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.normalCacheSize: 64
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.cacheTrimInterval: 8192
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.useCacheForAllThreads: true
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.allocator.type: pooled
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.threadLocalDirectBufferSize: 0
+2019-12-27 10:22:06,523 1530   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.maxThreadLocalCharBufferSize: 16384
+2019-12-27 10:22:06,569 1576   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:22:06,569 1576   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:22:06,569 1576   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.maxCapacityPerThread: 4096
+2019-12-27 10:22:06,569 1576   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.maxSharedCapacityFactor: 2
+2019-12-27 10:22:06,569 1576   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.linkCapacity: 16
+2019-12-27 10:22:06,569 1576   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.ratio: 8
+2019-12-27 10:22:06,585 1592   [read-1] DEBUG o.netty.buffer.AbstractByteBuf  - -Dio.netty.buffer.checkAccessible: true
+2019-12-27 10:22:06,585 1592   [read-1] DEBUG o.netty.buffer.AbstractByteBuf  - -Dio.netty.buffer.checkBounds: true
+2019-12-27 10:22:06,585 1592   [read-1] DEBUG il.ResourceLeakDetectorFactory  - Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@408349c1
+2019-12-27 10:23:07,370 62377  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:23:09,620 64627  [read-1] DEBUG o.netty.buffer.PoolThreadCache  - Freed 3 thread-local buffer(s) from thread: chat-client-thread-1
+2019-12-27 10:24:56,426 0      [read-0] DEBUG .logging.InternalLoggerFactory  - Using SLF4J as the default logging framework
+2019-12-27 10:24:56,457 31     [read-0] DEBUG nnel.MultithreadEventLoopGroup  - -Dio.netty.eventLoopThreads: 8
+2019-12-27 10:24:56,488 62     [read-0] DEBUG nternal.InternalThreadLocalMap  - -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+2019-12-27 10:24:56,488 62     [read-0] DEBUG nternal.InternalThreadLocalMap  - -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+2019-12-27 10:24:56,488 62     [read-0] DEBUG netty.channel.nio.NioEventLoop  - -Dio.netty.noKeySetOptimization: false
+2019-12-27 10:24:56,488 62     [read-0] DEBUG netty.channel.nio.NioEventLoop  - -Dio.netty.selectorAutoRebuildThreshold: 512
+2019-12-27 10:24:56,520 94     [read-0] DEBUG til.internal.PlatformDependent  - Platform: Windows
+2019-12-27 10:24:56,520 94     [read-0] DEBUG il.internal.PlatformDependent0  - -Dio.netty.noUnsafe: false
+2019-12-27 10:24:56,520 94     [read-0] DEBUG il.internal.PlatformDependent0  - Java version: 8
+2019-12-27 10:24:56,520 94     [read-0] DEBUG il.internal.PlatformDependent0  - sun.misc.Unsafe.theUnsafe: available
+2019-12-27 10:24:56,520 94     [read-0] DEBUG il.internal.PlatformDependent0  - sun.misc.Unsafe.copyMemory: available
+2019-12-27 10:24:56,520 94     [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.Buffer.address: available
+2019-12-27 10:24:56,520 94     [read-0] DEBUG il.internal.PlatformDependent0  - direct buffer constructor: available
+2019-12-27 10:24:56,520 94     [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.Bits.unaligned: available, true
+2019-12-27 10:24:56,520 94     [read-0] DEBUG il.internal.PlatformDependent0  - jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable prior to Java9
+2019-12-27 10:24:56,520 94     [read-0] DEBUG il.internal.PlatformDependent0  - java.nio.DirectByteBuffer.<init>(long, int): available
+2019-12-27 10:24:56,520 94     [read-0] DEBUG til.internal.PlatformDependent  - sun.misc.Unsafe: available
+2019-12-27 10:24:56,520 94     [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.tmpdir: C:\Users\12986\AppData\Local\Temp (java.io.tmpdir)
+2019-12-27 10:24:56,520 94     [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.bitMode: 64 (sun.arch.data.model)
+2019-12-27 10:24:56,535 109    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.maxDirectMemory: 4725932032 bytes
+2019-12-27 10:24:56,535 109    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.uninitializedArrayAllocationThreshold: -1
+2019-12-27 10:24:56,535 109    [read-0] DEBUG tty.util.internal.CleanerJava6  - java.nio.ByteBuffer.cleaner(): available
+2019-12-27 10:24:56,535 109    [read-0] DEBUG til.internal.PlatformDependent  - -Dio.netty.noPreferDirect: false
+2019-12-27 10:24:56,551 125    [read-0] DEBUG til.internal.PlatformDependent  - org.jctools-core.MpscChunkedArrayQueue: available
+2019-12-27 10:24:56,910 484    [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:24:56,941 515    [read-0] DEBUG netty.channel.DefaultChannelId  - -Dio.netty.processId: 5944 (auto-detected)
+2019-12-27 10:24:56,941 515    [read-0] DEBUG          io.netty.util.NetUtil  - -Djava.net.preferIPv4Stack: false
+2019-12-27 10:24:56,941 515    [read-0] DEBUG          io.netty.util.NetUtil  - -Djava.net.preferIPv6Addresses: false
+2019-12-27 10:24:57,394 968    [read-0] DEBUG          io.netty.util.NetUtil  - Loopback interface: lo (Software Loopback Interface 1, 127.0.0.1)
+2019-12-27 10:24:57,394 968    [read-0] DEBUG          io.netty.util.NetUtil  - Failed to get SOMAXCONN from sysctl and file \proc\sys\net\core\somaxconn. Default: 200
+2019-12-27 10:24:57,988 1562   [read-0] DEBUG netty.channel.DefaultChannelId  - -Dio.netty.machineId: 00:50:56:ff:fe:c0:00:08 (auto-detected)
+2019-12-27 10:24:58,004 1578   [read-0] DEBUG etty.util.ResourceLeakDetector  - -Dio.netty.leakDetection.level: simple
+2019-12-27 10:24:58,004 1578   [read-0] DEBUG etty.util.ResourceLeakDetector  - -Dio.netty.leakDetection.targetRecords: 4
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.numHeapArenas: 8
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.numDirectArenas: 8
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.pageSize: 8192
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxOrder: 11
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.chunkSize: 16777216
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.tinyCacheSize: 512
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.smallCacheSize: 256
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.normalCacheSize: 64
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxCachedBufferCapacity: 32768
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.cacheTrimInterval: 8192
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.cacheTrimIntervalMillis: 0
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.useCacheForAllThreads: true
+2019-12-27 10:24:58,035 1609   [read-0] DEBUG .buffer.PooledByteBufAllocator  - -Dio.netty.allocator.maxCachedByteBuffersPerChunk: 1023
+2019-12-27 10:24:58,051 1625   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.allocator.type: pooled
+2019-12-27 10:24:58,051 1625   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.threadLocalDirectBufferSize: 0
+2019-12-27 10:24:58,051 1625   [read-0] DEBUG    io.netty.buffer.ByteBufUtil  - -Dio.netty.maxThreadLocalCharBufferSize: 16384
+2019-12-27 10:24:58,097 1671   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:24:58,097 1671   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:24:58,097 1671   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.maxCapacityPerThread: 4096
+2019-12-27 10:24:58,097 1671   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.maxSharedCapacityFactor: 2
+2019-12-27 10:24:58,097 1671   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.linkCapacity: 16
+2019-12-27 10:24:58,097 1671   [  main] DEBUG         io.netty.util.Recycler  - -Dio.netty.recycler.ratio: 8
+2019-12-27 10:24:58,113 1687   [read-1] DEBUG o.netty.buffer.AbstractByteBuf  - -Dio.netty.buffer.checkAccessible: true
+2019-12-27 10:24:58,113 1687   [read-1] DEBUG o.netty.buffer.AbstractByteBuf  - -Dio.netty.buffer.checkBounds: true
+2019-12-27 10:24:58,113 1687   [read-1] DEBUG il.ResourceLeakDetectorFactory  - Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@231febf8
+2019-12-27 10:28:19,450 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:28:20,653 1203   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:28:20,653 1203   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:29:13,001 53551  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:29:19,702 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:29:20,889 1187   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:29:20,889 1187   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:30:02,969 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:30:04,016 1047   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:30:04,016 1047   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:31:58,626 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:31:59,590 964    [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:31:59,592 966    [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:32:15,283 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:32:16,345 1062   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:32:16,345 1062   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:33:06,985 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:33:07,985 1000   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:33:07,985 1000   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:33:19,713 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:33:20,916 1203   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:33:20,916 1203   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:33:25,167 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:33:26,214 1047   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:33:26,214 1047   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:33:56,167 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:33:57,292 1125   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:33:57,292 1125   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:35:32,565 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:35:39,142 139429 [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:35:39,142 152157 [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:35:56,788 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:35:58,022 1234   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:35:58,022 1234   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:36:52,211 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:36:53,274 1063   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:36:53,274 1063   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:37:07,092 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:37:08,232 1140   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:37:08,232 1140   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:37:42,365 50154  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:37:42,365 105577 [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:37:42,365 35273  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:37:51,665 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:37:52,837 1172   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:37:52,837 1172   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:38:17,582 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:38:18,863 1281   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:38:18,863 1281   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:38:40,921 23339  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:39:01,647 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:39:02,663 1016   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:39:02,663 1016   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:39:11,847 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:39:12,894 1047   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:39:12,894 1047   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:40:01,464 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:40:02,526 1062   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:40:02,526 1062   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:40:19,466 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:40:20,471 1005   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:40:20,471 1005   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:40:59,306 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:41:00,352 1046   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:41:00,352 1046   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:41:19,202 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:41:20,390 1188   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:41:20,390 1188   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:41:34,883 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:41:36,086 1203   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:41:36,086 1203   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:42:27,624 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:42:28,733 1109   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:42:28,733 1109   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:43:11,296 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:43:12,499 1203   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:43:12,499 1203   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:43:20,685 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:43:21,919 1234   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:43:21,919 1234   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:43:28,163 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:43:29,210 1047   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:43:29,210 1047   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:43:34,591 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:43:35,747 1156   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:43:35,747 1156   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:45:34,810 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:45:35,872 1062   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:45:35,872 1062   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:45:43,617 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:45:44,711 1094   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:45:44,711 1094   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:46:47,008 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:46:48,211 1203   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:46:48,211 1203   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:47:23,712 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:47:24,931 1219   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:47:24,931 1219   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:48:13,073 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:48:14,057 984    [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:48:14,057 984    [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:48:18,744 5671   [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:49:06,858 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:49:07,983 1125   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:49:07,983 1125   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:49:15,139 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:49:16,279 1140   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:49:16,279 1140   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:49:19,560 4421   [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:50:22,367 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:50:23,643 1276   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:50:23,643 1276   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:51:28,512 66145  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:53:31,016 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:53:32,141 1125   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:53:32,141 1125   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:53:37,182 6166   [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:54:36,485 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:54:37,547 1062   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:54:37,547 1062   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 10:56:45,660 129175 [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 10:57:22,064 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 10:57:23,360 1296   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 10:57:23,360 1296   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 11:00:34,005 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 11:00:35,067 1062   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 11:00:35,067 1062   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 11:57:11,910 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 11:57:13,113 1203   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 11:57:13,113 1203   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 11:57:17,893 5983   [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 11:57:35,531 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 11:57:36,624 1093   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 11:57:36,624 1093   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 11:58:29,401 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 11:58:30,495 1094   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 11:58:30,495 1094   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 11:59:39,307 69906  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 12:00:05,032 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 12:00:06,235 1203   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 12:00:06,235 1203   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 12:00:17,718 12686  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 12:00:26,238 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 12:00:27,486 1248   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 12:00:27,486 1248   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 12:01:40,282 74044  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 12:12:59,504 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 12:13:02,378 2874   [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 12:13:14,277 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 12:13:15,323 1046   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 12:13:15,323 1046   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 12:13:36,678 22401  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 12:33:31,831 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 12:33:33,065 1234   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 12:33:33,065 1234   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 12:39:26,840 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 12:39:28,027 1187   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 12:39:28,027 1187   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 12:39:45,245 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 12:39:46,479 1234   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 12:39:46,479 1234   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 12:40:07,786 22541  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 
+2019-12-27 12:40:37,607 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 12:40:38,856 1249   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 12:40:38,856 1249   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 12:42:37,858 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 12:42:39,045 1187   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 12:42:39,045 1187   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 12:42:54,578 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 12:42:55,671 1093   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 12:42:55,671 1093   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 12:43:05,766 0      [read-0] INFO  m.chat.client.netty.ChatClient  - [客户端] 开始启动 Host : 0.0.0.0  Port : 8888 .
+2019-12-27 12:43:06,766 1000   [read-1] INFO  der.ClientReadChatEventHandler  - [客户端] 注册成功 , IP : 0.0.0.0/0.0.0.0:8888.
+2019-12-27 12:43:06,766 1000   [read-0] ERROR er.ClientStartChatEventHandler  - [客户端] 启动成功 Host:0.0.0.0 Port:8888.
+2019-12-27 12:43:11,499 16921  [read-0] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:8888. 

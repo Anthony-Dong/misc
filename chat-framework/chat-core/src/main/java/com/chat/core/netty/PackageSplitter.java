@@ -8,7 +8,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 
 /**
- * 其实这个是没必要的 , 因为我们可以去继承一下
+ * 这个其实么啥用 , 我随手写的 ,其实也可以用这个处理 ,但是最好别重写{@link PackageSplitter#decode(io.netty.channel.ChannelHandlerContext, io.netty.buffer.ByteBuf)}
+ * <p>
+ * 可以他处理完给下一个处理处理器
  * <p>
  * ChannelInboundHandlerAdapter - > LengthFieldBasedFrameDecoder -> PackageSplitter
  */
@@ -17,9 +19,9 @@ public class PackageSplitter extends LengthFieldBasedFrameDecoder {
 
     /**
      * arg1 ; maxFrameLength：单个包最大的长度，这个值根据实际场景而定，我设置的是1024，固然我的心跳包不大，但是其他包可能比较大。
-            * arg2 ; lengthFieldOffset : 表示数据长度字段开始的偏移量 ,我的前几个一个是版本号 一个是长度 , 此时是 4
-            * arg3 ; lengthFieldLength : 数据长度字段的所占的字节数 , 我的是 2
-            * arg4 ; lengthAdjustment :  修改帧数据长度字段中定义的值，可以为负数 因为有时候我们习惯把头部记入长度,若为负数,则说明要推后多少个字段
+     * arg2 ; lengthFieldOffset : 表示数据长度字段开始的偏移量 ,我的前几个一个是版本号 一个是长度 , 此时是 4
+     * arg3 ; lengthFieldLength : 数据长度字段的所占的字节数 , 我的是 2
+     * arg4 ; lengthAdjustment :  修改帧数据长度字段中定义的值，可以为负数 因为有时候我们习惯把头部记入长度,若为负数,则说明要推后多少个字段
      * arg4 ; initialBytesToStrip 解析时候跳过多少个长度
      */
     public PackageSplitter() {

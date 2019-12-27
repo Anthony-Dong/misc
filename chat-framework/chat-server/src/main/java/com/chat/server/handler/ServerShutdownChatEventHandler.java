@@ -30,7 +30,7 @@ public class ServerShutdownChatEventHandler implements ChatEventHandler {
         if (obj instanceof InetSocketAddress) {
             InetSocketAddress address = (InetSocketAddress) obj;
             if (this.chatServerContext != null) {
-                this.chatServerContext.onFail();
+                this.chatServerContext.onFail(address);
             }
             logger.info("[服务器] 关闭成功 Host:{}  Post :{}. ", address.getHostName(), address.getPort());
         }

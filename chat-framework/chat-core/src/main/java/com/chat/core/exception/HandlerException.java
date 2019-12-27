@@ -13,29 +13,4 @@ public final class HandlerException extends Exception {
         super(message);
     }
 
-
-    public static void main(String[] args) {
-
-        try {
-            get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    static void get() throws Exception {
-        get2();
-    }
-
-
-    static void get2() throws HandlerException{
-        try {
-            int x = 1 / 0;
-        } catch (Exception e) {
-            throw new HandlerException("异常");
-        }
-    }
-
 }

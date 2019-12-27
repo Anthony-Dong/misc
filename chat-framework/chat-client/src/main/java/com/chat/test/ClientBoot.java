@@ -41,7 +41,8 @@ public class ClientBoot {
         new Thread(() -> {
             try {
                 ChatClient.run(8888, context);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
+
             }
         }).start();
 
@@ -52,17 +53,12 @@ public class ClientBoot {
         // 测试异常
         testError(channelHandlerContext);
 
-
-        // 测试上传
         testFileUpload(channelHandlerContext);
 
-
-        // 测试字符串
         testString(channelHandlerContext);
 
-
-        // 测试JSON
         testJson(channelHandlerContext);
+
 
     }
 
@@ -79,7 +75,7 @@ public class ClientBoot {
         long length = file.length();
         byte[] bytes = new byte[(int) length];
         file.read(bytes);
-        channelHandlerContext.writeAndFlush(NPack.buildWithByteBody("a", "b", "file1.txt", bytes));
+        channelHandlerContext.writeAndFlush(NPack.buildWithByteBody("a", "b", "file3.txt", bytes));
         file.close();
     }
 

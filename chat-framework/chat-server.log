@@ -129,3 +129,437 @@
 2019-12-26 22:47:04,728 5273   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:12276 注册成功 .
 2019-12-26 22:47:04,795 5340   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:12276  Exception : NPack router 不符合要求 ! .
 2019-12-26 22:47:09,305 9850   [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:12276 移除成功 .
+2019-12-26 22:58:44,723 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-26 22:58:45,706 983    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-26 22:58:53,540 8817   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-26 22:58:53,697 8974   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:12356 注册成功 .
+2019-12-26 22:58:53,764 9041   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:12356  Exception : NPack router 不符合要求 ! .
+2019-12-26 22:58:55,884 11161  [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:12356  Exception : java.net.SocketTimeoutException: Read timed out.
+2019-12-27 10:17:01,768 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:17:03,298 1530   [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:17:11,283 9515   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:17:11,283 9515   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1591  Exception : null.
+2019-12-27 10:17:54,553 52785  [read-1] WARN  channel.DefaultChannelPipeline  - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.ChannelPipelineException: com.chat.server.netty.ChatServerHandler.handlerRemoved() has thrown an exception.
+	at io.netty.channel.DefaultChannelPipeline.callHandlerRemoved0(DefaultChannelPipeline.java:641)
+	at io.netty.channel.DefaultChannelPipeline.destroyDown(DefaultChannelPipeline.java:887)
+	at io.netty.channel.DefaultChannelPipeline.destroyUp(DefaultChannelPipeline.java:853)
+	at io.netty.channel.DefaultChannelPipeline.destroy(DefaultChannelPipeline.java:845)
+	at io.netty.channel.DefaultChannelPipeline.access$700(DefaultChannelPipeline.java:46)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelUnregistered(DefaultChannelPipeline.java:1390)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelUnregistered(AbstractChannelHandlerContext.java:193)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelUnregistered(AbstractChannelHandlerContext.java:179)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelUnregistered(DefaultChannelPipeline.java:830)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$8.run(AbstractChannel.java:835)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:405)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:500)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:906)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NumberFormatException: null
+	at java.lang.Integer.parseInt(Integer.java:542)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at com.chat.server.context.DefaultChatServerContext.onRemove(DefaultChatServerContext.java:64)
+	at com.chat.server.handler.ServerHandlerRemovedChatEventHandler.handler(ServerHandlerRemovedChatEventHandler.java:35)
+	at com.chat.server.netty.ChatServer.lambda$run$0(ChatServer.java:146)
+	at com.chat.server.netty.ChatServerHandler.handlerRemoved(ChatServerHandler.java:42)
+	at io.netty.channel.AbstractChannelHandlerContext.callHandlerRemoved(AbstractChannelHandlerContext.java:972)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerRemoved0(DefaultChannelPipeline.java:638)
+	... 15 more
+2019-12-27 10:19:22,367 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:19:23,077 710    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:19:28,716 6349   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:19:28,716 6349   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1622  Exception : null.
+2019-12-27 10:19:54,415 32048  [read-1] WARN  channel.DefaultChannelPipeline  - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.ChannelPipelineException: com.chat.server.netty.ChatServerHandler.handlerRemoved() has thrown an exception.
+	at io.netty.channel.DefaultChannelPipeline.callHandlerRemoved0(DefaultChannelPipeline.java:641)
+	at io.netty.channel.DefaultChannelPipeline.destroyDown(DefaultChannelPipeline.java:887)
+	at io.netty.channel.DefaultChannelPipeline.destroyUp(DefaultChannelPipeline.java:853)
+	at io.netty.channel.DefaultChannelPipeline.destroy(DefaultChannelPipeline.java:845)
+	at io.netty.channel.DefaultChannelPipeline.access$700(DefaultChannelPipeline.java:46)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelUnregistered(DefaultChannelPipeline.java:1390)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelUnregistered(AbstractChannelHandlerContext.java:193)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelUnregistered(AbstractChannelHandlerContext.java:179)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelUnregistered(DefaultChannelPipeline.java:830)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$8.run(AbstractChannel.java:835)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:405)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:500)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:906)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NullPointerException
+	at com.chat.server.context.DefaultChatServerContext.onRemove(DefaultChatServerContext.java:64)
+	at com.chat.server.handler.ServerHandlerRemovedChatEventHandler.handler(ServerHandlerRemovedChatEventHandler.java:35)
+	at com.chat.server.netty.ChatServer.lambda$run$0(ChatServer.java:146)
+	at com.chat.server.netty.ChatServerHandler.handlerRemoved(ChatServerHandler.java:42)
+	at io.netty.channel.AbstractChannelHandlerContext.callHandlerRemoved(AbstractChannelHandlerContext.java:972)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerRemoved0(DefaultChannelPipeline.java:638)
+	... 16 more
+2019-12-27 10:21:11,611 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:21:43,512 31901  [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:22:06,601 54990  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:23:04,965 113354 [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1670  Exception : null.
+2019-12-27 10:23:53,789 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:23:54,602 813    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:24:51,231 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:24:52,074 843    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:24:58,113 6882   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:24:58,113 6882   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1719 注册成功 .
+2019-12-27 10:25:54,184 62953  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:1719 移除成功 .
+2019-12-27 10:27:48,619 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:27:49,541 922    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:28:20,669 32050  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:28:20,669 32050  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1750 注册成功 .
+2019-12-27 10:29:15,865 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:29:16,834 969    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:29:20,904 5039   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:29:20,904 5039   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1778 注册成功 .
+2019-12-27 10:29:59,396 43531  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:1778 移除成功 .
+2019-12-27 10:30:04,000 48135  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:30:04,000 48135  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1814 注册成功 .
+2019-12-27 10:30:09,890 54025  [read-2] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:1814 移除成功 .
+2019-12-27 10:31:45,648 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:31:46,476 828    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:31:59,601 13953  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:31:59,611 13963  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1848 注册成功 .
+2019-12-27 10:31:59,889 14241  [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1848  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:32:16,345 30697  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:32:16,345 30697  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1858 注册成功 .
+2019-12-27 10:32:16,533 30885  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1858  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:32:39,622 53974  [read-1] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577413959606].
+2019-12-27 10:32:56,368 70720  [read-2] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577413976353].
+2019-12-27 10:33:07,985 82337  [read-3] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:33:07,985 82337  [read-3] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1870 注册成功 .
+2019-12-27 10:33:08,156 82508  [read-3] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1870  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:33:19,666 94018  [read-1] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577413959606].
+2019-12-27 10:33:20,916 95268  [read-4] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:33:20,916 95268  [read-4] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1880 注册成功 .
+2019-12-27 10:33:21,104 95456  [read-4] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1880  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:33:26,214 100566 [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:33:26,214 100566 [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1890 注册成功 .
+2019-12-27 10:33:26,370 100722 [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1890  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:33:36,388 110740 [read-2] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577413976353].
+2019-12-27 10:33:48,024 122376 [read-3] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414028009].
+2019-12-27 10:33:57,292 131644 [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:33:57,292 131644 [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1901 注册成功 .
+2019-12-27 10:33:57,479 131831 [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1901  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:33:59,650 134002 [read-1] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577413959606].
+2019-12-27 10:34:00,947 135299 [read-4] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414040932].
+2019-12-27 10:34:06,243 140595 [read-1] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414046228].
+2019-12-27 10:34:16,397 150749 [read-2] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577413976353].
+2019-12-27 10:34:28,051 162403 [read-3] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414028009].
+2019-12-27 10:34:37,330 171682 [read-2] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414077314].
+2019-12-27 10:34:39,658 174010 [read-1] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577413959606].
+2019-12-27 10:34:40,954 175306 [read-4] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414040932].
+2019-12-27 10:34:46,250 180602 [read-1] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414046228].
+2019-12-27 10:34:56,403 190755 [read-2] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577413976353].
+2019-12-27 10:35:08,041 202393 [read-3] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414028009].
+2019-12-27 10:35:17,358 211710 [read-2] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414077314].
+2019-12-27 10:35:19,672 214024 [read-1] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577413959606].
+2019-12-27 10:35:20,960 215312 [read-4] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414040932].
+2019-12-27 10:35:26,260 220612 [read-1] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414046228].
+2019-12-27 10:35:36,408 230760 [read-2] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577413976353].
+2019-12-27 10:35:51,226 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:35:52,124 898    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:35:58,054 6828   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:35:58,054 6828   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1939 注册成功 .
+2019-12-27 10:35:58,366 7140   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1939  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:36:53,274 62048  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:36:53,274 62048  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1950 注册成功 .
+2019-12-27 10:36:53,445 62219  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1950  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:37:08,232 77006  [read-3] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:37:08,232 77006  [read-3] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1963 注册成功 .
+2019-12-27 10:37:08,435 77209  [read-3] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1963  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:37:33,336 102110 [read-2] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577414253305].
+2019-12-27 10:37:45,555 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:37:46,399 844    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:37:52,852 7297   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:37:52,852 7297   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:1990 注册成功 .
+2019-12-27 10:37:53,196 7641   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:1990  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:38:03,100 17545  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:1990 移除成功 .
+2019-12-27 10:38:18,848 33293  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:38:18,863 33308  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2001 注册成功 .
+2019-12-27 10:38:19,066 33511  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2001  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:38:19,082 33527  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2001  Exception : / by zero.
+2019-12-27 10:38:50,745 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:38:51,636 891    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:39:02,678 11933  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:39:02,678 11933  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2031 注册成功 .
+2019-12-27 10:39:02,975 12230  [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2031  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:39:12,894 22149  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:39:12,894 22149  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2040 注册成功 .
+2019-12-27 10:39:13,066 22321  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2040  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:39:13,097 22352  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2040  Exception : 文件上传失败.
+2019-12-27 10:39:39,326 48581  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2031 移除成功 .
+2019-12-27 10:39:40,591 49846  [read-2] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2040 移除成功 .
+2019-12-27 10:39:48,004 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:39:53,190 5186   [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:40:02,542 14538  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:40:02,542 14538  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2068 注册成功 .
+2019-12-27 10:40:17,203 29199  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2068 移除成功 .
+2019-12-27 10:40:20,471 32467  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:40:20,471 32467  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2079 注册成功 .
+2019-12-27 10:40:29,965 41961  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2079  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:40:37,369 49365  [read-2] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2079 移除成功 .
+2019-12-27 10:40:52,150 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:40:53,072 922    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:41:00,383 8233   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:41:00,383 8233   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2107 注册成功 .
+2019-12-27 10:41:00,680 8530   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2107  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:41:20,390 28240  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:41:20,390 28240  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2116 注册成功 .
+2019-12-27 10:41:20,640 28490  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2116  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:41:33,090 40940  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2107 移除成功 .
+2019-12-27 10:41:36,086 43936  [read-3] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:41:36,086 43936  [read-3] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2127 注册成功 .
+2019-12-27 10:41:36,289 44139  [read-3] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2127  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:41:41,303 49153  [read-3] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2127 移除成功 .
+2019-12-27 10:41:42,631 50481  [read-2] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2116 移除成功 .
+2019-12-27 10:42:13,380 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:42:14,270 890    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:42:28,796 15416  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:42:28,796 15416  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2156 注册成功 .
+2019-12-27 10:43:06,869 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:43:07,885 1016   [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:43:12,514 5645   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:43:12,514 5645   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2183 注册成功 .
+2019-12-27 10:43:18,513 11644  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2183 移除成功 .
+2019-12-27 10:43:21,919 15050  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:43:21,919 15050  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2193 注册成功 .
+2019-12-27 10:43:22,232 15363  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2193  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:43:26,324 19455  [read-2] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2193 移除成功 .
+2019-12-27 10:43:29,195 22326  [read-3] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:43:29,195 22326  [read-3] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2203 注册成功 .
+2019-12-27 10:43:29,366 22497  [read-3] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2203  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:43:32,428 25559  [read-3] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2203 移除成功 .
+2019-12-27 10:43:35,747 28878  [read-4] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:43:35,747 28878  [read-4] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2214 注册成功 .
+2019-12-27 10:43:35,950 29081  [read-4] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2214  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:43:41,650 34781  [read-4] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2214 移除成功 .
+2019-12-27 10:45:27,444 16     [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:45:28,350 922    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:45:35,888 8460   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:45:35,888 8460   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2248 注册成功 .
+2019-12-27 10:45:36,185 8757   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2248  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:45:41,840 14412  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2248 移除成功 .
+2019-12-27 10:45:44,711 17283  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:45:44,711 17283  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2256 注册成功 .
+2019-12-27 10:45:44,898 17470  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2256  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:45:56,083 28655  [read-2] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2256 移除成功 .
+2019-12-27 10:46:34,691 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:46:35,737 1046   [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:46:48,242 13551  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:46:48,242 13551  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2281 注册成功 .
+2019-12-27 10:46:58,195 23504  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2281 移除成功 .
+2019-12-27 10:47:24,931 50240  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:47:24,931 50240  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2292 注册成功 .
+2019-12-27 10:47:34,273 59582  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2292  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:47:42,708 68017  [read-2] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2292 移除成功 .
+2019-12-27 10:48:07,613 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:48:08,566 953    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:48:14,073 6460   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:48:14,073 6460   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2315 注册成功 .
+2019-12-27 10:48:14,385 6772   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2315  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:49:01,905 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:49:02,733 828    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:49:07,998 6093   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:49:07,998 6093   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2341 注册成功 .
+2019-12-27 10:49:08,326 6421   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2341  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:49:12,966 11061  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2341 移除成功 .
+2019-12-27 10:49:16,279 14374  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:49:16,279 14374  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2349 注册成功 .
+2019-12-27 10:49:16,451 14546  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2349  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:49:21,809 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:49:22,715 906    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:50:13,576 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:50:17,103 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:50:17,998 895    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:50:23,945 6842   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:50:23,945 6842   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2409 注册成功 .
+2019-12-27 10:53:27,711 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:53:28,586 875    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:53:32,157 4446   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:53:32,157 4446   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2505 注册成功 .
+2019-12-27 10:53:32,454 4743   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2505  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:54:12,666 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:54:13,572 906    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:54:37,844 25178  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:54:37,844 25178  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2531 注册成功 .
+2019-12-27 10:57:17,636 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 10:57:18,510 874    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 10:57:23,376 5740   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 10:57:23,376 5740   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2564 注册成功 .
+2019-12-27 10:57:23,688 6052   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:2564  Exception : NPack router 不符合要求 ! .
+2019-12-27 10:57:28,406 10770  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2564 移除成功 .
+2019-12-27 11:00:29,082 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 11:00:29,993 911    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 11:00:35,098 6016   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 11:00:35,098 6016   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:2736 注册成功 .
+2019-12-27 11:01:47,016 77934  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:2736 移除成功 .
+2019-12-27 11:57:02,527 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 11:57:03,412 885    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 11:57:13,128 10601  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 11:57:13,128 10601  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:3078 注册成功 .
+2019-12-27 11:57:13,472 10945  [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3078  Exception : NPack router 不符合要求 ! .
+2019-12-27 11:57:15,597 13070  [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3078  Exception : java.net.SocketTimeoutException: Read timed out.
+2019-12-27 11:57:29,538 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 11:57:30,537 999    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 11:57:36,640 7102   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 11:57:36,640 7102   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:3102 注册成功 .
+2019-12-27 11:57:36,952 7414   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3102  Exception : NPack router 不符合要求 ! .
+2019-12-27 11:57:39,061 9523   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3102  Exception : java.net.SocketTimeoutException: Read timed out.
+2019-12-27 11:58:16,646 47108  [read-1] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577419096631].
+2019-12-27 11:58:27,128 57590  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:3102 移除成功 .
+2019-12-27 11:58:30,495 60957  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 11:58:30,495 60957  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:3111 注册成功 .
+2019-12-27 11:58:30,666 61128  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3111  Exception : NPack router 不符合要求 ! .
+2019-12-27 11:58:32,682 63144  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3111  Exception : java.net.SocketTimeoutException: Read timed out.
+2019-12-27 11:59:10,548 101010 [read-2] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577419150517].
+2019-12-27 11:59:42,362 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 11:59:43,221 859    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 11:59:59,397 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 12:00:00,334 937    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 12:00:06,250 6853   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 12:00:06,250 6853   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:3154 注册成功 .
+2019-12-27 12:00:06,641 7244   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3154  Exception : NPack router 不符合要求 ! .
+2019-12-27 12:00:06,672 7275   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3154  Exception : 文件上传失败.
+2019-12-27 12:00:20,001 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 12:00:20,868 867    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 12:00:27,502 7501   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 12:00:27,502 7501   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:3179 注册成功 .
+2019-12-27 12:00:27,814 7813   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3179  Exception : NPack router 不符合要求 ! .
+2019-12-27 12:00:27,830 7829   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3179  Exception : 文件上传失败.
+2019-12-27 12:01:07,508 47507  [read-1] INFO  ler.ServerReadChatEventHandler  - [服务器] 心跳信息 : NPack[router={heart}, timestamp=1577419267493].
+2019-12-27 12:13:09,455 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 12:13:10,455 1000   [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 12:13:15,339 5884   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 12:13:15,339 5884   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:3254 注册成功 .
+2019-12-27 12:13:15,636 6181   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3254  Exception : com.chat.server.spi.RedisSaveReceivePackage  NPack router 不符合URL编码格式要求 ! .
+2019-12-27 12:13:15,651 6196   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3254  Exception : com.chat.server.spi.RedisSaveReceivePackage  文件上传失败.
+2019-12-27 12:33:25,787 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 12:33:26,677 890    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 12:33:33,080 7293   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 12:33:33,080 7293   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:3415 注册成功 .
+2019-12-27 12:33:33,424 7637   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3415  Exception : com.chat.server.spi.RedisSaveReceivePackage  NPack router 不符合URL编码格式要求 ! .
+2019-12-27 12:33:33,440 7653   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3415  Exception : com.chat.server.spi.RedisSaveReceivePackage  文件上传失败.
+2019-12-27 12:33:50,563 24776  [read-1] INFO  HandlerRemovedChatEventHandler  - [服务器] 客户端 IP : /192.168.28.1:3415 移除成功 .
+2019-12-27 12:38:07,563 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 12:39:23,139 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 12:39:28,043 4904   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 12:39:30,043 6904   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3470  Exception : java.net.SocketTimeoutException: Read timed out.
+2019-12-27 12:39:30,198 7059   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3470  Exception : com.chat.server.spi.RedisSaveReceivePackage  NPack router 不符合URL编码格式要求 ! .
+2019-12-27 12:39:30,198 7059   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3470  Exception : com.chat.server.spi.RedisSaveReceivePackage  文件上传失败.
+2019-12-27 12:39:32,277 9138   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3470  Exception : java.net.SocketTimeoutException: Read timed out.
+2019-12-27 12:39:45,010 21871  [read-1] WARN  channel.DefaultChannelPipeline  - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.ChannelPipelineException: com.chat.server.netty.ChatServerHandler.handlerRemoved() has thrown an exception.
+	at io.netty.channel.DefaultChannelPipeline.callHandlerRemoved0(DefaultChannelPipeline.java:641)
+	at io.netty.channel.DefaultChannelPipeline.destroyDown(DefaultChannelPipeline.java:887)
+	at io.netty.channel.DefaultChannelPipeline.destroyUp(DefaultChannelPipeline.java:853)
+	at io.netty.channel.DefaultChannelPipeline.destroy(DefaultChannelPipeline.java:845)
+	at io.netty.channel.DefaultChannelPipeline.access$700(DefaultChannelPipeline.java:46)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelUnregistered(DefaultChannelPipeline.java:1390)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelUnregistered(AbstractChannelHandlerContext.java:193)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelUnregistered(AbstractChannelHandlerContext.java:179)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelUnregistered(DefaultChannelPipeline.java:830)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$8.run(AbstractChannel.java:835)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:405)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:500)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:906)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: redis.clients.jedis.exceptions.JedisConnectionException: java.net.SocketTimeoutException: Read timed out
+	at redis.clients.jedis.util.RedisInputStream.ensureFill(RedisInputStream.java:205)
+	at redis.clients.jedis.util.RedisInputStream.readByte(RedisInputStream.java:43)
+	at redis.clients.jedis.Protocol.process(Protocol.java:154)
+	at redis.clients.jedis.Protocol.read(Protocol.java:219)
+	at redis.clients.jedis.Connection.readProtocolWithCheckingBroken(Connection.java:309)
+	at redis.clients.jedis.Connection.getBinaryBulkReply(Connection.java:255)
+	at redis.clients.jedis.Connection.getBulkReply(Connection.java:245)
+	at redis.clients.jedis.Jedis.hget(Jedis.java:755)
+	at com.chat.server.context.DefaultChatServerContext.onRemove(DefaultChatServerContext.java:62)
+	at com.chat.server.handler.ServerHandlerRemovedChatEventHandler.handler(ServerHandlerRemovedChatEventHandler.java:35)
+	at com.chat.server.netty.ChatServer.lambda$run$0(ChatServer.java:146)
+	at com.chat.server.netty.ChatServerHandler.handlerRemoved(ChatServerHandler.java:42)
+	at io.netty.channel.AbstractChannelHandlerContext.callHandlerRemoved(AbstractChannelHandlerContext.java:972)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerRemoved0(DefaultChannelPipeline.java:638)
+	... 15 more
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+	at java.net.SocketInputStream.read(SocketInputStream.java:171)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.net.SocketInputStream.read(SocketInputStream.java:127)
+	at redis.clients.jedis.util.RedisInputStream.ensureFill(RedisInputStream.java:199)
+	... 28 more
+2019-12-27 12:39:46,479 23340  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 12:39:48,494 25355  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3481  Exception : java.net.SocketTimeoutException: Read timed out.
+2019-12-27 12:39:48,510 25371  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3481  Exception : com.chat.server.spi.RedisSaveReceivePackage  NPack router 不符合URL编码格式要求 ! .
+2019-12-27 12:39:48,510 25371  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3481  Exception : com.chat.server.spi.RedisSaveReceivePackage  文件上传失败.
+2019-12-27 12:39:50,510 27371  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3481  Exception : java.net.SocketTimeoutException: Read timed out.
+2019-12-27 12:40:32,848 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 12:40:38,872 6024   [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 12:40:40,872 8024   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3509  Exception : java.net.SocketTimeoutException: Read timed out.
+2019-12-27 12:40:41,028 8180   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3509  Exception : com.chat.server.spi.RedisSaveReceivePackage  NPack router 不符合URL编码格式要求 ! .
+2019-12-27 12:40:41,043 8195   [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3509  Exception : com.chat.server.spi.RedisSaveReceivePackage  文件上传失败.
+2019-12-27 12:40:43,121 10273  [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3509  Exception : java.net.SocketTimeoutException: Read timed out.
+2019-12-27 12:40:49,354 16506  [read-1] WARN  channel.DefaultChannelPipeline  - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.ChannelPipelineException: com.chat.server.netty.ChatServerHandler.handlerRemoved() has thrown an exception.
+	at io.netty.channel.DefaultChannelPipeline.callHandlerRemoved0(DefaultChannelPipeline.java:641)
+	at io.netty.channel.DefaultChannelPipeline.destroyDown(DefaultChannelPipeline.java:887)
+	at io.netty.channel.DefaultChannelPipeline.destroyUp(DefaultChannelPipeline.java:853)
+	at io.netty.channel.DefaultChannelPipeline.destroy(DefaultChannelPipeline.java:845)
+	at io.netty.channel.DefaultChannelPipeline.access$700(DefaultChannelPipeline.java:46)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelUnregistered(DefaultChannelPipeline.java:1390)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelUnregistered(AbstractChannelHandlerContext.java:193)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelUnregistered(AbstractChannelHandlerContext.java:179)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelUnregistered(DefaultChannelPipeline.java:830)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$8.run(AbstractChannel.java:835)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:405)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:500)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:906)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at java.lang.Thread.run(Thread.java:748)
+Caused by: redis.clients.jedis.exceptions.JedisConnectionException: java.net.SocketTimeoutException: Read timed out
+	at redis.clients.jedis.util.RedisInputStream.ensureFill(RedisInputStream.java:205)
+	at redis.clients.jedis.util.RedisInputStream.readByte(RedisInputStream.java:43)
+	at redis.clients.jedis.Protocol.process(Protocol.java:154)
+	at redis.clients.jedis.Protocol.read(Protocol.java:219)
+	at redis.clients.jedis.Connection.readProtocolWithCheckingBroken(Connection.java:309)
+	at redis.clients.jedis.Connection.getBinaryBulkReply(Connection.java:255)
+	at redis.clients.jedis.Connection.getBulkReply(Connection.java:245)
+	at redis.clients.jedis.Jedis.hget(Jedis.java:755)
+	at com.chat.server.context.DefaultChatServerContext.onRemove(DefaultChatServerContext.java:62)
+	at com.chat.server.handler.ServerHandlerRemovedChatEventHandler.handler(ServerHandlerRemovedChatEventHandler.java:35)
+	at com.chat.server.netty.ChatServer.lambda$run$0(ChatServer.java:146)
+	at com.chat.server.netty.ChatServerHandler.handlerRemoved(ChatServerHandler.java:42)
+	at io.netty.channel.AbstractChannelHandlerContext.callHandlerRemoved(AbstractChannelHandlerContext.java:972)
+	at io.netty.channel.DefaultChannelPipeline.callHandlerRemoved0(DefaultChannelPipeline.java:638)
+	... 15 more
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.socketRead(SocketInputStream.java:116)
+	at java.net.SocketInputStream.read(SocketInputStream.java:171)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.net.SocketInputStream.read(SocketInputStream.java:127)
+	at redis.clients.jedis.util.RedisInputStream.ensureFill(RedisInputStream.java:199)
+	... 28 more
+2019-12-27 12:42:02,975 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 12:42:20,740 0      [  main] INFO  m.chat.server.netty.ChatServer  - [服务器] 开始启动 Host : 0.0.0.0  Port : 8888.
+2019-12-27 12:42:21,583 843    [  main] INFO  er.ServerStartChatEventHandler  - [服务器] 启动成功 Host : 0.0.0.0  Post : 8888.
+2019-12-27 12:42:39,061 18321  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 12:42:39,061 18321  [read-1] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:3557 注册成功 .
+2019-12-27 12:42:39,373 18633  [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3557  Exception : com.chat.server.spi.RedisSaveReceivePackage  NPack router 不符合URL编码格式要求 ! .
+2019-12-27 12:42:39,389 18649  [read-1] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3557  Exception : com.chat.server.spi.RedisSaveReceivePackage  文件上传失败.
+2019-12-27 12:42:55,671 34931  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 12:42:55,671 34931  [read-2] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:3567 注册成功 .
+2019-12-27 12:42:55,843 35103  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3567  Exception : com.chat.server.spi.RedisSaveReceivePackage  NPack router 不符合URL编码格式要求 ! .
+2019-12-27 12:42:55,875 35135  [read-2] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3567  Exception : com.chat.server.spi.RedisSaveReceivePackage  文件上传失败.
+2019-12-27 12:43:06,766 46026  [read-3] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端注册成功.
+2019-12-27 12:43:06,766 46026  [read-3] INFO  nnelRegisteredChatEventHandler  - [服务器] 客户端IP : /192.168.28.1:3577 注册成功 .
+2019-12-27 12:43:06,937 46197  [read-3] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3577  Exception : com.chat.server.spi.RedisSaveReceivePackage  NPack router 不符合URL编码格式要求 ! .
+2019-12-27 12:43:06,953 46213  [read-3] ERROR server.netty.ChatServerHandler  - [服务器] 发生异常 客户端 IP : /192.168.28.1:3577  Exception : com.chat.server.spi.RedisSaveReceivePackage  文件上传失败.
