@@ -1,31 +1,58 @@
 {"properties": [
   {
+    "sourceType": "com.chat.spring.env.ChatServerProperties",
     "name": "chat.port",
     "type": "java.lang.Integer",
-    "description": 12345
+    "defaultValue": 12345,
+    "description": "chat-port"
   },
   {
-    "name": "swagger.title",
-    "type": "java.lang.String",
-    "defaultValue": "平台系统接口详情",
-    "description": "title 如: 用户模块系统接口详情。"
+    "sourceType": "com.chat.spring.env.ChatServerProperties",
+    "name": "chat.redis.port",
+    "type": "java.lang.Integer",
+    "defaultValue": 6379,
+    "description": "chat-redis-port"
   },
   {
-    "name": "swagger.description",
+    "sourceType": "com.chat.spring.env.ChatServerProperties",
+    "name": "chat.context-name",
     "type": "java.lang.String",
-    "defaultValue": "在线文档",
-    "description": "服务文件介绍。"
+    "defaultValue": "chat-server-name",
+    "description": "chat-context-name"
   },
   {
-    "name": "swagger.termsOfServiceUrl",
-    "type": "java.lang.String",
-    "defaultValue": "https://www.test.com/",
-    "description": "服务条款网址。"
+    "sourceType": "com.chat.spring.env.ChatServerProperties",
+    "name": "chat.version",
+    "type": "java.lang.Short",
+    "defaultValue": "1",
+    "description": "chat-version"
   },
   {
-    "name": "swagger.version",
+    "sourceType": "com.chat.spring.env.ChatServerProperties",
+    "name": "chat.redis.host",
     "type": "java.lang.String",
-    "defaultValue": "V1.0",
-    "description": "版本。"
+    "defaultValue": "localhost",
+    "description": "chat-redis-host"
+  },
+  {
+    "sourceType": "com.chat.spring.env.ChatServerProperties",
+    "name": "chat.redis.max-idle",
+    "type": "java.lang.Integer",
+    "defaultValue": 10,
+    "description": "redis最大空闲数"
+  },
+  {
+    "sourceType": "com.chat.spring.env.ChatServerProperties",
+    "name": "chat.redis.max-total",
+    "type": "java.lang.Integer",
+    "defaultValue": 10,
+    "description": "redis最大连接数"
+  },
+  {
+    "sourceType": "com.chat.spring.env.ChatServerProperties",
+    "name": "chat.redis.min-idle",
+    "type": "java.lang.Integer",
+    "defaultValue": 5,
+    "description": "redis空闲最小连接数"
   }
 ]}

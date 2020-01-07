@@ -10,22 +10,26 @@ import io.netty.handler.timeout.IdleStateHandler;
 
 
 /**
- * ChannelInitializer
+ * ChannelInitializer 初始化器
  */
-public class ChatServerInitializer extends ChannelInitializer<Channel> {
+public final class ChatServerInitializer extends ChannelInitializer<Channel> {
 
     private final ChatServerHandler handler;
 
-    ChatServerInitializer(ChatEventListener listener) {
+    private final short version;
+
+    ChatServerInitializer(ChatEventListener listener, short version) {
         handler = new ChatServerHandler(listener);
+        this.version = version;
     }
 
     @Override
     protected void initChannel(Channel socketChannel) throws Exception {
+
         ChannelPipeline pipeline = socketChannel.pipeline();
 
         // out  编码器
-        pipeline.addLast("encoder", new PackageEncoder());
+        pipeline.addLast("encoder", new PackageEncoder(version));
 
         // 心跳检测
         pipeline.addLast("idleStateHandler", new IdleStateHandler(0, 0, 90));
@@ -34,7 +38,7 @@ public class ChatServerInitializer extends ChannelInitializer<Channel> {
         pipeline.addLast("serverHeartBeatHandler", new ChatServerHeartBeatHandler());
 
         // 解码器
-        pipeline.addLast("decoder", new PackageDecoder());
+        pipeline.addLast("decoder", new PackageDecoder(version));
 
         // 后置处理器
         pipeline.addLast("handler", handler);

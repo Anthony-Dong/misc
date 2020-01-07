@@ -57,7 +57,7 @@ public class PackageDecoderTest {
         ArrayList<Object> list = new ArrayList<>();
 
 
-        PackageDecoder decoder = new PackageDecoder();
+        PackageDecoder decoder = new PackageDecoder((short) 1);
 
 
         decoder.decode(null, buffer, list);

@@ -29,18 +29,29 @@ import java.util.List;
  */
 
 public final class PackageDecoder extends ByteToMessageDecoder {
+
+    /**
+     * 默认值是 {@link com.chat.core.netty.Constants#PROTOCOL_VERSION}
+     */
+    private final short VERSION;
+
+    /**
+     * 构造方法
+     */
+    public PackageDecoder(short version) {
+        super();
+        this.VERSION = version;
+    }
+
     /**
      * {@link ByteToMessageDecoder#channelRead(io.netty.channel.ChannelHandlerContext, java.lang.Object)}
-     * 这里对in进行释放 , 所以不需要我们去做 release操作
-     *
-     * @param ctx ChannelHandlerContext
-     * @param in  in
-     * @param out out
-     * @throws Exception Exception
+     * <p>
+     * 解码器
      */
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
 
+        // 获取当前线程的 MessagePack
         MessagePack pack = MessagePackPool.getPack();
 
         try {
@@ -67,7 +78,7 @@ public final class PackageDecoder extends ByteToMessageDecoder {
             short version = in.readShort();
 
             // 3. 版本号一致 - > 继续执行
-            if (version == Constants.PROTOCOL_VERSION) {
+            if (version == VERSION) {
 
                 // 4. 解码 -> 操作
                 NPack read = null;
@@ -165,10 +176,12 @@ public final class PackageDecoder extends ByteToMessageDecoder {
         ArrayList<Object> list = new ArrayList<>();
 
 
-        PackageDecoder decoder = new PackageDecoder();
+        PackageDecoder decoder = new PackageDecoder(Constants.PROTOCOL_VERSION);
 
 
         decoder.decode(null, buffer, list);
+
+
 
 
         System.out.println("=====已读======");

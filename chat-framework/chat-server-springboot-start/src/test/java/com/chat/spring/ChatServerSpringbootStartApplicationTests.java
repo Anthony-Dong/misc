@@ -1,5 +1,6 @@
 package com.chat.spring;
 
+import com.chat.core.exception.HandlerException;
 import com.chat.core.model.NPack;
 import com.chat.core.spi.SPIUtil;
 import com.chat.server.spi.Filter;
@@ -25,7 +26,12 @@ public class ChatServerSpringbootStartApplicationTests {
 		System.out.println(filter);
 
 		assert filter != null;
-		boolean b = filter.doFilter(NPack.buildWithStringBody("a", "a", "a"));
+		boolean b = false;
+		try {
+			b = filter.doFilter(NPack.buildWithStringBody("a", "a", "a"));
+		} catch (HandlerException e) {
+			e.printStackTrace();
+		}
 
 		System.out.println(b);
 	}

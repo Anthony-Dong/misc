@@ -13,7 +13,7 @@ import io.netty.handler.timeout.IdleStateEvent;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 
-public class ClientHeartBeatHandler extends ChannelDuplexHandler {
+public final class ClientHeartBeatHandler extends ChannelDuplexHandler {
 
     /**
      * 其实么啥用 发送心跳包 , 我感觉没必要做监听

@@ -1,8 +1,6 @@
 package com.chat.core.util;
 
-import com.chat.core.annotation.MayEmpty;
 import com.chat.core.annotation.NotNull;
-import io.netty.util.CharsetUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

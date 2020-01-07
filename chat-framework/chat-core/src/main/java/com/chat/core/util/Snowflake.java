@@ -33,9 +33,6 @@ public class Snowflake {
      */
     private final long maxWorkerId = ~(-1L << workerIdBits);
 
-    public long getMaxWorkerId() {
-        return maxWorkerId;
-    }
 
     /**
      * 生成序列占的位数

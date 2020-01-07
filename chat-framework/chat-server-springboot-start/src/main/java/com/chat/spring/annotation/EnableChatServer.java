@@ -17,5 +17,4 @@ import java.lang.annotation.*;
 public @interface EnableChatServer {
 
 
-
 }

@@ -1,1 +1,1 @@
-com.chat.server.spi.RedisSaveReceivePackage
+com.chat.server.spi.DefaultSaveReceivePackage

@@ -1,6 +1,9 @@
 package com.example;
 
-import java.io.File;
+
+
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
 
 /**
  * TODO
@@ -11,9 +14,13 @@ import java.io.File;
 
 public class demo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        RandomAccessFile upload = new RandomAccessFile("C:\\Users\\12986\\Desktop\\file1.txt", "rw");
+        long length = upload.length();
 
-
+        FileChannel channel = upload.getChannel();
+        channel.position(length);
+        upload.write(new String("大小").getBytes());
 
     }
 

@@ -1,14 +1,16 @@
 package com.chat.test;
 
 import com.chat.client.hander.ChatClientContext;
+import com.chat.client.netty.AsyncChatClient;
 import com.chat.client.netty.ChatClient;
 import com.chat.core.model.Message;
 import com.chat.core.model.NPack;
+import com.chat.core.util.FileUtil;
 import io.netty.channel.ChannelHandlerContext;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+
+import java.util.List;
 
 
 /**
@@ -19,7 +21,8 @@ public class ClientBoot {
 
     public static void main(String[] args) throws Exception {
 
-        final ChatClientContext context = new ChatClientContext("app-1") {
+
+        final ChatClientContext context = new ChatClientContext("app-1", (short) 1) {
             @Override
             protected void onStart() {
                 System.out.println("onStart");
@@ -34,32 +37,11 @@ public class ClientBoot {
             protected void onReading(NPack context) {
                 System.out.println("onReading" + context);
             }
-
         };
 
-
-        new Thread(() -> {
-            try {
-                ChatClient.run(8888, context);
-            } catch (Exception ignored) {
-
-            }
-        }).start();
-
-
-        ChannelHandlerContext channelHandlerContext = context.getContext();
-
-
-        // 测试异常
-        testError(channelHandlerContext);
-
-        testFileUpload(channelHandlerContext);
-
-        testString(channelHandlerContext);
-
-        testJson(channelHandlerContext);
-
-
+        AsyncChatClient run = AsyncChatClient.run(9999, context);
+        context.sendPack(null);
+        run.close();
     }
 
     private static void testJson(ChannelHandlerContext channelHandlerContext) {
@@ -67,16 +49,19 @@ public class ClientBoot {
     }
 
     private static void testString(ChannelHandlerContext channelHandlerContext) {
-        channelHandlerContext.writeAndFlush(NPack.buildWithStringBody("a", "b", "a.txt"));
+        channelHandlerContext.writeAndFlush(NPack.buildWithStringBody("a", "c", "a.txt"));
     }
 
-    private static void testFileUpload(ChannelHandlerContext channelHandlerContext) throws IOException {
-        RandomAccessFile file = new RandomAccessFile(new File("C:\\Users\\12986\\Desktop\\file.txt"), "r");
-        long length = file.length();
-        byte[] bytes = new byte[(int) length];
-        file.read(bytes);
-        channelHandlerContext.writeAndFlush(NPack.buildWithByteBody("a", "b", "file3.txt", bytes));
-        file.close();
+    private static void testFileUpload(ChannelHandlerContext channelHandlerContext) throws Exception {
+
+
+        File file = new File("C:\\Users\\12986\\Desktop\\作业.docx");
+
+
+        List<byte[]> bytes = FileUtil.cuttingFile(file, FileUtil.LEN_10_KB);
+
+
+        bytes.forEach(e -> channelHandlerContext.writeAndFlush(NPack.buildWithByteBody("a", "b", "作业.docx", e)));
     }
 
     private static void testError(ChannelHandlerContext channelHandlerContext) {

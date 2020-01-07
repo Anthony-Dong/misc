@@ -11,13 +11,15 @@ import io.netty.handler.timeout.IdleStateHandler;
 /**
  * 添加 处理器
  */
-public class ChatClientChannelInitializer extends ChannelInitializer<SocketChannel> {
+public final class ChatClientChannelInitializer extends ChannelInitializer<SocketChannel> {
 
-    private ChatEventListener listener;
+    private final ChatEventListener listener;
+    private final short version;
 
 
-    public ChatClientChannelInitializer(ChatEventListener listener) {
+    ChatClientChannelInitializer(short version, ChatEventListener listener) {
         this.listener = listener;
+        this.version = version;
     }
 
 
@@ -26,7 +28,7 @@ public class ChatClientChannelInitializer extends ChannelInitializer<SocketChann
         ChannelPipeline pipeline = socketChannel.pipeline();
 
         // out 编码器 , 最好放在第一个
-        pipeline.addLast("encoder", new PackageEncoder());
+        pipeline.addLast("encoder", new PackageEncoder(version));
 
         // 心跳检测 , 如果60S 我们收不到服务器发来的请求 , 我们就发送一个心跳包
         pipeline.addLast("nettyHeartBeatHandler", new IdleStateHandler(40, 0, 0));
@@ -36,7 +38,7 @@ public class ChatClientChannelInitializer extends ChannelInitializer<SocketChann
 
 
         // in 解码器
-        pipeline.addLast("decoder", new PackageDecoder());
+        pipeline.addLast("decoder", new PackageDecoder(version));
 
         // in
         pipeline.addLast("handler", new ChantClientHandler(listener));

@@ -12,6 +12,7 @@ import com.alibaba.fastjson.TypeReference;
 
 public final class JsonUtil {
 
+
     public static <T> T parseObject(String json, TypeReference<T> type) {
         return JSON.parseObject(json, type);
     }

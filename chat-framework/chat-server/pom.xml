@@ -11,17 +11,10 @@
 
 
     <dependencies>
-
         <dependency>
             <groupId>com.chat</groupId>
             <artifactId>chat-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>3.0.1</version>
         </dependency>
 
         <dependency>
@@ -35,7 +28,6 @@
             <artifactId>slf4j-api</artifactId>
             <version>1.7.21</version>
         </dependency>
-
     </dependencies>
 
     <build>

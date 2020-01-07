@@ -10,11 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 
 /**
  * 适配器 -- > 主要的业务逻辑
  */
-public class ChantClientHandler extends SimpleChannelInboundHandler<NPack> {
+public final class ChantClientHandler extends SimpleChannelInboundHandler<NPack> {
     private static final Logger logger = LoggerFactory.getLogger(ChantClientHandler.class);
 
 

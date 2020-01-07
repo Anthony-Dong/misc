@@ -11,7 +11,7 @@ import com.chat.core.model.NPack;
 
 public final class Constants {
 
-    //协议版本号  , 2个字节 16位 (-32768,32767)
+    //协议默认版本号  , 2个字节 16位 (-32768,32767)
     public static final short PROTOCOL_VERSION = 1;
 
 

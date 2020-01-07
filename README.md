@@ -1,133 +1,189 @@
-# netty-IM
+# Netty-IM
 
-> ​	还没有写完安卓客户端 , 希望写完就不采用 **HTTP长轮询** 方式了 , 直接点对服务器 ,纯TCP方式进行交互
+[![](https://img.shields.io/badge/GitHub-1+-blue.svg?style=social&logo=github)](https://github.com/Anthony-Dong/netty-IM)[![](https://img.shields.io/badge/download-10-brightgreen.svg)](https://github.com/Anthony-Dong/netty-IM)![](https://img.shields.io/badge/language-java-green.svg)![](https://img.shields.io/badge/framework-netty-green.svg)
 
-## [IM的客户端](./chat-framework/chat-client) 
+测试玩玩
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
+
+>  支持SpringBoot快速启动 , 同时支持原生的Java代码开发 ,核心类两个,一个是Server,一个Client
+
+## 快速使用
+
+其业务核心是脱离启动代码的,客户端是可以通过上下文进行通信,服务器可以通过上下文保存客户端信息,还有通过SPI方式进行接口拓展
+
+服务器端代码 : 
+
+```java
+ChatServerContext context = new ChatServerContext("server-1", (short) 1) {
+  // 上下文名称和服务版本号
+};
+// 启动 , 后面线程阻塞
+ChatServer.run(9999, context);
+```
+
+客户端快速启动
+
+```java
+ChatClientContext context = new ChatClientContext("app-1", (short) 1) {
+   // 上下文名称和服务版本号
+};
+// 启动,后面线程阻塞
+ChatClient.run(9999, context);
+```
+
+SpringBoot快速启动服务器
+
+```java
+@SpringBootApplication
+@EnableChatServer
+public class ChatServerApplication implements CommandLineRunner {
+    public static void main(String[] args) {
+        SpringApplication.run(ChatServerApplication.class, args);
+    }
+
+    @Autowired
+    private ChatServerContext context;
+
+    @Autowired
+    private ChatServerProperties properties;
+
+    @Override
+    public void run(String... args) throws Exception {
+        ChatServer.run(properties.getPort(), context);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("关闭服务");
+        }));
+    }
+}
+```
+
+## [ChatClient的客户端](./chat-framework/chat-client) 
+
+> ​	客户端
+
+基本结构图 : 
+
+```java
+├─hander  // 事件处理器
+│      ChatClientContext.java //客户端上下文,可以拿到context对象向server端发送消息
+│      ClientChatHandlerConstant.java
+│      ClientConnectedChatEventHandler.java
+│      ClientReadChatEventHandler.java
+│      ClientShutDownChatEventHandler.java
+│      ClientStartChatEventHandler.java
+│
+├─netty // netty核心包
+│      AsyncChatClient.java
+│      ChantClientHandler.java
+│      ChatClient.java
+│      ChatClientChannelInitializer.java
+│      ClientHeartBeatHandler.java
+│
+└─spi  // 核心接口
+        DefaultHandlerSenderPackage.java
+        HandlerSenderPackage.java
+```
 
 基本已经实现了全部接口的编程
 
-其中用户的拓展点在我的 `@SPI`  接口规范, 用户自己实现需要标明 `@Primary` 注解, 来覆盖我的加载,
+其中用户的拓展点在我的 `@SPI`  接口规范, 用户如果想覆盖默认实现需要标明 `@Primary` 注解, 主要接口就是`com.chat.client.spi.HandlerSenderPackage` 接口,用来处理服务器端发送来的消息的, 
 
-客户端主要的入口函数就是在于
-
-`com.chat.client.netty.ChatClient` 类,启动可以直接使用
+同时他支持客户端同步流程实现,
 
 ```java
- ChatClient.run(8888, ChatClientContext.NULL);
+// 启动
+AsyncChatClient client = AsyncChatClient.run(9999, context);
+
+// 发送信息
+context.sendPack(NPack.build());
+
+// 关闭
+client.close();
 ```
 
-复杂使用
+## Npack 数据包
+
+> 传递数据的载体
+
+普通信息 : 
 
 ```java
-public class ClientBoot {
-
-    public static void main(String[] args) throws Exception {
-
-        final ChatClientContext context = new ChatClientContext("app-1") {
-            @Override
-            protected void onStart() {
-                // 连接成功
-            }
-
-            @Override
-            protected void onFail() {
-                // 连接失败
-            }
-
-            @Override
-            protected void onReading(NPack context) {
-                // 读请求
-            }
-
-        };
-
-        new Thread(() -> {
-            try {
-                // 由于会阻塞当前线程, 所以我们开启新的线程, 看自己需求吧, 可以改我源码
-                ChatClient.run(8888, context);
-            } catch (Exception e) {
-            }
-        }).start();
-        
-        // 唯一写入口
-        ChannelHandlerContext channelHandlerContext = context.getContext();
-
-        // 测试异常
-        testError(channelHandlerContext);
-
-        // 测试文件上传
-        testFileUpload(channelHandlerContext);
-
-        // 测试字符串
-        testString(channelHandlerContext);
-
-        // 测试JSON使用
-        testJson(channelHandlerContext);
-    }
-}
-
+NPack.buildWithStringBody("sender", "receive", "message")
 ```
 
-
-
-## [IM的服务器端](./chat-framework/chat-server) 
-
-跟客户端是一样的,  也是SPI 拓展口, 其中暴露的接口也给用户了
-
-其中用户的拓展点在我的 `@SPI`  接口规范, 用户自己实现需要标明 `@Primary` 注解, 来覆盖我的加载,
+Json信息
 
 ```java
-public class ServerBoot {
+NPack.buildWithJsonBody("sender", "receive",new Object())
+```
 
-    public static void main(String[] args) {
-        ChatServerContext context = new ChatServerContext() {
-            @Override
-            public void onStart() {
-                // 服务器启动
-            }
+传输文档
 
-            @Override
-            public void onFail() {
-               // 服务器关闭
-            }
+```java
+NPack.buildWithByteBody("sender", "receive", "作业.docx", new File("..."))
+```
 
-            @Override
-            public void onRemove(ChannelHandlerContext context) {
-                // 客户端移除
-            }
+## [ChatServer的服务器端](./chat-framework/chat-server) 
 
-            @Override
-            public void onRegister(ChannelHandlerContext context) {
-                // 客户端连接
-            }
-        };
+跟客户端是一样的, 也是SPI 拓展口, 其中是为了帮助用户进行对外拓展的,
 
-        try {
-            ChatServer.run(8888, context);
-        } catch (Exception e) {
-            //
-        }
-    }
-}
+其中用户的拓展点在我的 `@SPI`  接口规范, 用户自己实现需要标明 `@Primary` 注解, 来覆盖默认加载,
+
+主要拓展接口 `com.chat.server.spi.Filter` 和 `com.chat.server.spi.SaveReceivePackage` 和这两个接口.
+
+核心类 : 
+
+```java
+├─handler
+│      ChatServerContext.java
+│      ServerChannelRegisteredChatEventHandler.java
+│      ServerChatHandlerConstant.java
+│      ServerHandlerRemovedChatEventHandler.java
+│      ServerReadChatEventHandler.java
+│      ServerShutdownChatEventHandler.java
+│      ServerStartChatEventHandler.java
+├─netty
+│      ChatServer.java
+│      ChatServerHandler.java
+│      ChatServerHeartBeatHandler.java
+│      ChatServerInitializer.java
+└─spi
+        DefaultFilter.java
+        DefaultSaveReceivePackage.java
+        Filter.java
+        HandlerReceivePackage.java
+        SaveReceivePackage.java
 ```
 
 
 
-主要拓展接口 `com.chat.server.spi.Filter` 和 `com.chat.server.spi.SaveReceivePackage`
+## ChatHttpServer服务器
 
+Http服务器
 
+## ChatServerSpringBootStart
 
-## IM的HTTP端
-
-
+基于springboot自动化装配实现的 , 很好的解耦,有兴趣可以看卡, 希望可以加深你对于springboot自动装配的理解
 
 ## [IM的核心包](./chat-framework/chat-core) 
 
-就是 一些netty的自定义编解码器 ,和一些监听器 , 以及一些工具包之类的 , client 和 server 依赖于这个
+核心包,包含Netty中自定义编解码器之类的.有兴趣的可以看看.解决拆包粘包问题,
+
+对于序列化采用的MessagePack框架,以最小的体积进行传输
 
 同时采用了 fastjson 和 messagepack 工具包
 
 
 ## [IM的配置中心](./chat-framework/chat-conf) 
 
-还没有写, 等我改改 , 原来写的不好
+为了减少数据的依赖程度,前期选择的Zookeeper,后来考虑减少依赖因此选择了Redis. 对数据进行负载均衡操作.
+
+[Build status]: 
+
+[Build status]: 

@@ -19,6 +19,16 @@ import io.netty.handler.codec.MessageToByteEncoder;
  */
 public final class PackageEncoder extends MessageToByteEncoder<NPack> {
 
+    /**
+     * 自定义协议头
+     */
+    private final short version;
+
+    public PackageEncoder(short version) {
+        super();
+        this.version = version;
+    }
+
     @Override
     protected void encode(ChannelHandlerContext ctx, NPack msg, ByteBuf out)
             throws Exception {
@@ -35,7 +45,7 @@ public final class PackageEncoder extends MessageToByteEncoder<NPack> {
             int length = body.length;
 
             // 3. 写入一个协议头 , 2个字节 16位 (-32768,32767)
-            out.writeShort(Constants.PROTOCOL_VERSION);
+            out.writeShort(version);
 
 
             // 4. 写入一个数据包长度 , 做校验  , 4个字节 32位 (-2147483648 , 2147483647 )

@@ -26,7 +26,7 @@ import java.util.Map;
  * @date:2019/11/10 11:35
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-public class ChatClient extends ServerNode {
+public final class ChatClient extends ServerNode {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatClient.class);
 
@@ -39,13 +39,16 @@ public class ChatClient extends ServerNode {
     // 添加启动监听器
     private final ChatEventListener listener;
 
+    // 版本号
+    private final short version;
 
     /**
      * @param workerGroup workerGroup   线程组
      * @param address     address   服务器地址
      * @param listener    listener  事件监听器
      */
-    public ChatClient(NioEventLoopGroup workerGroup, InetSocketAddress address, ChatEventListener listener) {
+    public ChatClient(NioEventLoopGroup workerGroup, short version, InetSocketAddress address, ChatEventListener listener) {
+        this.version = version;
         this.workerGroup = workerGroup;
         this.address = address;
         this.listener = listener;
@@ -62,17 +65,17 @@ public class ChatClient extends ServerNode {
 
         logger.info("[客户端] 开始启动 Host : {}  Port : {} .", this.address.getHostName(), this.address.getPort());
 
-        final Bootstrap bootstrap = new Bootstrap();
-
-        // 设置属性
-        bootstrap.group(workerGroup)
-                .channel(NioSocketChannel.class)
-                .handler(new ChatClientChannelInitializer(listener));
-
         try {
+            final Bootstrap bootstrap = new Bootstrap();
+            final ChatClientChannelInitializer initializer = new ChatClientChannelInitializer(version, listener);
 
-            final ChannelFuture channelFuture = bootstrap.connect(address).sync();
+            // 设置属性
+            bootstrap.group(workerGroup)
+                    .channel(NioSocketChannel.class)
+                    .handler(initializer);
 
+
+            final ChannelFuture sync = bootstrap.connect(address).sync();
             // 发送事件
             listener.onChatEvent(new ChatEvent() {
                 @Override
@@ -85,23 +88,8 @@ public class ChatClient extends ServerNode {
                     return address;
                 }
             });
-
-
-            // 阻塞执行线程
-            channelFuture.channel().closeFuture().sync();
+            sync.channel().closeFuture().sync();
         } finally {
-            // 关闭
-            listener.onChatEvent(new ChatEvent() {
-                @Override
-                public ChatEventType eventType() {
-                    return ChatEventType.CLIENT_SHUTDOWN;
-                }
-
-                @Override
-                public Object event() {
-                    return address;
-                }
-            });
             shutDown();
         }
     }
@@ -110,7 +98,18 @@ public class ChatClient extends ServerNode {
      * 当出现异常可以直接关闭
      */
     @Override
-    protected void shutDown() {
+    protected void shutDown() throws Exception {
+        listener.onChatEvent(new ChatEvent() {
+            @Override
+            public ChatEventType eventType() {
+                return ChatEventType.CLIENT_SHUTDOWN;
+            }
+
+            @Override
+            public Object event() {
+                return address;
+            }
+        });
         if (workerGroup != null) {
             workerGroup.shutdownGracefully();
         }
@@ -129,7 +128,7 @@ public class ChatClient extends ServerNode {
         ClientChatHandlerConstant constant = new ClientChatHandlerConstant(context);
         Map<ChatEventType, ChatEventHandler> handlerMap = constant.getHandlerMap();
 
-        ChatClient client = new ChatClient(new NioEventLoopGroup(workerThread, new NamedThreadFactory("chat-client")), address, event -> {
+        ChatClient client = new ChatClient(new NioEventLoopGroup(workerThread, new NamedThreadFactory("chat-client")), context.getVersion(), address, event -> {
             ChatEventHandler handler = handlerMap.get(event.eventType());
             handler.handler(event);
         });
@@ -144,5 +143,4 @@ public class ChatClient extends ServerNode {
     public static void run(int port, @NotNull ChatClientContext context) throws Exception {
         run(new InetSocketAddress(port), context);
     }
-
 }

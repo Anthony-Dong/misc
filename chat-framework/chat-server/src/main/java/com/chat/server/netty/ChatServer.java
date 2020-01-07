@@ -47,13 +47,16 @@ public class ChatServer extends ServerNode {
      */
     private ChatEventListener listener;
 
+    private short version;
+
     /**
      * 构造方法 , 初始化一堆参数
      *
      * @param address
      * @param listener
      */
-    public ChatServer(InetSocketAddress address, ChatEventListener listener) {
+    public ChatServer(short version, InetSocketAddress address, ChatEventListener listener) {
+        this.version = version;
         this.address = address;
         this.listener = listener;
         this.bossGroup = new NioEventLoopGroup(1);
@@ -68,16 +71,17 @@ public class ChatServer extends ServerNode {
     @Override
     protected void start() throws Exception {
         logger.info("[服务器] 开始启动 Host : {}  Port : {}.", address.getHostName(), address.getPort());
-        ServerBootstrap serverBootstrap = new ServerBootstrap();
+        final ServerBootstrap serverBootstrap = new ServerBootstrap();
+        final ChatServerInitializer initializer = new ChatServerInitializer(listener, version);
         serverBootstrap
                 .group(bossGroup, workerGroup) // 添加组
                 .channel(NioServerSocketChannel.class)  // 添加管道
                 .option(ChannelOption.SO_BACKLOG, 1024)  // 设置TCP连接数队列
-                .childHandler(new ChatServerInitializer(listener))//设置初始化项目
+                .childHandler(initializer)//设置初始化项目
                 .childOption(ChannelOption.TCP_NODELAY, true);
 
         try {
-            ChannelFuture channelFuture = serverBootstrap.bind(address).sync();
+            final ChannelFuture channelFuture = serverBootstrap.bind(address).sync();
             /**
              * {@link ServerStartChatEventHandler}  处理器
              */
@@ -140,11 +144,14 @@ public class ChatServer extends ServerNode {
      */
     public static void run(InetSocketAddress address, ChatServerContext context) throws Exception {
         final ServerChatHandlerConstant constant = new ServerChatHandlerConstant(context);
+
         final Map<ChatEventType, ChatEventHandler> handlerMap = constant.SERVER_MAP;
-        final ChatServer server = new ChatServer(address, event -> {
+
+        final ChatServer server = new ChatServer(context.getVersion(), address, event -> {
             ChatEventHandler handler = handlerMap.get(event.eventType());
             handler.handler(event);
         });
+
         server.start();
     }
 

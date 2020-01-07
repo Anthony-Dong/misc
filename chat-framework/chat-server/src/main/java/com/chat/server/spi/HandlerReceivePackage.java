@@ -14,7 +14,6 @@ import com.chat.server.handler.ServerReadChatEventHandler;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public final class HandlerReceivePackage {
-
     /**
      * 过滤器
      */
