@@ -22,7 +22,6 @@ public class HttpProcessHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     /**
      * 或者实现 @ChannelHandler.Sharable
-     *
      */
     @Override
     public boolean isSharable() {

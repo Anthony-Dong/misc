@@ -11,6 +11,8 @@ import com.chat.server.spi.HandlerReceivePackage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.ThreadFactory;
+
 /**
  * {@link ChatServerHandler#channelRead0(io.netty.channel.ChannelHandlerContext, com.chat.core.model.NPack)} 使用
  * <p>
@@ -25,8 +27,8 @@ public class ServerReadChatEventHandler implements ChatEventHandler {
 
     private final HandlerReceivePackage handler;
 
-    ServerReadChatEventHandler() {
-        this.handler = new HandlerReceivePackage();
+    ServerReadChatEventHandler(ChatServerContext context) {
+        this.handler = new HandlerReceivePackage(context);
     }
 
     @Override

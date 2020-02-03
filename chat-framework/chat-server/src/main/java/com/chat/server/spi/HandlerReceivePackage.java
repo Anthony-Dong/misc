@@ -3,7 +3,9 @@ package com.chat.server.spi;
 import com.chat.core.exception.HandlerException;
 import com.chat.core.model.NPack;
 import com.chat.core.spi.SPIUtil;
+import com.chat.server.handler.ChatServerContext;
 import com.chat.server.handler.ServerReadChatEventHandler;
+import io.netty.channel.ChannelHandlerContext;
 
 
 /**
@@ -14,6 +16,7 @@ import com.chat.server.handler.ServerReadChatEventHandler;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public final class HandlerReceivePackage {
+
     /**
      * 过滤器
      */
@@ -24,15 +27,17 @@ public final class HandlerReceivePackage {
      */
     private final SaveReceivePackage saver;
 
+    private final ChatServerContext context;
+
     /**
      * 构造方法 , SPI 加载
      */
-    public HandlerReceivePackage() {
+    public HandlerReceivePackage(ChatServerContext context) {
+        this.context = context;
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         this.filter = SPIUtil.loadClass(Filter.class, classLoader);
         this.saver = SPIUtil.loadClass(SaveReceivePackage.class, classLoader);
     }
-
 
     /**
      * 处理器  : 过滤器 和 执行器
@@ -41,9 +46,14 @@ public final class HandlerReceivePackage {
      * @throws HandlerException 可能处理异常, 抛出
      */
     public void handlerNPack(NPack pack) throws HandlerException {
-        if (this.filter.doFilter(pack)) {
-            return;
+        try {
+            if (this.filter.doFilter(pack)) {
+                return;
+            }
+            ChannelHandlerContext context = this.context.getContext(pack.getAddress());
+            saver.doSave(pack, context);
+        } finally {
+            pack.release();
         }
-        saver.doSave(pack);
     }
 }

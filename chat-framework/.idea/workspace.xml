@@ -3,131 +3,177 @@
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/../../alibaba-package/alibaba-sentinel/dubbo-sentinel/dubbo-provider/src/main/resources/dubbo/provider-config.properties" description="## application&#10;dubbo.application.name=dubbo-provid..." line="0" />
     <bookmark url="file://$PROJECT_DIR$/../../netty学习/netty-day01-maven/src/main/java/com/tyut/encoder_decoder/Util.java" description="&#10;public class Util {&#10;&#10;    public static String byt..." line="12" />
-    <bookmark url="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot.java" description="        AsyncChatClient&#10;&#10;                " line="41" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc7ccd3a-b766-4ff6-907b-eedf51f8ddd1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_zaxxer_HikariCP_2_7_9.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_lettuce_lettuce_core_5_0_4_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_buffer_4_1_27_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_codec_4_1_27_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_common_4_1_27_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_handler_4_1_27_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_resolver_4_1_27_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_4_1_27_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_3_1_8_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_transaction_javax_transaction_api_1_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_46.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_13.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_2_17_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_2_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_22_0_GA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_0_3_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_aop_2_0_4_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_jpa_2_0_4_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_data_redis_2_0_4_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_jdbc_2_0_4_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_2_0_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_2_0_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_keyvalue_2_0_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_redis_2_0_9_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_5_0_8_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_5_0_8_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_5_0_8_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_5_0_8_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_oxm_5_0_8_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_5_0_8_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/AsyncChatClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-client/src/test/java/com/example/Demo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/HttpResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/FileUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-core/src/test/java/com/chat/core/util/FileUtilTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-core/src/test/java/com/chat/core/util/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/ChatConfigBeanPostProcess.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisChatServerContext.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/mapper/MessageRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/mapper/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/MessageDo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/UserDo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/dto/MessageDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/ChatService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/uitl/MessageUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/ChatController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/resources/META-INF/services/com.chat.server.spi.SaveReceivePackage" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultSaveReceivePackage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_3_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_3_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_failureaccess_1_0_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_28_0_jre.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_listenablefuture_9999_0_empty_to_avoid_conflict_with_guava.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_2_8_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_mojo_animal_sniffer_annotations_1_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-client/src/test/java/com/example/NettyClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-client/src/test/java/com/example/NettyServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/exception/RegisterException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/loadbalance/LoadBalance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/URL.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/netty/DiscardChannelHandlerContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/register/RegisterFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/register/Registry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/EncodeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/ThreadPool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-core/src/test/java/com/chat/core/loadbalance/LoadBalanceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-core/src/test/java/com/chat/core/model/NPackTest2.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/test/Demo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-server/src/test/java/com/netty/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-server/src/test/java/com/netty/Demo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-server/src/test/java/com/netty/DemoServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chat-server/src/test/java/com/netty/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LICENSE.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_4_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_5_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_9_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_3_0_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-client/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/annotation/ChatClientConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/annotation/ChatClientConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/boot/ClientApp.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/listener/ListenerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/listener/SaveChatEntityEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/listener/SaveChatEntityListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/model/ChatClientProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/util/IpUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/web/controller/ChatClientController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/web/controller/ClientLoginController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/web/service/ChatService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/hander/ChatClientContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/hander/ChatClientContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/model/ChatTemplate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/model/ClientConstant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/model/SendResult.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChantClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChantClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChatClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/hander/ClientStartChatEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/hander/ClientStartChatEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/AsyncChatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/AsyncChatClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/SyncChatClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChatClientChannelInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChatClientChannelInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ClientHeartBeatHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ClientHeartBeatHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/util/RedisPool.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/spi/DefaultHandlerSenderPackage.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/spi/DefaultHandlerSenderPackage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-client/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/resources/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/handler/ChatEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/handler/ChatEventHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/netty/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/netty/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/netty/PackageDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/netty/PackageDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/netty/PackageEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/netty/PackageEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/JsonUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/JsonUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/Snowflake.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/Snowflake.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/URLUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/URLUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/src/test/java/com/chat/core/netty/PackageDecoderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/test/java/com/chat/core/netty/PackageDecoderTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/exception/ContextException.class" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/exception/ContextException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/exception/ExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/exception/ExceptionHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/exception/HandlerNullPointerException.class" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/exception/HandlerNullPointerException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/netty/PackageDecoder.class" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/netty/PackageDecoder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/netty/PackageEncoder.class" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/netty/PackageEncoder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/JsonUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/JsonUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/Snowflake.class" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/Snowflake.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/URLUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/URLUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/netty/PackageDecoderTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/netty/PackageDecoderTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot2.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ASyncClientBoot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/ConfApp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/model/ConfConstant.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/spring/ChatConfigScheduleListener$1$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/spring/ChatConfigScheduleListener$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/spring/ChatConfigScheduleListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/spring/ChatConfigurationProperties$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/spring/ChatConfigurationProperties$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/spring/ChatConfigurationProperties.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/util/SerializationUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/web/ConfController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/web/ConfController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/classes/com/chat/conf/web/HandlerException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/test-classes/com/chat/conf/JedisTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/test-classes/com/chat/conf/TestForSafety.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/test-classes/com/chat/conf/TestPriorityQueue$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/test-classes/com/chat/conf/TestPriorityQueue.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/test-classes/com/chat/conf/TestThread$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-conf/target/test-classes/com/chat/conf/TestThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/HttpResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/HttpResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/NPack.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/NPack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/FileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/FileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/Pair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/ServerNode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/annotation/MayEmpty.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/annotation/NotNull.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/annotation/Primary.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/annotation/SPI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/exception/ContextException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/exception/ExceptionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/exception/HandlerException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/exception/HandlerNullPointerException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/exception/JedisException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/handler/ChatEventHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/listener/ChatEvent$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/listener/ChatEvent$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/listener/ChatEvent$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/listener/ChatEvent$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/listener/ChatEvent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/listener/ChatEventListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/listener/ChatEventType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/model/ChatEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/model/HttpResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/model/Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/model/NPack.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/model/NServerInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/model/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/netty/Constants.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/netty/PackageDecoder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/netty/PackageEncoder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/netty/PackageSplitter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/spi/SPIUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/Assert.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/FileUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/HttpUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/JsonUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/MessagePackPool.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/NamedThreadFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/Pair.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/RouterUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/Snowflake.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/com/chat/core/util/URLUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/classes/log4j.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/META-INF/services/com.chat.core.spi.TestChild" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/META-INF/services/com.chat.core.spi.TestFather" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/model/NPackTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/netty/PackageDecoderTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/spi/ITestChild.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/spi/ITestFather.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/spi/SPIUtilTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/spi/TestChild.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/spi/TestFather.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/util/ExceptionHandlerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/util/FileUtilTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/util/MessagePackPoolTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/util/RouterUtilTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-core/target/test-classes/com/chat/core/util/Test.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-http-server.log" beforeDir="false" afterPath="$PROJECT_DIR$/chat-http-server.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-http-server/src/main/java/com/http/netty/HttpProcessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-http-server/src/main/java/com/http/netty/HttpProcessHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-http-server/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/chat-http-server/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-http-server/target/classes/com/http/netty/HttpProcessHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-http-server/target/classes/com/http/netty/HttpServer$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-http-server/target/classes/com/http/netty/HttpServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-http-server/target/classes/com/http/netty/Server.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-http-server/target/classes/com/http/test/HttpApp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-http-server/target/classes/log4j.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-lient.log" beforeDir="false" afterPath="$PROJECT_DIR$/chat-lient.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/ChatServerApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/ChatServerApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/annotation/ChatServerConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/annotation/ChatServerConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/annotation/EnableChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/annotation/EnableChatServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/env/NettyServerProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/env/ChatServerProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/ChatConfigBeanPostProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/ChatConfigBeanPostProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisChatServerContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisChatServerContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisSaveReceivePackage.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisSaveReceivePackage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/mapper/MessageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/mapper/MessageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/mapper/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/mapper/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/MessageDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/MessageDo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/UserDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/UserDo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/ChatService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server-springboot-start/src/test/java/com/chat/spring/ChatServerSpringbootStartApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/test/java/com/chat/spring/ChatServerSpringbootStartApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server.log" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/context/DefaultChatServerContext.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/context/HandlerOtherOperation.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ChatServerContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ChatServerContext.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerChannelRegisteredChatEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerChannelRegisteredChatEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerChatHandlerConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerChatHandlerConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerHandlerRemovedChatEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerHandlerRemovedChatEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerReadChatEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerReadChatEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerShutdownChatEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerShutdownChatEventHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerStartChatEventHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerStartChatEventHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServerHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServerInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServerInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultSaveReceivePackage.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultSaveReceivePackage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/Filter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/HandlerReceivePackage.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/HandlerReceivePackage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/RedisSaveReceivePackage.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisSaveReceivePackage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/util/RedisPool.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/SaveReceivePackage.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/SaveReceivePackage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/test/ServerBoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/java/com/chat/test/ServerBoot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/main/resources/META-INF/services/com.chat.server.spi.SaveReceivePackage" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/resources/META-INF/services/com.chat.server.spi.SaveReceivePackage" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/main/resources/META-INF/spring-configuration-metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/resources/META-INF/spring-configuration-metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/main/resources/chat-server.properties" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/resources/chat-server.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/main/resources/chat-server.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-server/src/main/resources/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/main/resources/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/test/java/com/chat/server/util/ConsumerTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/test/java/com/chat/server/util/MessageHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/test/java/com/chat/server/util/RedisPoolTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-server/src/test/java/com/example/demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/test/java/com/example/demo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/upload/file3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-server/src/test/java/com/chat/server/TestSPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/chat-server/src/test/java/com/chat/server/TestSPI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/chat-client/target/" />
     <ignored path="$PROJECT_DIR$/chat-conf/target/" />
@@ -170,28 +216,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServerHandler.java">
+        <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ASyncClientBoot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="71" column="13" lean-forward="true" selection-start-line="71" selection-start-column="13" selection-end-line="71" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/test/ServerBoot.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot2.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="48" selection-start-line="48" selection-end-line="48" />
+            <state relative-caret-position="170">
+              <caret line="28" column="15" selection-start-line="28" selection-start-column="15" selection-end-line="28" selection-end-column="15" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -200,28 +228,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/NPack.java">
+        <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/AsyncChatClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="104" column="54" selection-start-line="104" selection-start-column="54" selection-end-line="104" selection-end-column="54" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
-              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/Message.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="16" column="18" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="18" />
+            <state relative-caret-position="160">
+              <caret line="33" column="23" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -229,35 +239,81 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/hander/ChatClientContext.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="90" column="11" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="11" />
+            <state relative-caret-position="168">
+              <caret line="84" column="27" selection-start-line="84" selection-start-column="27" selection-end-line="84" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#947#948#0" expanded="true" />
+                <element signature="e#986#987#0" expanded="true" />
+                <element signature="e#1608#1609#0" expanded="true" />
+                <element signature="e#1645#1646#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.36.Final/netty-all-4.1.36.Final-sources.jar!/io/netty/util/concurrent/GenericFutureListener.java">
+        <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/spi/DefaultHandlerSenderPackage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="23" column="70" lean-forward="true" selection-start-line="23" selection-start-column="68" selection-end-line="23" selection-end-column="81" />
+            <state relative-caret-position="228">
+              <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/util/EventListener.java">
+        <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/spi/HandlerSenderPackage.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="152">
-              <caret line="31" column="17" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+              <caret line="9" column="2" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/netty/Constants.java">
+        <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/annotation/SPI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+            <state relative-caret-position="247">
+              <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/annotation/Primary.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="257">
+              <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/SyncChatClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="56" selection-start-line="56" selection-end-line="56" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/ServerNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="95">
+              <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -287,6 +343,13 @@
       <find>doException</find>
       <find>发送失败</find>
       <find>org.springframework.boot.autoconfigure.data.redis.RedisProperties</find>
+      <find>2392</find>
+      <find>3265</find>
+      <find>6470</find>
+      <find>7080</find>
+      <find>7077</find>
+      <find>7155</find>
+      <find>7280</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -295,57 +358,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/core/TestBean.java" />
-        <option value="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/TestBean.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/java/lang/Object.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/core/TestBeane.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/resources/META-INF/service/com.chat.core.TestBean" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/env/NettyServerProperties.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/annotation/EnableChatServer.java" />
-        <option value="$PROJECT_DIR$/chat-server/src/main/resources/META-INF/spring-configuration-metadata.json" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/Bean.java" />
-        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/HandlerReceivePackage.java" />
-        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/RedisSaveReceivePackage.java" />
-        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/util/RedisPool.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/resources/META-INF/service/com.chat.server.spi.SaveReceivePackage" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/test/java/com/chat/spring/RedisPoolTest.java" />
-        <option value="$PROJECT_DIR$/chat-server/pom.xml" />
-        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ChatServerContext.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/TestController.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/RedisController.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/annotation/ChatServerConfiguration.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/env/ChatServerProperties.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/ChatConfigBeanPostProcess.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisChatServerContext.java" />
-        <option value="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/JsonUtil.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/UserDo.java" />
-        <option value="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/Snowflake.java" />
+        <option value="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/EncodeUtil.java" />
+        <option value="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/loadbalance/LoadBalance.java" />
+        <option value="$PROJECT_DIR$/chat-core/src/test/java/com/chat/core/loadbalance/LoadBalanceTest.java" />
         <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/mapper/UserRepository.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/mapper/MessageRepository.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/dto/MessageDto.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/UserController.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisSaveReceivePackage.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/uitl/MessageUtil.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/pom.xml" />
-        <option value="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/HttpResponse.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/ChatController.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/ChatService.java" />
         <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/ChatServerApplication.java" />
-        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/MessageDo.java" />
-        <option value="$PROJECT_DIR$/chat-server/src/main/resources/META-INF/services/com.chat.server.spi.SaveReceivePackage" />
-        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultSaveReceivePackage.java" />
-        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/NoBlockingChatClient.java" />
-        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChatClient.java" />
-        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChantClientHandler.java" />
-        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ClientHeartBeatHandler.java" />
-        <option value="$PROJECT_DIR$/chat-client/pom.xml" />
-        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/AsyncChatClient.java" />
+        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/UserService.java" />
+        <option value="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/HttpResponse.java" />
+        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/UserDo.java" />
+        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/UserController.java" />
+        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/test/java/com/chat/spring/ChatServerSpringbootStartApplicationTests.java" />
+        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/annotation/ChatServerConfiguration.java" />
+        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/ChatService.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/test/java/com/netty/Demo.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/test/java/com/netty/Client.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/resources/log4j.properties" />
+        <option value="$PROJECT_DIR$/chat-server/pom.xml" />
+        <option value="$PROJECT_DIR$/chat-server/src/test/java/com/netty/Server.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/test/java/com/netty/DemoServer.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ThreadPool.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServerInitializer.java" />
+        <option value="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/util/ThreadPool.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultFilter.java" />
+        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/spi/DefaultHandlerSenderPackage.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/Filter.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerChatHandlerConstant.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerReadChatEventHandler.java" />
         <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServerHandler.java" />
-        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/hander/ChatClientContext.java" />
-        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/test/ServerBoot.java" />
-        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot2.java" />
+        <option value="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/NPack.java" />
+        <option value="$PROJECT_DIR$/chat-core/src/test/java/com/chat/core/model/NPackTest2.java" />
+        <option value="$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/netty/DiscardChannelHandlerContext.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/HandlerReceivePackage.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/test/java/com/chat/server/TestSPI.java" />
+        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChatClient.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultSaveReceivePackage.java" />
+        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChatClientChannelInitializer.java" />
+        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/hander/ClientStartChatEventHandler.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerStartChatEventHandler.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerShutdownChatEventHandler.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServer.java" />
         <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ChatServerContext.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/test/ServerBoot.java" />
+        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/AsyncChatClient.java" />
+        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ASyncClientBoot.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerChannelRegisteredChatEventHandler.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerHandlerRemovedChatEventHandler.java" />
+        <option value="$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/SaveReceivePackage.java" />
+        <option value="$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisSaveReceivePackage.java" />
+        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/hander/ChatClientContext.java" />
+        <option value="$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/SyncChatClient.java" />
       </list>
     </option>
   </component>
@@ -363,7 +426,17 @@
   </component>
   <component name="MavenProjectNavigator">
     <treeState>
-      <expand />
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="chat-server-springboot-start" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="chat-server-springboot-start" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+      </expand>
       <select />
     </treeState>
   </component>
@@ -371,10 +444,10 @@
     <option name="jreName" value="1.8.0_221" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-50" />
-    <option name="y" value="20" />
-    <option name="width" value="1940" />
-    <option name="height" value="1060" />
+    <option name="x" value="-140" />
+    <option name="y" value="120" />
+    <option name="width" value="1555" />
+    <option name="height" value="840" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -498,42 +571,25 @@
             <path>
               <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
               <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
               <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-client" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="META-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-client-springboot-start" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-client-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-core" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
               <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-client-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-core" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
               <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-client-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-core" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -541,7 +597,7 @@
             <path>
               <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
               <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-client-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-core" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -550,7 +606,7 @@
             <path>
               <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
               <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-client-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-core" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -560,125 +616,25 @@
             <path>
               <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
               <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-client-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-core" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="chat" type="462c0819:PsiDirectoryNode" />
-              <item name="spring" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
               <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-client-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-core" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="chat" type="462c0819:PsiDirectoryNode" />
-              <item name="spring" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-client-springboot-start" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chat" type="462c0819:PsiDirectoryNode" />
-              <item name="spring" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chat" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chat" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chat" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="netty" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="chat" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
-              <item name="chat-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="annotation" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
@@ -762,7 +718,102 @@
             </path>
             <path>
               <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-server-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="chat" type="462c0819:PsiDirectoryNode" />
+              <item name="spring" type="462c0819:PsiDirectoryNode" />
+              <item name="env" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-server-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="chat" type="462c0819:PsiDirectoryNode" />
+              <item name="spring" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-server-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="chat" type="462c0819:PsiDirectoryNode" />
+              <item name="spring" type="462c0819:PsiDirectoryNode" />
+              <item name="pojo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-server-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="chat" type="462c0819:PsiDirectoryNode" />
+              <item name="spring" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="chat-framework" type="462c0819:PsiDirectoryNode" />
+              <item name="chat-server-springboot-start" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="chat" type="462c0819:PsiDirectoryNode" />
+              <item name="spring" type="462c0819:PsiDirectoryNode" />
+              <item name="uitl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: io.netty:netty-all:4.1.36.Final" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: io.netty:netty-all:4.1.36.Final" type="70bed36:NamedLibraryElementNode" />
+              <item name="netty-all-4.1.36.Final.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: io.netty:netty-all:4.1.36.Final" type="70bed36:NamedLibraryElementNode" />
+              <item name="netty-all-4.1.36.Final.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="io" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: io.netty:netty-all:4.1.36.Final" type="70bed36:NamedLibraryElementNode" />
+              <item name="netty-all-4.1.36.Final.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="io" type="462c0819:PsiDirectoryNode" />
+              <item name="netty" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="chat-framework" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: io.netty:netty-all:4.1.36.Final" type="70bed36:NamedLibraryElementNode" />
+              <item name="netty-all-4.1.36.Final.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="io" type="462c0819:PsiDirectoryNode" />
+              <item name="netty" type="462c0819:PsiDirectoryNode" />
+              <item name="channel" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -792,15 +843,15 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Lombok plugin" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.chat.core.model" />
+      <recent name="com.chat.core.loadbalance" />
       <recent name="com.chat.core.util" />
       <recent name="com.chat.core.netty" />
       <recent name="com.chat.core.spi" />
-      <recent name="com.chat.core.model" />
-      <recent name="com.chat.server.util" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -817,11 +868,11 @@
       <recent name="D:\代码库\分布式聊天框架\chat-framework\chat-http-server\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.chat.core.util" />
       <recent name="com.chat.test" />
       <recent name="com.chat.client.netty" />
       <recent name="com.chat.spring.config" />
       <recent name="com.http.netty" />
-      <recent name="com.chat.core.util" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\代码库\分布式聊天框架\chat-framework\chat-server-springboot-start\src\main\resources\META-INF\service" />
@@ -840,13 +891,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ClientBoot">
-    <configuration name="ChatService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.chat.spring.service.ChatService" />
-      <module name="chat-server-springboot-start" />
+  <component name="RunManager" selected="Application.ASyncClientBoot">
+    <configuration name="ASyncClientBoot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.chat.test.ASyncClientBoot" />
+      <module name="chat-client" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.chat.spring.service.*" />
+          <option name="PATTERN" value="com.chat.test.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -854,7 +905,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClientBoot" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+    <configuration name="ClientBoot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.chat.test.ClientBoot" />
       <module name="chat-client" />
       <extension name="coverage">
@@ -867,10 +918,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DemoServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.netty.DemoServer" />
+      <module name="chat-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.netty.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ServerBoot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.chat.test.ServerBoot" />
       <module name="chat-server" />
-      <option name="VM_PARAMETERS" value="-Dlog.dir=D:\test" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.chat.test.*" />
@@ -881,46 +944,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TestBeane" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.chat.core.TestBeane" />
-      <module name="chat-server-springboot-start" />
+    <configuration name="NPackTest2.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="chat-core" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.chat.core.*" />
+          <option name="PATTERN" value="com.chat.core.model.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ChatServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="chat-server-springboot-start" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.chat.spring.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.chat.spring.ChatServerApplication" />
+      <option name="PACKAGE_NAME" value="com.chat.core.model" />
+      <option name="MAIN_CLASS_NAME" value="com.chat.core.model.NPackTest2" />
+      <option name="METHOD_NAME" value="test" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.DemoServer" />
       <item itemvalue="Application.ServerBoot" />
+      <item itemvalue="Application.ASyncClientBoot" />
+      <item itemvalue="JUnit.NPackTest2.test" />
       <item itemvalue="Application.ClientBoot" />
-      <item itemvalue="Application.TestBeane" />
-      <item itemvalue="Spring Boot.ChatServerApplication" />
-      <item itemvalue="Application.ChatService" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ClientBoot" />
+        <item itemvalue="Application.ASyncClientBoot" />
         <item itemvalue="Application.ServerBoot" />
-        <item itemvalue="Spring Boot.ChatServerApplication" />
-        <item itemvalue="Application.ChatService" />
-        <item itemvalue="Application.TestBeane" />
+        <item itemvalue="Application.ClientBoot" />
+        <item itemvalue="JUnit.NPackTest2.test" />
+        <item itemvalue="Application.DemoServer" />
       </list>
     </recent_temporary>
   </component>
@@ -976,43 +1029,48 @@
       <workItem from="1578239763715" duration="2142000" />
       <workItem from="1578278317302" duration="6057000" />
       <workItem from="1578383192848" duration="19265000" />
+      <workItem from="1578735508704" duration="713000" />
+      <workItem from="1579446111917" duration="1434000" />
+      <workItem from="1579586539441" duration="19967000" />
+      <workItem from="1580647925276" duration="18088000" />
+      <workItem from="1580707549971" duration="15559000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="FileUtilTest_cuttingFile - 2019.12.27 at 18h 02m 12s.xml">
-      <configuration name="FileUtilTest.cuttingFile" configurationId="JUnit" />
+    <history-entry file="ChatServerSpringbootStartApplicationTests_contextLoads_(1) - 2020.01.21 at 16h 12m 53s.xml">
+      <configuration name="ChatServerSpringbootStartApplicationTests.contextLoads (1)" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FileUtilTest_cuttingFile - 2019.12.27 at 18h 02m 29s.xml">
-      <configuration name="FileUtilTest.cuttingFile" configurationId="JUnit" />
+    <history-entry file="ChatServerSpringbootStartApplicationTests_contextLoads - 2020.01.21 at 16h 13m 44s.xml">
+      <configuration name="ChatServerSpringbootStartApplicationTests.contextLoads" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FileUtilTest_cuttingFile - 2019.12.27 at 18h 02m 41s.xml">
-      <configuration name="FileUtilTest.cuttingFile" configurationId="JUnit" />
+    <history-entry file="ChatServerSpringbootStartApplicationTests_contextLoads - 2020.01.21 at 16h 15m 58s.xml">
+      <configuration name="ChatServerSpringbootStartApplicationTests.contextLoads" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FileUtilTest_cuttingFile - 2019.12.27 at 18h 03m 06s.xml">
-      <configuration name="FileUtilTest.cuttingFile" configurationId="JUnit" />
+    <history-entry file="ChatServerSpringbootStartApplicationTests_contextLoads - 2020.01.21 at 16h 16m 42s.xml">
+      <configuration name="ChatServerSpringbootStartApplicationTests.contextLoads" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FileUtilTest_cuttingFile - 2019.12.27 at 18h 03m 36s.xml">
-      <configuration name="FileUtilTest.cuttingFile" configurationId="JUnit" />
+    <history-entry file="LoadBalanceTest_test - 2020.01.21 at 17h 36m 36s.xml">
+      <configuration name="LoadBalanceTest.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FileUtilTest_cuttingFile - 2019.12.27 at 18h 03m 53s.xml">
-      <configuration name="FileUtilTest.cuttingFile" configurationId="JUnit" />
+    <history-entry file="LoadBalanceTest_test - 2020.01.21 at 17h 38m 14s.xml">
+      <configuration name="LoadBalanceTest.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FileUtilTest_cuttingFile - 2019.12.27 at 18h 06m 17s.xml">
-      <configuration name="FileUtilTest.cuttingFile" configurationId="JUnit" />
+    <history-entry file="NPackTest2_test - 2020.02.03 at 18h 51m 02s.xml">
+      <configuration name="NPackTest2.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FileUtilTest_cuttingFile - 2019.12.27 at 18h 08m 11s.xml">
-      <configuration name="FileUtilTest.cuttingFile" configurationId="JUnit" />
+    <history-entry file="NPackTest2_test - 2020.02.03 at 18h 51m 15s.xml">
+      <configuration name="NPackTest2.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FileUtilTest_cuttingFile - 2019.12.27 at 18h 16m 55s.xml">
-      <configuration name="FileUtilTest.cuttingFile" configurationId="JUnit" />
+    <history-entry file="NPackTest2_test - 2020.02.03 at 18h 52m 06s.xml">
+      <configuration name="NPackTest2.test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FileUtilTest_cuttingFile - 2019.12.27 at 18h 19m 32s.xml">
-      <configuration name="FileUtilTest.cuttingFile" configurationId="JUnit" />
+    <history-entry file="NPackTest2_test - 2020.02.03 at 18h 52m 37s.xml">
+      <configuration name="NPackTest2.test" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="227180000" />
+    <option name="totallyTimeSpent" value="282941000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1027,25 +1085,25 @@
     <frame x="-7" y="-7" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49072164" visible="true" weight="0.1380697" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4890511" visible="true" weight="0.32707775" />
       <window_info id="Image Layers" order="1" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Capture Tool" order="4" />
-      <window_info id="Favorites" order="5" sideWeight="0.50927836" side_tool="true" weight="0.07707775" />
+      <window_info id="Favorites" order="5" sideWeight="0.5109489" side_tool="true" weight="0.02010724" />
       <window_info id="Web" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3282123" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49932975" weight="0.19692737" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.32402235" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.713807" weight="0.29189944" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.35893854" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32914925" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3282123" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.041899443" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50067025" side_tool="true" weight="0.3058659" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3715084" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.28619304" side_tool="true" weight="0.3659218" />
       <window_info anchor="bottom" id="Spring" order="12" weight="0.32914925" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.32914925" />
       <window_info anchor="bottom" id="Messages" order="14" weight="0.3114525" />
@@ -1056,7 +1114,7 @@
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Maven" order="6" weight="0.3297587" />
+      <window_info anchor="right" id="Maven" order="6" visible="true" weight="0.3297587" />
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="ASMPlugin" order="8" />
       <window_info anchor="right" id="Database" order="9" weight="0.3297587" />
@@ -1069,8 +1127,36 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/UserService.java</url>
+          <line>53</line>
+          <properties />
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/HandlerReceivePackage.java</url>
+          <line>48</line>
+          <properties />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>spend.sum()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>var4.getTargetException()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>HttpResponse.succress(id)</expression-string>
         <language-id>JAVA</language-id>
@@ -1108,358 +1194,108 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>ReferenceCountUtil.release(msg)</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this.getPort()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.0.8.RELEASE/spring-web-5.0.8.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="208" selection-start-line="208" selection-end-line="208" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/lang/Long.java">
+    <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/handler/ChatEventHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
-          <caret line="398" column="23" selection-start-line="398" selection-start-column="23" selection-end-line="398" selection-end-column="23" />
-          <folding>
-            <element signature="e#38378#38379#0" expanded="true" />
-            <element signature="e#38416#38417#0" expanded="true" />
-          </folding>
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.0.8.RELEASE/spring-webmvc-5.0.8.RELEASE-sources.jar!/org/springframework/web/servlet/mvc/support/DefaultHandlerExceptionResolver.java">
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/resources/chat-server.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-663">
-          <caret line="141" column="13" selection-start-line="141" selection-start-column="13" selection-end-line="141" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/ChatService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/ChatController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="28" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1050#1051#0" expanded="true" />
-            <element signature="e#1098#1099#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/uitl/MessageUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/pojo/MessageDo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="21" column="53" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#698#699#0" expanded="true" />
-            <element signature="e#723#724#0" expanded="true" />
-            <element signature="e#757#758#0" expanded="true" />
-            <element signature="e#785#786#0" expanded="true" />
-            <element signature="e#820#821#0" expanded="true" />
-            <element signature="e#853#854#0" expanded="true" />
-            <element signature="e#903#904#0" expanded="true" />
-            <element signature="e#947#948#0" expanded="true" />
-            <element signature="e#980#981#0" expanded="true" />
-            <element signature="e#1011#1012#0" expanded="true" />
-            <element signature="e#1057#1058#0" expanded="true" />
-            <element signature="e#1097#1098#0" expanded="true" />
-            <element signature="e#1131#1132#0" expanded="true" />
-            <element signature="e#1161#1162#0" expanded="true" />
-            <element signature="e#1207#1208#0" expanded="true" />
-            <element signature="e#1245#1246#0" expanded="true" />
-            <element signature="e#1280#1281#0" expanded="true" />
-            <element signature="e#1313#1314#0" expanded="true" />
-            <element signature="e#1363#1364#0" expanded="true" />
-            <element signature="e#1407#1408#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/web/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="24" column="58" selection-start-line="24" selection-start-column="58" selection-end-line="24" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/HttpResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-          <folding>
-            <element signature="e#278#279#0" expanded="true" />
-            <element signature="e#322#323#0" expanded="true" />
-            <element signature="e#358#359#0" expanded="true" />
-            <element signature="e#389#390#0" expanded="true" />
-            <element signature="e#416#417#0" expanded="true" />
-            <element signature="e#456#457#0" expanded="true" />
-            <element signature="e#488#489#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="100" column="57" lean-forward="true" selection-start-line="100" selection-start-column="11" selection-end-line="100" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server/src/main/resources/META-INF/services/com.chat.server.spi.SaveReceivePackage">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="45" selection-start-column="45" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/SaveReceivePackage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/Filter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/HandlerReceivePackage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-82">
-          <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultSaveReceivePackage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="22" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/NoBlockingChatClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="99" column="7" lean-forward="true" selection-start-line="99" selection-start-column="7" selection-end-line="99" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChatClientChannelInitializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="13" column="19" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChantClientHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
-          <folding>
-            <element signature="e#679#680#0" expanded="true" />
-            <element signature="e#719#720#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ClientHeartBeatHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/model/ChatTemplate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-83">
-          <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/model/ClientConstant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/model/SendResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/util/RedisPool.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/spi/DefaultHandlerSenderPackage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/spi/HandlerSenderPackage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="10" column="23" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChatClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="28" column="12" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/AsyncChatClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2809#2810#0" expanded="true" />
-            <element signature="e#2885#2886#0" expanded="true" />
-            <element signature="e#2956#2957#0" expanded="true" />
-            <element signature="e#3010#3011#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client-springboot-start/src/main/java/com/chat/spring/web/service/ChatService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="32" column="21" lean-forward="true" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ChatServerContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+        <state relative-caret-position="38">
+          <caret line="2" column="9" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/ChatServerApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+        <state relative-caret-position="247">
+          <caret line="22" column="19" lean-forward="true" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerChatHandlerConstant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="19" column="70" selection-start-line="19" selection-start-column="70" selection-end-line="19" selection-end-column="70" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#605#606#0" expanded="true" />
-            <element signature="e#677#678#0" expanded="true" />
+            <element signature="e#1131#1132#0" expanded="true" />
+            <element signature="e#1164#1165#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/ChatConfigBeanPostProcess.java">
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServerInitializer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="23" column="13" lean-forward="true" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/annotation/ChatServerConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="44" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisSaveReceivePackage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="830">
-          <caret line="126" lean-forward="true" selection-start-line="126" selection-end-line="126" />
+        <state relative-caret-position="299">
+          <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3853#3854#0" expanded="true" />
-            <element signature="e#3891#3892#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisChatServerContext.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/net/SocketAddress.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="40" column="69" lean-forward="true" selection-start-line="40" selection-start-column="69" selection-end-line="40" selection-end-column="69" />
+        <state relative-caret-position="318">
+          <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/util/HashMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="137" column="13" selection-start-line="137" selection-start-column="13" selection-end-line="137" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/util/HashSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="90" column="18" lean-forward="true" selection-start-line="90" selection-start-column="18" selection-end-line="90" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/util/AbstractSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="57" column="54" selection-start-line="57" selection-start-column="54" selection-end-line="57" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/util/AbstractCollection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1221">
+          <caret line="60" column="22" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/beans/Transient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="63" column="11" lean-forward="true" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/msgpack/msgpack/0.6.12/msgpack-0.6.12-sources.jar!/org/msgpack/MessagePack.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="58" column="11" selection-start-line="58" selection-start-column="11" selection-end-line="58" selection-end-column="11" />
+          <folding>
+            <element signature="e#1813#1814#0" expanded="true" />
+            <element signature="e#1866#1867#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-core/src/test/java/com/chat/core/model/NPackTest2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="30" column="23" lean-forward="true" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1468,101 +1304,470 @@
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.36.Final/netty-all-4.1.36.Final-sources.jar!/io/netty/channel/ChannelHandlerContext.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="134" column="10" lean-forward="true" selection-start-line="134" selection-start-column="10" selection-end-line="134" selection-end-column="10" />
+        <state relative-caret-position="230">
+          <caret line="124" column="38" selection-start-line="124" selection-start-column="17" selection-end-line="124" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.36.Final/netty-all-4.1.36.Final-sources.jar!/io/netty/util/concurrent/EventExecutor.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.36.Final/netty-all-4.1.36.Final-sources.jar!/io/netty/channel/Channel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="24" column="49" lean-forward="true" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
+        <state relative-caret-position="151">
+          <caret line="76" column="24" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/util/concurrent/ScheduledExecutorService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.36.Final/netty-all-4.1.36.Final-sources.jar!/io/netty/util/concurrent/EventExecutorGroup.java">
+    <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/netty/DiscardChannelHandlerContext.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="209">
-          <caret line="29" column="55" selection-start-line="29" selection-start-column="55" selection-end-line="29" selection-end-column="55" />
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#522#523#0" expanded="true" />
+            <element signature="e#568#569#0" expanded="true" />
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#602#603#0" expanded="true" />
+            <element signature="e#756#757#0" expanded="true" />
+            <element signature="e#783#784#0" expanded="true" />
+            <element signature="e#1117#1118#0" expanded="true" />
+            <element signature="e#1144#1145#0" expanded="true" />
+            <element signature="e#1297#1298#0" expanded="true" />
+            <element signature="e#1324#1325#0" expanded="true" />
+            <element signature="e#1620#1621#0" expanded="true" />
+            <element signature="e#1648#1649#0" expanded="true" />
+            <element signature="e#1722#1723#0" expanded="true" />
+            <element signature="e#1749#1750#0" expanded="true" />
+            <element signature="e#1825#1826#0" expanded="true" />
+            <element signature="e#1852#1853#0" expanded="true" />
+            <element signature="e#1922#1923#0" expanded="true" />
+            <element signature="e#1949#1950#0" expanded="true" />
+            <element signature="e#2021#2022#0" expanded="true" />
+            <element signature="e#2048#2049#0" expanded="true" />
+            <element signature="e#2135#2136#0" expanded="true" />
+            <element signature="e#2162#2163#0" expanded="true" />
+            <element signature="e#2247#2248#0" expanded="true" />
+            <element signature="e#2274#2275#0" expanded="true" />
+            <element signature="e#2352#2353#0" expanded="true" />
+            <element signature="e#2379#2380#0" expanded="true" />
+            <element signature="e#2455#2456#0" expanded="true" />
+            <element signature="e#2482#2483#0" expanded="true" />
+            <element signature="e#2564#2565#0" expanded="true" />
+            <element signature="e#2591#2592#0" expanded="true" />
+            <element signature="e#3198#3199#0" expanded="true" />
+            <element signature="e#3225#3226#0" expanded="true" />
+            <element signature="e#4112#4113#0" expanded="true" />
+            <element signature="e#4139#4140#0" expanded="true" />
+            <element signature="e#4865#4866#0" expanded="true" />
+            <element signature="e#4892#4893#0" expanded="true" />
+            <element signature="e#5428#5429#0" expanded="true" />
+            <element signature="e#5455#5456#0" expanded="true" />
+            <element signature="e#6057#6058#0" expanded="true" />
+            <element signature="e#6084#6085#0" expanded="true" />
+            <element signature="e#6655#6656#0" expanded="true" />
+            <element signature="e#6682#6683#0" expanded="true" />
+            <element signature="e#7404#7405#0" expanded="true" />
+            <element signature="e#7431#7432#0" expanded="true" />
+            <element signature="e#8439#8440#0" expanded="true" />
+            <element signature="e#8466#8467#0" expanded="true" />
+            <element signature="e#10008#10009#0" expanded="true" />
+            <element signature="e#10035#10036#0" expanded="true" />
+            <element signature="e#10746#10747#0" expanded="true" />
+            <element signature="e#10773#10774#0" expanded="true" />
+            <element signature="e#11464#11465#0" expanded="true" />
+            <element signature="e#11491#11492#0" expanded="true" />
+            <element signature="e#11548#11549#0" expanded="true" />
+            <element signature="e#11575#11576#0" expanded="true" />
+            <element signature="e#11958#11959#0" expanded="true" />
+            <element signature="e#11985#11986#0" expanded="true" />
+            <element signature="e#12414#12415#0" expanded="true" />
+            <element signature="e#12441#12442#0" expanded="true" />
+            <element signature="e#12499#12500#0" expanded="true" />
+            <element signature="e#12526#12527#0" expanded="true" />
+            <element signature="e#12767#12768#0" expanded="true" />
+            <element signature="e#12794#12795#0" expanded="true" />
+            <element signature="e#12973#12974#0" expanded="true" />
+            <element signature="e#13000#13001#0" expanded="true" />
+            <element signature="e#13116#13117#0" expanded="true" />
+            <element signature="e#13143#13144#0" expanded="true" />
+            <element signature="e#13292#13293#0" expanded="true" />
+            <element signature="e#13319#13320#0" expanded="true" />
+            <element signature="e#13692#13693#0" expanded="true" />
+            <element signature="e#13719#13720#0" expanded="true" />
+            <element signature="e#14129#14130#0" expanded="true" />
+            <element signature="e#14156#14157#0" expanded="true" />
+            <element signature="e#14944#14945#0" expanded="true" />
+            <element signature="e#14971#14972#0" expanded="true" />
+            <element signature="e#15093#15094#0" expanded="true" />
+            <element signature="e#15120#15121#0" expanded="true" />
+            <element signature="e#15290#15291#0" expanded="true" />
+            <element signature="e#15317#15318#0" expanded="true" />
+            <element signature="e#15480#15481#0" expanded="true" />
+            <element signature="e#15507#15508#0" expanded="true" />
+            <element signature="e#15671#15672#0" expanded="true" />
+            <element signature="e#15699#15700#0" expanded="true" />
+            <element signature="e#16107#16108#0" expanded="true" />
+            <element signature="e#16142#16143#0" expanded="true" />
+            <element signature="e#16304#16305#0" expanded="true" />
+            <element signature="e#16339#16340#0" expanded="true" />
+            <element signature="e#16585#16586#0" expanded="true" />
+            <element signature="e#16620#16621#0" expanded="true" />
+            <element signature="e#16757#16758#0" expanded="true" />
+            <element signature="e#16792#16793#0" expanded="true" />
+            <element signature="e#16957#16958#0" expanded="true" />
+            <element signature="e#16993#16994#0" expanded="true" />
+            <element signature="e#17172#17173#0" expanded="true" />
+            <element signature="e#17208#17209#0" expanded="true" />
+            <element signature="e#17369#17370#0" expanded="true" />
+            <element signature="e#17405#17406#0" expanded="true" />
+            <element signature="e#17611#17612#0" expanded="true" />
+            <element signature="e#17646#17647#0" expanded="true" />
+            <element signature="e#18116#18117#0" expanded="true" />
+            <element signature="e#18151#18152#0" expanded="true" />
+            <element signature="e#18944#18945#0" expanded="true" />
+            <element signature="e#18979#18980#0" expanded="true" />
+            <element signature="e#19229#19230#0" expanded="true" />
+            <element signature="e#19264#19265#0" expanded="true" />
+            <element signature="e#19639#19640#0" expanded="true" />
+            <element signature="e#19675#19676#0" expanded="true" />
+            <element signature="e#19964#19965#0" expanded="true" />
+            <element signature="e#19996#19997#0" expanded="true" />
+            <element signature="e#20306#20307#0" expanded="true" />
+            <element signature="e#20338#20339#0" expanded="true" />
+            <element signature="e#20503#20504#0" expanded="true" />
+            <element signature="e#20538#20539#0" expanded="true" />
+            <element signature="e#20681#20682#0" expanded="true" />
+            <element signature="e#20716#20717#0" expanded="true" />
+            <element signature="e#20906#20907#0" expanded="true" />
+            <element signature="e#20941#20942#0" expanded="true" />
+            <element signature="e#21600#21601#0" expanded="true" />
+            <element signature="e#21635#21636#0" expanded="true" />
+            <element signature="e#22590#22591#0" expanded="true" />
+            <element signature="e#22625#22626#0" expanded="true" />
+            <element signature="e#23411#23412#0" expanded="true" />
+            <element signature="e#23446#23447#0" expanded="true" />
+            <element signature="e#24026#24027#0" expanded="true" />
+            <element signature="e#24061#24062#0" expanded="true" />
+            <element signature="e#24719#24720#0" expanded="true" />
+            <element signature="e#24754#24755#0" expanded="true" />
+            <element signature="e#25373#25374#0" expanded="true" />
+            <element signature="e#25408#25409#0" expanded="true" />
+            <element signature="e#26194#26195#0" expanded="true" />
+            <element signature="e#26229#26230#0" expanded="true" />
+            <element signature="e#27321#27322#0" expanded="true" />
+            <element signature="e#27356#27357#0" expanded="true" />
+            <element signature="e#29038#29039#0" expanded="true" />
+            <element signature="e#29073#29074#0" expanded="true" />
+            <element signature="e#29852#29853#0" expanded="true" />
+            <element signature="e#29887#29888#0" expanded="true" />
+            <element signature="e#30642#30643#0" expanded="true" />
+            <element signature="e#30677#30678#0" expanded="true" />
+            <element signature="e#30728#30729#0" expanded="true" />
+            <element signature="e#30763#30764#0" expanded="true" />
+            <element signature="e#31182#31183#0" expanded="true" />
+            <element signature="e#31217#31218#0" expanded="true" />
+            <element signature="e#31686#31687#0" expanded="true" />
+            <element signature="e#31721#31722#0" expanded="true" />
+            <element signature="e#31773#31774#0" expanded="true" />
+            <element signature="e#31808#31809#0" expanded="true" />
+            <element signature="e#32081#32082#0" expanded="true" />
+            <element signature="e#32116#32117#0" expanded="true" />
+            <element signature="e#32323#32324#0" expanded="true" />
+            <element signature="e#32358#32359#0" expanded="true" />
+            <element signature="e#21253#21254#0" expanded="true" />
+            <element signature="e#21288#21289#0" expanded="true" />
+            <element signature="e#8682#8683#0" expanded="true" />
+            <element signature="e#8788#8789#0" expanded="true" />
+            <element signature="e#8906#8907#0" expanded="true" />
+            <element signature="e#9006#9007#0" expanded="true" />
+            <element signature="e#9121#9122#0" expanded="true" />
+            <element signature="e#9235#9236#0" expanded="true" />
+            <element signature="e#9328#9329#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/netty/Constants.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/util/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
+        <state relative-caret-position="196">
+          <caret line="587" column="36" selection-start-line="587" selection-start-column="36" selection-end-line="587" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/4.1.36.Final/netty-all-4.1.36.Final-sources.jar!/io/netty/util/concurrent/GenericFutureListener.java">
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="23" column="70" lean-forward="true" selection-start-line="23" selection-start-column="68" selection-end-line="23" selection-end-column="81" />
+        <state relative-caret-position="95">
+          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/util/EventListener.java">
+    <entry file="file://$PROJECT_DIR$/chat-server/src/test/java/com/chat/server/TestSPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="31" column="17" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+        <state relative-caret-position="503">
+          <caret line="59" column="5" lean-forward="true" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/hander/ChatClientContext.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/util/concurrent/ThreadPoolExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="90" column="11" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="11" />
+        <state relative-caret-position="144">
+          <caret line="1309" selection-start-line="1309" selection-end-line="1309" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/Message.java">
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServerHeartBeatHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="16" column="18" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/test/ServerBoot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServerHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="71" column="13" lean-forward="true" selection-start-line="71" selection-start-column="13" selection-end-line="71" selection-end-column="13" />
+        <state relative-caret-position="228">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/model/NPack.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="104" column="54" selection-start-line="104" selection-start-column="54" selection-end-line="104" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="161">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ChatClientChannelInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="42" column="61" lean-forward="true" selection-start-line="42" selection-start-column="61" selection-end-line="42" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/ClientHeartBeatHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+          <folding>
+            <element signature="e#595#596#0" expanded="true" />
+            <element signature="e#635#636#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/hander/ClientStartChatEventHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="37" selection-start-line="37" selection-end-line="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerReadChatEventHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="40" column="20" lean-forward="true" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerShutdownChatEventHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="34" column="40" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerStartChatEventHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="34" column="48" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServerHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="116" column="66" selection-start-line="116" selection-start-column="66" selection-end-line="116" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2758#2759#0" expanded="true" />
+            <element signature="e#2838#2839#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/DefaultSaveReceivePackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="28" column="37" lean-forward="true" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/netty/ChatServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ChatServerContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="37" column="19" lean-forward="true" selection-start-line="37" selection-start-column="19" selection-end-line="37" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1841#1842#0" expanded="true" />
+            <element signature="e#1878#1879#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/test/ServerBoot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="16" lean-forward="true" selection-start-line="15" selection-start-column="16" selection-end-line="15" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerHandlerRemovedChatEventHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="38" column="5" lean-forward="true" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/Filter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/HandlerReceivePackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="55" column="27" lean-forward="true" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/spi/SaveReceivePackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/resources/META-INF/services/com.chat.server.spi.SaveReceivePackage">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server-springboot-start/src/main/java/com/chat/spring/config/RedisSaveReceivePackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="20" column="3" lean-forward="true" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-server/src/main/java/com/chat/server/handler/ServerChannelRegisteredChatEventHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="32" column="19" lean-forward="true" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_221/src.zip!/java/util/function/Consumer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5">
+          <caret line="48" column="15" selection-start-line="48" selection-start-column="9" selection-end-line="48" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/hander/ChatClientContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="84" column="27" selection-start-line="84" selection-start-column="27" selection-end-line="84" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#947#948#0" expanded="true" />
+            <element signature="e#986#987#0" expanded="true" />
+            <element signature="e#1608#1609#0" expanded="true" />
+            <element signature="e#1645#1646#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ClientBoot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
+        <state relative-caret-position="257">
+          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/test/ASyncClientBoot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="28" column="15" selection-start-line="28" selection-start-column="15" selection-end-line="28" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/AsyncChatClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="33" column="23" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/spi/DefaultHandlerSenderPackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/ServerNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/netty/SyncChatClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-client/src/main/java/com/chat/client/spi/HandlerSenderPackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="9" column="2" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/annotation/SPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat-core/src/main/java/com/chat/core/annotation/Primary.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
           <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
         </state>
       </provider>

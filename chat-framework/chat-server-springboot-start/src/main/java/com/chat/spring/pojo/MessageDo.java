@@ -19,7 +19,6 @@ public class MessageDo {
     }
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "receiver_id")

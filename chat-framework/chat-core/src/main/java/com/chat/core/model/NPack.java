@@ -2,10 +2,21 @@ package com.chat.core.model;
 
 
 import com.chat.core.annotation.NotNull;
+import com.chat.core.util.FileUtil;
 import com.chat.core.util.JsonUtil;
 import com.chat.core.util.RouterUtil;
 import org.msgpack.annotation.Index;
 import org.msgpack.annotation.Message;
+
+import java.beans.Transient;
+import java.io.File;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.SocketAddress;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 数据包  所有 netty 传递的数据包
@@ -16,7 +27,8 @@ import org.msgpack.annotation.Message;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 @Message
-public class NPack {
+public class NPack implements Serializable {
+    private static final long serialVersionUID = -4696439084835068210L;
     /**
      * 名字
      */
@@ -34,6 +46,19 @@ public class NPack {
     private long timestamp;
 
 
+    /**
+     * 这个是方便 获取上下文ctx使用的.
+     */
+    private transient SocketAddress address;
+
+    public SocketAddress getAddress() {
+        return address;
+    }
+
+    public void setAddress(SocketAddress address) {
+        this.address = address;
+    }
+
     // 必须要有一个无参的构造器
     public NPack() {
     }
@@ -45,6 +70,7 @@ public class NPack {
         this.timestamp = timestamp;
     }
 
+    public static final String ERROR = "";
 
     public NPack(String router, byte[] body) {
         this(router, body, System.currentTimeMillis());
@@ -83,9 +109,22 @@ public class NPack {
     @Override
     public String toString() {
         return "NPack[" +
-                "router={" + router + '}' +
+                "router={" + decodeRouter() + '}' +
                 ", timestamp=" + timestamp +
                 ']';
+
+    }
+
+    public String decodeRouter() {
+        if (this.router == null) {
+            return ERROR;
+        }
+
+        try {
+            return URLDecoder.decode(this.router, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            return ERROR;
+        }
     }
 
 
@@ -94,9 +133,28 @@ public class NPack {
         return new NPack(router, msg.getBytes());
     }
 
-    public static NPack buildWithByteBody(@NotNull String sender, @NotNull String receiver, String FileName, @NotNull byte[] msg) {
-        String router = RouterUtil.getRouterByFile(RouterUtil.BYTE_TYPE, sender, receiver, FileName);
+    public static NPack buildWithByteBody(@NotNull String sender, @NotNull String receiver, String fileName, @NotNull byte[] msg) {
+        String router = RouterUtil.getRouterByFile(RouterUtil.BYTE_TYPE, sender, receiver, fileName);
         return new NPack(router, msg);
+    }
+
+    public static List<NPack> buildWithByteBody(@NotNull String sender, @NotNull String receiver, File file, long slice) {
+        List<byte[]> list = null;
+        try {
+            list = FileUtil.cuttingFile(file, slice);
+
+        } catch (Exception e) {
+            //
+        }
+        if (list == null || list.size() == 0) {
+            return Collections.emptyList();
+        }
+        List<NPack> nPackes = new ArrayList<>(list.size());
+
+        String fileName = file.getName();
+        list.forEach(e -> nPackes.add(buildWithByteBody(sender, receiver, fileName, e)));
+        list = null;
+        return nPackes;
     }
 
 
@@ -105,5 +163,15 @@ public class NPack {
         String router = RouterUtil.getRouterByJson(RouterUtil.JSON_TYPE, sender, receiver, classname);
         String json = JsonUtil.toJSONString(msg);
         return new NPack(router, json.getBytes());
+    }
+
+
+    /**
+     * 清空引用的.
+     */
+    public void release() {
+        this.body = null;
+        this.address = null;
+        this.router = null;
     }
 }

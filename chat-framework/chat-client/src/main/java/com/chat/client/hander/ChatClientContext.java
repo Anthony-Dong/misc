@@ -1,10 +1,13 @@
 package com.chat.client.hander;
 
+import com.chat.core.exception.ContextException;
 import com.chat.core.model.NPack;
 import com.chat.core.netty.Constants;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
+
+import java.util.function.Consumer;
 
 /**
  * 客户端上下文
@@ -39,18 +42,22 @@ public abstract class ChatClientContext {
 
 
     public final String getContextName() {
-        return contextName;
+        return this.contextName;
     }
 
 
     public final short getVersion() {
-        return version;
+        return this.version;
     }
 
 
-    public ChatClientContext(String contextName, short version) {
+    public ChatClientContext(String contextName, int version) {
+        if (version > Short.MAX_VALUE || version < Short.MIN_VALUE) {
+            throw new RuntimeException("Version range in -32768 with 32767 !");
+        }
+
         this.contextName = contextName;
-        this.version = version;
+        this.version = (short) version;
     }
 
     public ChatClientContext(String contextName) {
@@ -65,21 +72,27 @@ public abstract class ChatClientContext {
         this(DEFAULT_VERSION);
     }
 
+    public boolean sendPack(NPack pack) throws ContextException {
+        return sendPack(pack, null, null);
+    }
 
-    public boolean sendPack(NPack pack) {
-        if (null == context) {
-            return false;
-        }
-        context.writeAndFlush(pack);
-        return true;
+    public boolean sendPack(NPack pack, Consumer<NPack> consumer) throws ContextException {
+        return sendPack(pack, consumer, null);
     }
 
 
-    public boolean sendPack(NPack pack, GenericFutureListener<Future<? super Void>> listener) {
-        if (null == context) {
-            return false;
+    public boolean sendPack(NPack pack, Consumer<NPack> consumer, GenericFutureListener<Future<? super Void>> listener) {
+        if (context == null) {
+            throw new ContextException("初始化未完成,无法发送消息");
         }
-        context.writeAndFlush(pack).addListener(listener);
+        if (consumer != null) {
+            consumer.accept(pack);
+        }
+        if (listener == null) {
+            context.writeAndFlush(pack);
+        } else {
+            context.writeAndFlush(pack).addListener(listener);
+        }
         return true;
     }
 
@@ -125,17 +138,19 @@ public abstract class ChatClientContext {
      *
      * @param context NPack
      */
-    protected abstract void onReading(NPack context);
+    protected void onReading(NPack context) {
 
+    }
 
     /**
      * 一个空对象
      */
-    public static final ChatClientContext NULL = new ChatClientContext() {
-
-        @Override
-        protected void onReading(NPack context) {
-            // do nothing
-        }
-    };
+    public static ChatClientContext newInstance() {
+        return new ChatClientContext() {
+            @Override
+            protected void onReading(NPack context) {
+                System.out.println(Thread.currentThread().getName() + " : " + context);
+            }
+        };
+    }
 }

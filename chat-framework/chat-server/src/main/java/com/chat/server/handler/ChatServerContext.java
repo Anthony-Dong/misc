@@ -2,9 +2,12 @@ package com.chat.server.handler;
 
 import com.chat.core.exception.ContextException;
 import com.chat.core.netty.Constants;
+import com.chat.core.netty.DiscardChannelHandlerContext;
+import com.chat.core.util.ThreadPool;
 import io.netty.channel.ChannelHandlerContext;
 
 import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -23,6 +26,18 @@ public abstract class ChatServerContext {
      */
     private final String contextName;
 
+    private ThreadPool threadPool;
+
+    public final ThreadPool getThreadPool() {
+        return threadPool;
+    }
+
+    /**
+     * 这个是用来过封装的.
+     */
+    public final void setThreadPool(ThreadPool threadPool) {
+        this.threadPool = threadPool;
+    }
 
     /**
      * 默认上下文名称
@@ -34,15 +49,20 @@ public abstract class ChatServerContext {
      */
     private static final short DEFAULT_VERSION = Constants.PROTOCOL_VERSION;
 
+    private static final ChannelHandlerContext NULL_Context = new DiscardChannelHandlerContext();
+
 
     /**
      * 可以拿到所有的context , 然后去进行逻辑处理
      */
-    protected final Map<String, ChannelHandlerContext> map;
+    protected final Map<SocketAddress, ChannelHandlerContext> map;
 
 
-    public ChatServerContext(String contextName, short version) {
-        this.version = version;
+    public ChatServerContext(String contextName, int version) {
+        if (version > Short.MAX_VALUE || version < Short.MIN_VALUE) {
+            throw new RuntimeException("Version range in -32768 with 32767 !");
+        }
+        this.version = (short) version;
         this.contextName = contextName;
         this.map = new ConcurrentHashMap<>();
     }
@@ -61,9 +81,15 @@ public abstract class ChatServerContext {
         return this.version;
     }
 
-    public final Map<String, ChannelHandlerContext> getUserContextMap() {
+    public final Map<SocketAddress, ChannelHandlerContext> getUserContextMap() {
         return this.map;
     }
+
+
+    public final ChannelHandlerContext getContext(SocketAddress address) {
+        return map.getOrDefault(address, NULL_Context);
+    }
+
 
     public final String getContextName() {
         return contextName;
@@ -85,8 +111,15 @@ public abstract class ChatServerContext {
      *
      * @param context ChannelHandlerContext
      */
-    protected void onRemove(ChannelHandlerContext context) throws ContextException {
+    final void onRemove(ChannelHandlerContext context) throws ContextException {
+        try {
+            this.onChannelRemove(context);
+        } finally {
+            map.remove(context.channel().remoteAddress());
+        }
+    }
 
+    protected void onChannelRemove(ChannelHandlerContext context) {
     }
 
     /**
@@ -95,34 +128,21 @@ public abstract class ChatServerContext {
      *
      * @param context ChannelHandlerContext
      */
-    protected void onRegister(ChannelHandlerContext context) throws ContextException {
-
+    final void onRegister(ChannelHandlerContext context) throws ContextException {
+        try {
+            this.onChannelRegistered(context);
+        } finally {
+            map.put(context.channel().remoteAddress(), context);
+        }
     }
 
-
     /**
-     * 一个空对象
+     * 可重写
+     *
+     * @param context
      */
-    public static final ChatServerContext NULL = new ChatServerContext() {
-        @Override
-        protected void onStart(InetSocketAddress address) throws ContextException {
-            super.onStart(address);
-        }
+    protected void onChannelRegistered(ChannelHandlerContext context) {
 
-        @Override
-        protected void onFail(InetSocketAddress address) throws ContextException {
-            super.onFail(address);
-        }
-
-        @Override
-        protected void onRemove(ChannelHandlerContext context) throws ContextException {
-            super.onRemove(context);
-        }
-
-        @Override
-        protected void onRegister(ChannelHandlerContext context) throws ContextException {
-            super.onRegister(context);
-        }
-    };
+    }
 
 }

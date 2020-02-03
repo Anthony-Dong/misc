@@ -3,6 +3,7 @@ package com.chat.server.netty;
 import com.chat.core.listener.ChatEventListener;
 import com.chat.core.netty.PackageDecoder;
 import com.chat.core.netty.PackageEncoder;
+import com.chat.core.util.ThreadPool;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -18,8 +19,8 @@ public final class ChatServerInitializer extends ChannelInitializer<Channel> {
 
     private final short version;
 
-    ChatServerInitializer(ChatEventListener listener, short version) {
-        handler = new ChatServerHandler(listener);
+    ChatServerInitializer(ChatEventListener listener, short version, ThreadPool threadPool) {
+        handler = new ChatServerHandler(listener, threadPool);
         this.version = version;
     }
 
@@ -27,6 +28,9 @@ public final class ChatServerInitializer extends ChannelInitializer<Channel> {
     protected void initChannel(Channel socketChannel) throws Exception {
 
         ChannelPipeline pipeline = socketChannel.pipeline();
+
+        // 解码器
+        pipeline.addLast("decoder", new PackageDecoder(version));
 
         // out  编码器
         pipeline.addLast("encoder", new PackageEncoder(version));
@@ -37,10 +41,7 @@ public final class ChatServerInitializer extends ChannelInitializer<Channel> {
         // 心跳检测处理器
         pipeline.addLast("serverHeartBeatHandler", new ChatServerHeartBeatHandler());
 
-        // 解码器
-        pipeline.addLast("decoder", new PackageDecoder(version));
-
-        // 后置处理器
+        // handler
         pipeline.addLast("handler", handler);
     }
 

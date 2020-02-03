@@ -13,14 +13,18 @@ import java.util.Map;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public class ServerChatHandlerConstant {
-    public final Map<ChatEventType, ChatEventHandler> SERVER_MAP;
+    private final Map<ChatEventType, ChatEventHandler> handlerMap;
 
     public ServerChatHandlerConstant(ChatServerContext context) {
-        SERVER_MAP = new HashMap<>();
-        SERVER_MAP.put(ChatEventType.SERVER_READ, new ServerReadChatEventHandler());
-        SERVER_MAP.put(ChatEventType.SERVER_START, new ServerStartChatEventHandler(context));
-        SERVER_MAP.put(ChatEventType.SERVER_SHUTDOWN, new ServerShutdownChatEventHandler(context));
-        SERVER_MAP.put(ChatEventType.SERVER_CHANNEL_REGISTERED, new ServerChannelRegisteredChatEventHandler(context));
-        SERVER_MAP.put(ChatEventType.SERVER_HANDLER_REMOVED, new ServerHandlerRemovedChatEventHandler(context));
+        this.handlerMap = new HashMap<>();
+        this.handlerMap.put(ChatEventType.SERVER_READ, new ServerReadChatEventHandler(context));
+        this.handlerMap.put(ChatEventType.SERVER_START, new ServerStartChatEventHandler(context));
+        this.handlerMap.put(ChatEventType.SERVER_SHUTDOWN, new ServerShutdownChatEventHandler(context));
+        this.handlerMap.put(ChatEventType.SERVER_CHANNEL_REGISTERED, new ServerChannelRegisteredChatEventHandler(context));
+        this.handlerMap.put(ChatEventType.SERVER_HANDLER_REMOVED, new ServerHandlerRemovedChatEventHandler(context));
+    }
+
+    public Map<ChatEventType, ChatEventHandler> getHandlerMap() {
+        return handlerMap;
     }
 }

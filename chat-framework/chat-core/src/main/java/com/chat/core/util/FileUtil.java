@@ -17,11 +17,12 @@ public class FileUtil {
     /**
      * 常用的长度
      */
-    public static final int LEN_1_KB = 1024 * 5;
-    public static final int LEN_5_KB = 1024 * 5;
-    public static final int LEN_10_KB = 1024 * 10;
-    public static final int LEN_20_KB = 1024 * 20;
-    public static final int LEN_1_MB = 1024 * 1024;
+    public static final long LEN_1_KB = 1024 * 5;
+    public static final long LEN_5_KB = 1024 * 5;
+    public static final long LEN_10_KB = 1024 * 10;
+    public static final long LEN_20_KB = 1024 * 20;
+    public static final long LEN_1_MB = 1024 * 1024;
+    public static final long MAX_LENGTH = 0x7fffffff;
 
 
     /**
@@ -32,8 +33,10 @@ public class FileUtil {
      * @return 字节数组
      * @throws Exception 异常
      */
-    public static List<byte[]> cuttingFile(File fileName, int delimiter) throws Exception {
-
+    public static List<byte[]> cuttingFile(File fileName, long delimiter) throws Exception {
+        if (delimiter > MAX_LENGTH) {
+            throw new Exception("文件切割最大为 2^32-1");
+        }
         // try - with - resource
         try (RandomAccessFile file = new RandomAccessFile(fileName, "r"); FileChannel channel = file.getChannel()) {
             // 总长度
@@ -52,7 +55,7 @@ public class FileUtil {
             // 2. 只有大于他才执行
             while (size > delimiter) {
 
-                ByteBuffer buffer = ByteBuffer.allocate(delimiter);
+                ByteBuffer buffer = ByteBuffer.allocate((int) delimiter);
                 channel.read(buffer, position);
 
                 // 我们采用的是堆内存 , 不是直接内存的原因是因为我们要做数组拷贝 , 没必要
@@ -69,7 +72,7 @@ public class FileUtil {
             }
 
             // 最后一次绝对不满 / 一开始就小于
-            ByteBuffer buffer = ByteBuffer.allocate(delimiter);
+            ByteBuffer buffer = ByteBuffer.allocate((int) delimiter);
 
             channel.read(buffer, position);
 

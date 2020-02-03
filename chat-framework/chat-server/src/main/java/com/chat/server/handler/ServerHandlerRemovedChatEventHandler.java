@@ -34,7 +34,7 @@ public class ServerHandlerRemovedChatEventHandler implements ChatEventHandler {
             if (this.chatServerContext != null) {
                 this.chatServerContext.onRemove(context);
             }
-            logger.info("[服务器] 客户端 IP : {} 移除成功 .", context.channel().remoteAddress().toString());
+            logger.info("[服务器] Remove Client : {} .", context.channel().remoteAddress().toString());
         }
     }
 }

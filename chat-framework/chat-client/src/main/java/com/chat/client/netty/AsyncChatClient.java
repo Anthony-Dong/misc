@@ -11,7 +11,9 @@ import com.chat.core.listener.ChatEventListener;
 import com.chat.core.listener.ChatEventType;
 import com.chat.core.util.NamedThreadFactory;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -20,6 +22,8 @@ import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.util.Map;
+
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 /**
  * chat client
@@ -72,9 +76,13 @@ public final class AsyncChatClient extends ServerNode {
         // 设置属性
         bootstrap.group(workerGroup)
                 .channel(NioSocketChannel.class)
+                // 这几个参数参考自 org.apache.dubbo.remoting.transport.netty4.NettyClient.
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .option(ChannelOption.TCP_NODELAY, true)
+                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
                 .handler(initializer);
 
-        ChannelFuture sync = bootstrap.connect(address).sync();
+        ChannelFuture future = bootstrap.connect(address).sync();
         // 发送事件
         listener.onChatEvent(new ChatEvent() {
             @Override
@@ -87,7 +95,7 @@ public final class AsyncChatClient extends ServerNode {
                 return address;
             }
         });
-
+        future.awaitUninterruptibly(3000, MILLISECONDS);
     }
 
     /**
@@ -134,9 +142,12 @@ public final class AsyncChatClient extends ServerNode {
      */
     public static AsyncChatClient run(int workerThread, InetSocketAddress address, @NotNull ChatClientContext context) throws Exception {
         ClientChatHandlerConstant constant = new ClientChatHandlerConstant(context);
+
+        String name = context.getContextName();
+
         Map<ChatEventType, ChatEventHandler> handlerMap = constant.getHandlerMap();
 
-        AsyncChatClient client = new AsyncChatClient(new NioEventLoopGroup(workerThread, new NamedThreadFactory("chat-client")), context.getVersion(), address, event -> {
+        AsyncChatClient client = new AsyncChatClient(new NioEventLoopGroup(workerThread, new NamedThreadFactory(name)), context.getVersion(), address, event -> {
             ChatEventHandler handler = handlerMap.get(event.eventType());
             handler.handler(event);
         });
@@ -144,6 +155,9 @@ public final class AsyncChatClient extends ServerNode {
         return client;
     }
 
+    public static AsyncChatClient run(int port, int workerThread, @NotNull ChatClientContext context) throws Exception {
+        return run(workerThread, new InetSocketAddress(port), context);
+    }
 
     public static AsyncChatClient run(InetSocketAddress address, @NotNull ChatClientContext context) throws Exception {
         return run(1, address, context);

@@ -10,6 +10,6 @@ public class DefaultHandlerSenderPackage implements HandlerSenderPackage {
 
     @Override
     public void senderPack(ChannelHandlerContext context) {
-
+        // no - thing
     }
 }

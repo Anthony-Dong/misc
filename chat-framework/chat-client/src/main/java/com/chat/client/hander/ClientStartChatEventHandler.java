@@ -1,6 +1,6 @@
 package com.chat.client.hander;
 
-import com.chat.client.netty.ChatClient;
+import com.chat.client.netty.SyncChatClient;
 import com.chat.core.exception.HandlerException;
 import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
@@ -12,7 +12,7 @@ import java.net.InetSocketAddress;
 /**
  * 客户端启动事件处理器
  * <p>
- * {@link ChatClient#start}
+ * {@link SyncChatClient#start}
  *
  * @date:2019/12/24 19:49
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
@@ -35,7 +35,7 @@ public class ClientStartChatEventHandler implements ChatEventHandler {
             if (null != chatClientContext) {
                 chatClientContext.onStart();
             }
-            logger.error("[客户端] 启动成功 Host:{} Port:{}.", address.getHostName(), address.getPort());
+            logger.error("[客户端] 启动成功 Host:{} Port:{} Version : {} ContextName :{} .", address.getHostName(), address.getPort(), chatClientContext.getVersion(), chatClientContext.getContextName());
         }
     }
 }

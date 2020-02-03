@@ -26,16 +26,13 @@ public class ServerChannelRegisteredChatEventHandler implements ChatEventHandler
 
     @Override
     public void handler(ChatEvent event) throws HandlerException {
-        logger.info("[服务器] 客户端注册成功.");
-
         Object obj = event.event();
         if (obj instanceof ChannelHandlerContext) {
             ChannelHandlerContext context = (ChannelHandlerContext) obj;
-
             if (this.chatServerContext != null) {
                 this.chatServerContext.onRegister(context);
             }
-            logger.info("[服务器] 客户端IP : {} 注册成功 .", context.channel().remoteAddress().toString());
+            logger.info("[服务器] Registered Client : {} .", context.channel().remoteAddress().toString());
         }
     }
 }

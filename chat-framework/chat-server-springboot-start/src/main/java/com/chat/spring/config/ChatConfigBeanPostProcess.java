@@ -23,10 +23,6 @@ public class ChatConfigBeanPostProcess implements BeanPostProcessor {
                 redisTemplate = (RedisTemplate<String, Object>) bean;
             }
         }
-//        if (bean.getClass() == RedisChatServerContext.class) {
-//            System.out.println("beanName = " + beanName);
-//        }
-
         return bean;
     }
 

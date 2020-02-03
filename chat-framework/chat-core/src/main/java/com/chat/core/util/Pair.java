@@ -19,6 +19,9 @@ public class Pair<K, V> {
         this.v = v;
     }
 
+    public Pair() {
+    }
+
     public K getK() {
         return k;
     }

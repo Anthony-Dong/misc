@@ -3,6 +3,7 @@ package com.chat.server.spi;
 import com.chat.core.annotation.SPI;
 import com.chat.core.exception.HandlerException;
 import com.chat.core.model.NPack;
+import io.netty.channel.ChannelHandlerContext;
 
 /**
  * 保存 接收到的package
@@ -11,10 +12,9 @@ import com.chat.core.model.NPack;
 public interface SaveReceivePackage {
 
     /**
-     * 保存 数据包的唯一拓展接口
-     *
      * @param pack NPack 数据包
+     * @param context 当前连接的上下文. 可以用来发送消息之类的.
      * @throws HandlerException 异常
      */
-    void doSave(NPack pack) throws HandlerException;
+    void doSave(NPack pack, ChannelHandlerContext context) throws HandlerException;
 }

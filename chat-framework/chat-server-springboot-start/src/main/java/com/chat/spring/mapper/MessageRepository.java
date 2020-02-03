@@ -14,4 +14,5 @@ public interface MessageRepository extends JpaRepository<MessageDo, Long> {
     @Query("SELECT m.id FROM MessageDo m WHERE m.senderId=?1")
     Long findIDBySenderId(Long senderID);
 
+
 }

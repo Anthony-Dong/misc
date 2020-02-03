@@ -56,6 +56,6 @@ public class TestSPI {
     public void test() throws HandlerException {
         SaveReceivePackage saver = SPIUtil.loadClass(SaveReceivePackage.class, Thread.currentThread().getContextClassLoader());
         assert saver != null;
-        saver.doSave(NPack.buildWithStringBody("a", "b", "c"));
+//        saver.doSave(NPack.buildWithStringBody("a", "b", "c"));
     }
 }

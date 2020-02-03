@@ -1,5 +1,6 @@
 package com.chat.spring.config;
 
+import com.chat.core.annotation.Primary;
 import com.chat.core.exception.ExceptionHandler;
 import com.chat.core.exception.HandlerException;
 import com.chat.core.model.Message;
@@ -7,6 +8,7 @@ import com.chat.core.model.NPack;
 import com.chat.core.util.FileUtil;
 import com.chat.server.spi.SaveReceivePackage;
 import com.chat.spring.pojo.MessageDo;
+import io.netty.channel.ChannelHandlerContext;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -22,6 +24,7 @@ import static com.chat.core.util.RouterUtil.*;
  * @date:2019/12/26 20:18
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
+@Primary
 public final class RedisSaveReceivePackage implements SaveReceivePackage {
 
     private RedisTemplate<String, Object> redisTemplate;
@@ -52,7 +55,7 @@ public final class RedisSaveReceivePackage implements SaveReceivePackage {
      * @throws HandlerException 异常
      */
     @Override
-    public void doSave(NPack pack) throws HandlerException {
+    public void doSave(NPack pack, ChannelHandlerContext context) throws HandlerException {
         String router = pack.getRouter();
         Properties properties = convertRouter(router);
         if (null == properties) {
@@ -130,8 +133,6 @@ public final class RedisSaveReceivePackage implements SaveReceivePackage {
         BoundListOperations<String, Object> rj = redisTemplate.boundListOps(receiver);
 
         rj.rightPush(message);
-
-        System.out.println(receiver + " : " + message);
     }
 
 
@@ -143,4 +144,5 @@ public final class RedisSaveReceivePackage implements SaveReceivePackage {
     static MessageDo consumeMessage(BoundListOperations<String, MessageDo> bls) {
         return bls.leftPop();
     }
+
 }

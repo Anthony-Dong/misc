@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 @EnableChatServer
 public class ChatServerApplication implements CommandLineRunner {
@@ -24,10 +25,10 @@ public class ChatServerApplication implements CommandLineRunner {
     @Autowired
     private ChatServerProperties properties;
 
+
     @Override
     public void run(String... args) throws Exception {
         ChatServer.run(properties.getPort(), context);
-
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("关闭");
         }));

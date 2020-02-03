@@ -9,25 +9,23 @@ import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
 import com.chat.core.listener.ChatEventListener;
 import com.chat.core.listener.ChatEventType;
-import com.chat.core.util.NamedThreadFactory;
+import com.chat.core.util.ThreadPool;
 import com.chat.server.handler.ChatServerContext;
 import com.chat.server.handler.ServerChatHandlerConstant;
 import com.chat.server.handler.ServerStartChatEventHandler;
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.netty.util.concurrent.DefaultThreadFactory;
+
 
 /**
  * 服务器端
  */
-
 public class ChatServer extends ServerNode {
-
-    private static final Logger logger = LoggerFactory.getLogger(ChatServer.class);
     /**
      * boss 组 一般是 一个
      */
@@ -45,9 +43,23 @@ public class ChatServer extends ServerNode {
      * 启动监听器
      * 可以看 {@link ChatEvent SERVER_SUCCESS} 属性去判断 失败/成功
      */
-    private ChatEventListener listener;
+    private final ChatEventListener listener;
 
-    private short version;
+    private final short version;
+
+    /**
+     * 线程池
+     */
+    private final ThreadPool threadPool;
+
+
+    private static final String DEFAULT_THREAD_NAME = "server-handler";
+
+    private static final int DEFAULT_THREAD_SIZE = 10;
+
+    public ThreadPool getThreadPool() {
+        return threadPool;
+    }
 
     /**
      * 构造方法 , 初始化一堆参数
@@ -55,12 +67,13 @@ public class ChatServer extends ServerNode {
      * @param address
      * @param listener
      */
-    public ChatServer(short version, InetSocketAddress address, ChatEventListener listener) {
+    public ChatServer(short version, InetSocketAddress address, ChatEventListener listener, ThreadPool threadPool) {
+        this.threadPool = threadPool;
         this.version = version;
         this.address = address;
         this.listener = listener;
-        this.bossGroup = new NioEventLoopGroup(1);
-        this.workerGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors(), new NamedThreadFactory("chat-server"));
+        this.bossGroup = new NioEventLoopGroup(1, new DefaultThreadFactory("NettyServerBoss", true));
+        this.workerGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors(), new DefaultThreadFactory("NettyServerWorker", true));
     }
 
     /**
@@ -70,15 +83,16 @@ public class ChatServer extends ServerNode {
      */
     @Override
     protected void start() throws Exception {
-        logger.info("[服务器] 开始启动 Host : {}  Port : {}.", address.getHostName(), address.getPort());
         final ServerBootstrap serverBootstrap = new ServerBootstrap();
-        final ChatServerInitializer initializer = new ChatServerInitializer(listener, version);
+        final ChatServerInitializer initializer = new ChatServerInitializer(listener, version, threadPool);
         serverBootstrap
                 .group(bossGroup, workerGroup) // 添加组
                 .channel(NioServerSocketChannel.class)  // 添加管道
-                .option(ChannelOption.SO_BACKLOG, 1024)  // 设置TCP连接数队列
-                .childHandler(initializer)//设置初始化项目
-                .childOption(ChannelOption.TCP_NODELAY, true);
+                // 这几个参考自 org.apache.dubbo.remoting.transport.netty4.NettyServer
+                .childOption(ChannelOption.TCP_NODELAY, Boolean.TRUE)
+                .childOption(ChannelOption.SO_REUSEADDR, Boolean.TRUE)
+                .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
+                .childHandler(initializer);//设置初始化项目
 
         try {
             final ChannelFuture channelFuture = serverBootstrap.bind(address).sync();
@@ -100,7 +114,6 @@ public class ChatServer extends ServerNode {
             // 当前启动线程到这里阻塞中
             channelFuture.channel().closeFuture().sync();
         } finally {
-
             /**
              * {@link com.chat.server.handler.ServerShutdownChatEventHandler}  处理器
              */
@@ -142,21 +155,34 @@ public class ChatServer extends ServerNode {
      * @param context 上下文
      * @throws Exception
      */
-    public static void run(InetSocketAddress address, ChatServerContext context) throws Exception {
+    public static void run(InetSocketAddress address, ChatServerContext context, ThreadPool threadPool) throws Exception {
+
         final ServerChatHandlerConstant constant = new ServerChatHandlerConstant(context);
 
-        final Map<ChatEventType, ChatEventHandler> handlerMap = constant.SERVER_MAP;
+        final Map<ChatEventType, ChatEventHandler> handlerMap = constant.getHandlerMap();
 
+        context.setThreadPool(threadPool);
+
+        //这里不判断的原因是因为这个是设定好的. 不会出错.
         final ChatServer server = new ChatServer(context.getVersion(), address, event -> {
             ChatEventHandler handler = handlerMap.get(event.eventType());
             handler.handler(event);
-        });
-
+        }, threadPool);
         server.start();
     }
 
-    public static void run(int port, ChatServerContext context) throws Exception {
-        run(new InetSocketAddress(port), context);
+    public static void run(int port, ChatServerContext context, int poolSize, int queueSize, String name) throws Exception {
+        if (poolSize <= 0) {
+            throw new IllegalArgumentException("PoolSize  不能小于等于 0");
+        }
+        run(new InetSocketAddress(port), context, new ThreadPool(poolSize, queueSize, name));
     }
 
+
+    /**
+     * 阻塞
+     */
+    public static void run(int port, ChatServerContext context) throws Exception {
+        run(port, context, DEFAULT_THREAD_SIZE, -1, DEFAULT_THREAD_NAME);
+    }
 }

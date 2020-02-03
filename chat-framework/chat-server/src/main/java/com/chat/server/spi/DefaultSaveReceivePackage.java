@@ -2,6 +2,9 @@ package com.chat.server.spi;
 
 import com.chat.core.exception.HandlerException;
 import com.chat.core.model.NPack;
+import io.netty.channel.ChannelHandlerContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TODO
@@ -11,6 +14,7 @@ import com.chat.core.model.NPack;
  */
 public class DefaultSaveReceivePackage implements SaveReceivePackage {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultSaveReceivePackage.class);
 
     /**
      * 保存 数据包的唯一拓展接口
@@ -19,7 +23,10 @@ public class DefaultSaveReceivePackage implements SaveReceivePackage {
      * @throws HandlerException 异常
      */
     @Override
-    public void doSave(NPack pack) throws HandlerException {
-        System.out.println(pack);
+    public void doSave(NPack pack, ChannelHandlerContext context) throws HandlerException {
+        LOGGER.info("[服务器] Receive Pack : {}.", pack);
+        for (int x = 1; x < 10; x++) {
+            context.writeAndFlush(NPack.buildWithJsonBody("服务器", "OK", "NULL"));
+        }
     }
 }

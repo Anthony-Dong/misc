@@ -32,7 +32,7 @@ public class ServerShutdownChatEventHandler implements ChatEventHandler {
             if (this.chatServerContext != null) {
                 this.chatServerContext.onFail(address);
             }
-            logger.info("[服务器] 关闭成功 Host:{}  Post :{}. ", address.getHostName(), address.getPort());
+            logger.info("[服务器] 关闭成功 Host:{} , Port:{} , Version:{} , ContextName:{}.", address.getHostName(), address.getPort(), chatServerContext.getVersion(), chatServerContext.getContextName());
         }
     }
 }

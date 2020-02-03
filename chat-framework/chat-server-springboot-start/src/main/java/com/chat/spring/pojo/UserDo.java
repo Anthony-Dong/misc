@@ -23,6 +23,7 @@ public class UserDo {
      */
     @Id
     @Column(name = "id", unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
 

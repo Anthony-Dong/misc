@@ -43,7 +43,7 @@ public class HttpResponse {
         this.body = body;
     }
 
-    public static HttpResponse succress(Object body) {
+    public static HttpResponse success(Object body) {
         return new HttpResponse(ok, body);
     }
 
