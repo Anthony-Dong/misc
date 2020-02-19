@@ -1,6 +1,5 @@
 package com.chat.core.util;
 
-import org.apache.commons.lang3.StringUtils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -2,10 +2,11 @@ package com.chat.conf.spring;
 
 
 import com.alibaba.fastjson.TypeReference;
-import com.chat.core.model.NServerInfo;
+import com.chat.conf.model.NServerInfo;
 import com.chat.core.util.HttpUtil;
 import com.chat.conf.model.ConfConstant;
 import com.chat.core.util.JsonUtil;
+import com.chat.core.util.NamedThreadFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -35,11 +36,10 @@ public class ChatConfigScheduleListener implements ApplicationListener<ContextRe
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-
         log.info("[配置中心] 启动定时刷新器成功 ...");
 
         // 这是一个线程池 , 任务线程池
-        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(10, new ChatThreadFactory(ConfConstant.CONF_SCHEDULE_EXECUTOR));
+        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1, new NamedThreadFactory(ConfConstant.CONF_SCHEDULE_EXECUTOR,true));
 
 
         // 线程池任务
@@ -78,6 +78,5 @@ public class ChatConfigScheduleListener implements ApplicationListener<ContextRe
                 }
             }
         }, 0, info.getPullScheduleInterval(), TimeUnit.SECONDS);
-
     }
 }

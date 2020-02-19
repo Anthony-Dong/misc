@@ -1,13 +1,13 @@
 package com.chat.client.hander;
 
-import com.chat.core.exception.ContextException;
-import com.chat.core.model.NPack;
+import com.chat.core.context.Context;
+import com.chat.core.model.netty.Response;
 import com.chat.core.netty.Constants;
+import com.chat.core.util.ThreadPool;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 
-import java.util.function.Consumer;
+import java.net.InetSocketAddress;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * 客户端上下文
@@ -15,86 +15,30 @@ import java.util.function.Consumer;
  * @date:2019/12/24 22:51
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-public abstract class ChatClientContext {
+public abstract class ChatClientContext implements Context {
 
     /**
      * 全局唯一的context 对象
      */
-    private volatile ChannelHandlerContext context;
+    protected ChannelHandlerContext context;
 
     /**
-     * 版本号, 默认值是 {@link Constants.PROTOCOL_VERSION}
+     * 默认的心跳时间
      */
-    private final short version;
+    private int heartInterval = -1;
 
-    /**
-     * 默认名
-     */
-    private static final String DEFAULT_CONTEXT_NAME = "chat-server-name";
-
-    /**
-     * 默认版本号
-     */
-    private static final short DEFAULT_VERSION = Constants.PROTOCOL_VERSION;
+    // 版本号, 默认值
+    private short version = Constants.PROTOCOL_VERSION;
 
     // 上下文名称
-    private final String contextName;
+    private String contextName = "chat-server";
+
+    public InetSocketAddress address;
+
+    private final CountDownLatch latch = new CountDownLatch(1);
 
 
-    public final String getContextName() {
-        return this.contextName;
-    }
-
-
-    public final short getVersion() {
-        return this.version;
-    }
-
-
-    public ChatClientContext(String contextName, int version) {
-        if (version > Short.MAX_VALUE || version < Short.MIN_VALUE) {
-            throw new RuntimeException("Version range in -32768 with 32767 !");
-        }
-
-        this.contextName = contextName;
-        this.version = (short) version;
-    }
-
-    public ChatClientContext(String contextName) {
-        this(contextName, DEFAULT_VERSION);
-    }
-
-    public ChatClientContext(short version) {
-        this(DEFAULT_CONTEXT_NAME, version);
-    }
-
-    public ChatClientContext() {
-        this(DEFAULT_VERSION);
-    }
-
-    public boolean sendPack(NPack pack) throws ContextException {
-        return sendPack(pack, null, null);
-    }
-
-    public boolean sendPack(NPack pack, Consumer<NPack> consumer) throws ContextException {
-        return sendPack(pack, consumer, null);
-    }
-
-
-    public boolean sendPack(NPack pack, Consumer<NPack> consumer, GenericFutureListener<Future<? super Void>> listener) {
-        if (context == null) {
-            throw new ContextException("初始化未完成,无法发送消息");
-        }
-        if (consumer != null) {
-            consumer.accept(pack);
-        }
-        if (listener == null) {
-            context.writeAndFlush(pack);
-        } else {
-            context.writeAndFlush(pack).addListener(listener);
-        }
-        return true;
-    }
+    private ThreadPool threadPool;
 
     /**
      * 阻塞过程
@@ -102,11 +46,6 @@ public abstract class ChatClientContext {
      * @return ChannelHandlerContext
      */
     public final ChannelHandlerContext getContext() {
-        if (null == context) {
-            while (true) {
-                if (null != context) break;
-            }
-        }
         return context;
     }
 
@@ -115,42 +54,76 @@ public abstract class ChatClientContext {
      *
      * @param context ChannelHandlerContext
      */
-    void setContext(ChannelHandlerContext context) {
+    final void setContext(ChannelHandlerContext context) {
         this.context = context;
     }
 
-
-    /**
-     * 客户端启动
-     */
-    protected void onStart() {
-    }
-
-
-    /**
-     * 客户端关闭
-     */
-    protected void onFail() {
-    }
 
     /**
      * 客户端接收到信息
      *
      * @param context NPack
      */
-    protected void onReading(NPack context) {
+    protected void onReading(Response context) {
 
     }
 
-    /**
-     * 一个空对象
-     */
-    public static ChatClientContext newInstance() {
-        return new ChatClientContext() {
-            @Override
-            protected void onReading(NPack context) {
-                System.out.println(Thread.currentThread().getName() + " : " + context);
-            }
-        };
+
+    public CountDownLatch getLatch() {
+        return latch;
+    }
+
+    public final InetSocketAddress getAddress() {
+        return address;
+    }
+
+    public final void setAddress(InetSocketAddress address) {
+        this.address = address;
+    }
+
+    public final String getContextName() {
+        return this.contextName;
+    }
+
+    public final short getVersion() {
+        return this.version;
+    }
+
+    public final void setVersion(short version) {
+        this.version = version;
+    }
+
+    public final void setContextName(String contextName) {
+        this.contextName = contextName;
+    }
+
+    public final ThreadPool getThreadPool() {
+        return threadPool;
+    }
+
+    public final void setThreadPool(ThreadPool threadPool) {
+        this.threadPool = threadPool;
+    }
+
+    public final int getHeartInterval() {
+        return heartInterval;
+    }
+
+    public final void setHeartInterval(int heartInterval) {
+        this.heartInterval = heartInterval;
+    }
+
+    public static void init(ChatClientContext context) {
+        // context 优先级高
+        if (context.getAddress() == null) {
+            context.setAddress(new InetSocketAddress(Constants.DEFAULT_HOST, Constants.DEFAULT_PORT));
+        }
+        // 一个线程就可以了, 防止阻塞解码线程
+        if (context.getThreadPool() == null) {
+            context.setThreadPool(new ThreadPool(1, 0, "Netty-Worker"));
+        }
+        if (context.getHeartInterval() == -1) {
+            context.setHeartInterval(Constants.DEFAULT_HEART_INTERVAL);
+        }
     }
 }

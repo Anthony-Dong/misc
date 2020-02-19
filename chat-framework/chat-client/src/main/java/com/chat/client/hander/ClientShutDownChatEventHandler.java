@@ -29,7 +29,7 @@ public class ClientShutDownChatEventHandler implements ChatEventHandler {
         if (obj instanceof InetSocketAddress) {
             InetSocketAddress address = (InetSocketAddress) obj;
             if (null != chatClientContext) {
-                chatClientContext.onFail();
+                chatClientContext.onShutdown();
             }
             logger.error("[客户端] 关闭成功 Host:{} Port:{}. ", address.getHostName(), address.getPort());
         }

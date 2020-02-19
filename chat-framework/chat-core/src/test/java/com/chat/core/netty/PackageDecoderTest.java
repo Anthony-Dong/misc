@@ -1,6 +1,7 @@
 package com.chat.core.netty;
 
 import com.chat.core.model.NPack;
+import com.chat.core.model.NpackBuilder;
 import com.chat.core.util.MessagePackPool;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -20,9 +21,9 @@ public class PackageDecoderTest {
         MessagePack pack = MessagePackPool.getPack();
 
 
-        NPack nPack1 = NPack.buildWithJsonBody("1111", "22222", "3333");
+        NPack nPack1 = NpackBuilder.buildWithJsonBody("1111", "22222", "3333");
         byte[] write1 = pack.write(nPack1);
-        NPack nPack2 = NPack.buildWithJsonBody("BBBB", "CCCCC", "DDDD");
+        NPack nPack2 = NpackBuilder.buildWithJsonBody("BBBB", "CCCCC", "DDDD");
         byte[] write2 = pack.write(nPack2);
 
 

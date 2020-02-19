@@ -8,7 +8,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.CharsetUtil;
-import org.apache.commons.lang3.CharSetUtils;
 
 import java.net.SocketAddress;
 import java.util.concurrent.TimeUnit;

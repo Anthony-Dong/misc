@@ -2,12 +2,10 @@ package com.chat.server;
 
 import com.chat.core.annotation.Primary;
 import com.chat.core.exception.HandlerException;
-import com.chat.core.model.NPack;
 import com.chat.core.spi.SPIUtil;
 import com.chat.server.handler.ServerReadChatEventHandler;
-import com.chat.server.spi.Filter;
 import com.chat.server.spi.HandlerReceivePackage;
-import com.chat.server.spi.SaveReceivePackage;
+import com.chat.server.spi.handler.RequestHandler;
 import org.junit.Test;
 
 import java.util.*;
@@ -54,7 +52,7 @@ public class TestSPI {
 
     @Test
     public void test() throws HandlerException {
-        SaveReceivePackage saver = SPIUtil.loadClass(SaveReceivePackage.class, Thread.currentThread().getContextClassLoader());
+        RequestHandler saver = SPIUtil.loadClass(RequestHandler.class, Thread.currentThread().getContextClassLoader());
         assert saver != null;
 //        saver.doSave(NPack.buildWithStringBody("a", "b", "c"));
     }

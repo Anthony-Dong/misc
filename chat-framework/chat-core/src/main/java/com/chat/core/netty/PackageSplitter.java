@@ -2,13 +2,13 @@ package com.chat.core.netty;
 
 
 import com.chat.core.model.NPack;
-import com.chat.core.util.MessagePackPool;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import org.msgpack.MessagePack;
 
 /**
- * 这个其实么啥用 , 我随手写的 ,其实也可以用这个处理 ,但是最好别重写{@link PackageSplitter#decode(io.netty.channel.ChannelHandlerContext, io.netty.buffer.ByteBuf)}
+ * 这个其实么啥用 , 我随手写的 ,其实也可以用这个处理 ,但是最好别重写{@link PackageSplitter#decode}
  * <p>
  * 可以他处理完给下一个处理处理器
  * <p>
@@ -25,8 +25,10 @@ public class PackageSplitter extends LengthFieldBasedFrameDecoder {
      * arg4 ; initialBytesToStrip 解析时候跳过多少个长度
      */
     public PackageSplitter() {
-        super(Constants.MAX_FRAME_LENGTH, Constants.LENGTH_OFFSET, Constants.LENGTH_BYTES_COUNT, 0, 0, true);
+        super(Integer.MAX_VALUE, 2, 4, 0, 0, true);
     }
+
+    private final MessagePack messagePack = new MessagePack();
 
     @Override
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
@@ -45,10 +47,7 @@ public class PackageSplitter extends LengthFieldBasedFrameDecoder {
             in.readBytes(read, 0, len);
 
             // 获取messages
-            NPack pack = MessagePackPool.getPack().read(read, NPack.class);
-
-            //
-            MessagePackPool.removePack();
+            NPack pack = messagePack.read(read, NPack.class);
 
             // 数组清空引用
             read = null;

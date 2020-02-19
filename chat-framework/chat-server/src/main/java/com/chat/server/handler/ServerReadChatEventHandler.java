@@ -5,16 +5,15 @@ import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
 import com.chat.core.listener.ChatEventType;
 import com.chat.core.model.NPack;
-import com.chat.core.netty.Constants;
 import com.chat.server.netty.ChatServerHandler;
 import com.chat.server.spi.HandlerReceivePackage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ThreadFactory;
+import static com.chat.core.model.UrlConstants.HEART_PROTOCOL;
 
 /**
- * {@link ChatServerHandler#channelRead0(io.netty.channel.ChannelHandlerContext, com.chat.core.model.NPack)} 使用
+ * {@link ChatServerHandler} 使用
  * <p>
  * {@link ChatEventType#SERVER_READ} 类型
  *
@@ -23,8 +22,6 @@ import java.util.concurrent.ThreadFactory;
  */
 
 public class ServerReadChatEventHandler implements ChatEventHandler {
-    private static final Logger logger = LoggerFactory.getLogger(ServerReadChatEventHandler.class);
-
     private final HandlerReceivePackage handler;
 
     ServerReadChatEventHandler(ChatServerContext context) {
@@ -34,13 +31,7 @@ public class ServerReadChatEventHandler implements ChatEventHandler {
     @Override
     public void handler(ChatEvent event) throws HandlerException {
         Object event1 = event.event();
-        if (event1 instanceof NPack) {
-            NPack pack = (NPack) event1;
-            if (pack.getRouter().equals(Constants.HEART_BEAT_NPACK_ROUTER)) {
-                logger.info("[服务器] 心跳信息 : {}.", pack);
-            } else {
-                handler.handlerNPack(pack);
-            }
-        }
+        NPack pack = (NPack) event1;
+        handler.handlerNPack(pack);
     }
 }

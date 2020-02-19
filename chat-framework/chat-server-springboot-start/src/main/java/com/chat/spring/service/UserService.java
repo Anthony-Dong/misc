@@ -1,28 +1,22 @@
 package com.chat.spring.service;
 
 import com.chat.core.loadbalance.LoadBalance;
+import com.chat.core.netty.PropertiesConstant;
 import com.chat.core.register.RegisterFactory;
 import com.chat.core.util.EncodeUtil;
 import com.chat.core.util.Pair;
-import com.chat.spring.annotation.ChatServerConfiguration;
 import com.chat.spring.mapper.MessageRepository;
 import com.chat.spring.mapper.UserRepository;
 import com.chat.spring.pojo.UserDo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.BoundHashOperations;
-import org.springframework.data.redis.core.BoundValueOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.reflect.generics.tree.Tree;
-import sun.security.x509.CRLNumberExtension;
 
 import java.net.InetSocketAddress;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
-import java.util.function.BiConsumer;
 
 /**
  * @date:2020/1/7 16:20
@@ -100,7 +94,7 @@ public class UserService {
         String up = EncodeUtil.getMD5(out);
         if (pw.equals(up)) {
 
-            BoundHashOperations<String, String, Object> hash = redisTemplate.boundHashOps(RegisterFactory.SERVER_KEY);
+            BoundHashOperations<String, String, Object> hash = redisTemplate.boundHashOps(PropertiesConstant.CLIENT_REGISTER_KEY);
 
             Map<String, Object> entries = hash.entries();
 

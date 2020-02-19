@@ -5,9 +5,18 @@ import com.alibaba.fastjson.TypeReference;
 import com.chat.core.util.JsonUtil;
 import com.chat.core.util.RouterUtil;
 import org.junit.Test;
+import org.msgpack.MessagePack;
 
+import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 
@@ -16,7 +25,7 @@ public class NPackTest {
     @Test
     public void buildWithStringBody() throws Exception {
 
-        NPack nPack = NPack.buildWithJsonBody("aaa", "aaaa", NPack.buildWithStringBody("a", "a", "aaa"));
+        NPack nPack = NpackBuilder.buildWithJsonBody("aaa", "aaaa", NpackBuilder.buildWithStringBody("a", "a", "aaa"));
 
         Properties properties = RouterUtil.convertRouter(nPack.getRouter());
         String type = properties.getProperty("type");
@@ -38,7 +47,7 @@ public class NPackTest {
     @Test
     public void buildWithByteBody() {
 
-        NPack nPack = NPack.buildWithStringBody("a", "b", "aaa");
+        NPack nPack = NpackBuilder.buildWithStringBody("a", "b", "aaa");
 
         byte[] body = nPack.getBody();
 
@@ -49,7 +58,38 @@ public class NPackTest {
     }
 
     @Test
-    public void buildWithJsonBody() {
+    public void buildWithJsonBody() throws IOException {
+
+
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        ExecutorService service = Executors.newFixedThreadPool(100);
+        MessagePack messagePack = new MessagePack();
+
+
+        long start = System.currentTimeMillis();
+        IntStream.range(0,1000).forEach(e-> service.execute(()->{
+            Map<String,String> map = new HashMap<>();
+            map.put("name", "value");
+            map.put("key", e + "");
+            String json = JSON.toJSONString(map);
+            NPack pack = new NPack(URL.encode(new URL("http", "localhost", 6379, map).toString()), json.getBytes());
+            try {
+                byte[] write = messagePack.write(pack);
+                NPack read = messagePack.read(write, NPack.class);
+                System.out.println(URL.valueOfByDecode(read.getRouter())+" : "+JSON.parseObject(new String(read.getBody()),new TypeReference<Map<String,String>>(){}));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }));
+
+        service.shutdown();
+
+        service.awaitTermination(Integer.MAX_VALUE, TimeUnit.DAYS);
+
+
+        System.out.println("end : " + (System.currentTimeMillis() - start));
 
     }
 }

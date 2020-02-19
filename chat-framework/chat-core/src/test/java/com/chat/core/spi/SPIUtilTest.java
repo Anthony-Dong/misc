@@ -12,4 +12,13 @@ public class SPIUtilTest {
 
         testFather.echo("aaa");
     }
+
+    @Test
+    public void loadFirstInstanceOrDefault() {
+
+        TestChild testChild = SPIUtil.loadFirstInstanceOrDefault(TestChild.class, DefaultTestChild.class);
+
+
+        testChild.echo("ok");
+    }
 }

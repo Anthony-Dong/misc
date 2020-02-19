@@ -2,12 +2,6 @@ package com.chat.core.util;
 
 import com.chat.core.annotation.MayEmpty;
 import com.chat.core.annotation.NotNull;
-import org.apache.commons.lang3.CharSetUtils;
-import org.apache.commons.lang3.StringUtils;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.Properties;
 
 import static com.chat.core.util.Assert.*;
@@ -19,6 +13,7 @@ import static com.chat.core.util.URLUtil.*;
  * @date:2019/12/25 9:15
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
+@Deprecated
 public final class RouterUtil {
 
     public static final String TYPE = "type";

@@ -1,11 +1,9 @@
 package com.chat.client.hander;
 
 import com.chat.client.netty.ChantClientHandler;
-import com.chat.client.spi.HandlerSenderPackage;
 import com.chat.core.exception.HandlerException;
 import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
-import com.chat.core.spi.SPIUtil;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 客户端连接服务器端成功
  * <p>
- * {@link ChantClientHandler#channelActive(io.netty.channel.ChannelHandlerContext)} 处理器
+ * {@link ChantClientHandler#channelActive} 处理器
  * <p>
  * 当连接真正建立成功 我们把上下文拿出来
  *
@@ -22,19 +20,14 @@ import org.slf4j.LoggerFactory;
  */
 public class ClientConnectedChatEventHandler implements ChatEventHandler {
     private static final Logger logger = LoggerFactory.getLogger(ClientReadChatEventHandler.class);
-    private final HandlerSenderPackage handler;
     private final ChatClientContext chatClientContext;
 
 
     ClientConnectedChatEventHandler(ChatClientContext chatClientContext) {
-        this.handler = SPIUtil.loadClass(HandlerSenderPackage.class, ClassLoader.getSystemClassLoader());
         this.chatClientContext = chatClientContext;
     }
 
-
     /**
-     * 拓展接口
-     *
      * @param event ChannelHandlerContext
      */
     @Override
@@ -42,11 +35,11 @@ public class ClientConnectedChatEventHandler implements ChatEventHandler {
         Object object = event.event();
         if (object instanceof ChannelHandlerContext) {
             ChannelHandlerContext context = (ChannelHandlerContext) object;
-            // 交给SPI处理器
+            // 将拿到的上下文对象取出来
             chatClientContext.setContext(context);
-            handler.senderPack(context);
-            logger.info("[客户端] 注册成功 , IP : {}.", context.channel().remoteAddress());
+            // 启动,代表ChannelHandlerContext已经拿到了.可以运行了
+            chatClientContext.getLatch().countDown();
+            logger.debug("[客户端] 注册成功 ServerAddress : {}.", context.channel().remoteAddress());
         }
     }
-
 }

@@ -1,7 +1,7 @@
 package com.chat.conf.spring;
 
 import com.chat.conf.model.ConfConstant;
-import com.chat.core.model.NServerInfo;
+import com.chat.conf.model.NServerInfo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -95,17 +95,12 @@ public class ChatConfigurationProperties implements InitializingBean {
 
         // 默认 zk 是主线程启动 ,看需求改成新建一个线程启动
 
-        zooKeeper = new ZooKeeper(this.zookeeperIp, this.zookeeperSessionTimeout, new Watcher() {
-            @Override
-            public void process(WatchedEvent event) {
-                // 循环监听 子节点
-                try {
-                    getChild();
-                } catch (KeeperException e) {
-                    //
-                } catch (InterruptedException e) {
-                    //
-                }
+        zooKeeper = new ZooKeeper(this.zookeeperIp, this.zookeeperSessionTimeout, event -> {
+            // 循环监听 子节点
+            try {
+                getChild();
+            } catch (KeeperException | InterruptedException e) {
+                //
             }
         });
 

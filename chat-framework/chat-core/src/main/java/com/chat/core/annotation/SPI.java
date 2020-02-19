@@ -13,4 +13,5 @@ import java.lang.annotation.*;
 @Documented
 public @interface SPI {
 
+    String value() default "";
 }

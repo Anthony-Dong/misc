@@ -14,6 +14,10 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.WritableByteChannel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
@@ -72,6 +76,19 @@ public class Server {
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
             ByteBuf buf = (ByteBuf) msg;
             long start = buf.readLong();
+
+
+            RandomAccessFile file = new RandomAccessFile(new File(""), "rw");
+
+
+
+
+            FileChannel channel = file.getChannel();
+
+
+
+            channel.transferTo(0, channel.size(), (WritableByteChannel) ctx);
+
 
             service.execute(() -> {
                 try {

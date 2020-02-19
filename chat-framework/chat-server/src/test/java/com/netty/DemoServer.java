@@ -1,11 +1,7 @@
 package com.netty;
 
 import com.chat.core.util.NamedThreadFactory;
-import com.google.common.io.CharSink;
-import com.google.common.io.FileWriteMode;
-import com.google.common.io.Files;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -63,7 +59,7 @@ public class DemoServer {
 
     @ChannelHandler.Sharable
     private static class MyChannelDuplexHandler extends ChannelDuplexHandler {
-        CharSink sink;
+       // CharSink sink;
 
         MyChannelDuplexHandler() {
 //            sink = Files.asCharSink(new File("D:\\MyDesktop\\template\\log.txt"), Charset.forName("utf-8"), FileWriteMode.APPEND);

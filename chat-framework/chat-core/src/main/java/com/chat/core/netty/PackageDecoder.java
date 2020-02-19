@@ -2,7 +2,7 @@ package com.chat.core.netty;
 
 
 import com.chat.core.model.NPack;
-import com.chat.core.util.MessagePackPool;
+import com.chat.core.model.NpackBuilder;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
@@ -34,6 +34,7 @@ public final class PackageDecoder extends ByteToMessageDecoder {
      * 默认值是 {@link com.chat.core.netty.Constants#PROTOCOL_VERSION}
      */
     private final short VERSION;
+    private static final MessagePack pack = new MessagePack();
 
     /**
      * 构造方法
@@ -44,30 +45,19 @@ public final class PackageDecoder extends ByteToMessageDecoder {
     }
 
     /**
-     * {@link ByteToMessageDecoder#channelRead(io.netty.channel.ChannelHandlerContext, java.lang.Object)}
+     * {@link ByteToMessageDecoder#channelRead}
      * <p>
      * 解码器
      */
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-
-        // 获取当前线程的 MessagePack
-        MessagePack pack = MessagePackPool.getPack();
-
-        try {
-            handler(in, pack, out);
-        } finally {
-            // 移除
-            MessagePackPool.removePack();
-        }
-
+        handler(in, out);
     }
 
     /**
      * 处理器 - 主要处理逻辑
      */
-    private void handler(ByteBuf in, MessagePack pack, List<Object> out) {
-
+    private void handler(ByteBuf in, List<Object> out) {
         // 如果可读
         while (in.isReadable()) {
 
@@ -112,12 +102,10 @@ public final class PackageDecoder extends ByteToMessageDecoder {
                     in.readerIndex(release);
                     return;
                 } else {
-
                     // 一致就添加进去 - > 啥也不做
                     out.add(read);
                 }
             } else {
-
                 // 版本不一致 -> 重置读指针位置 -> 返回
                 in.readerIndex(release);
                 return;
@@ -136,12 +124,12 @@ public final class PackageDecoder extends ByteToMessageDecoder {
 
 
         // 初始化 pack
-        MessagePack pack = MessagePackPool.getPack();
+        MessagePack pack = new MessagePack();
 
 
-        NPack nPack1 = NPack.buildWithJsonBody("1111", "22222", "3333");
+        NPack nPack1 = NpackBuilder.buildWithJsonBody("1111", "22222", "3333");
         byte[] write1 = pack.write(nPack1);
-        NPack nPack2 = NPack.buildWithJsonBody("BBBB", "CCCCC", "DDDD");
+        NPack nPack2 = NpackBuilder.buildWithJsonBody("BBBB", "CCCCC", "DDDD");
         byte[] write2 = pack.write(nPack2);
 
 
@@ -151,7 +139,6 @@ public final class PackageDecoder extends ByteToMessageDecoder {
 
         buffer.writeShort(Constants.PROTOCOL_VERSION);
         buffer.writeInt(123);
-
 
         // 1. 写一个包
         buffer.writeShort(Constants.PROTOCOL_VERSION);
@@ -180,8 +167,6 @@ public final class PackageDecoder extends ByteToMessageDecoder {
 
 
         decoder.decode(null, buffer, list);
-
-
 
 
         System.out.println("=====已读======");

@@ -1,22 +1,16 @@
 package com.chat.spring.service;
 
-import com.chat.core.model.HttpResponse;
-import com.chat.core.util.Pair;
 import com.chat.core.util.Snowflake;
 import com.chat.spring.mapper.MessageRepository;
 import com.chat.spring.pojo.MessageDo;
 import com.chat.spring.uitl.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.stereotype.Service;
-import sun.management.Sensor;
 
 import java.util.Date;
-import java.util.Optional;
 
 /**
  * 聊天 服务

@@ -5,6 +5,7 @@ import com.chat.core.annotation.Primary;
 import com.chat.core.annotation.SPI;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * SPI 拓展机制
@@ -58,11 +59,29 @@ public final class SPIUtil {
             handlerReceivePackage = primarySet.get(integer);
         }
 
-        // 删除
-        primarySet = null;
-        defaultSet = null;
-
         // 返回
         return handlerReceivePackage;
+    }
+
+    private static final Map<String, ServiceLoader> SERVICE_LOADER_MAP = new ConcurrentHashMap<String, ServiceLoader>();
+
+    /**
+     * 获取默认值
+     */
+    public static <T> T loadFirstInstanceOrDefault(Class<T> clazz, Class<? extends T> defaultClass) {
+        try {
+            // Not thread-safe, as it's expected to be resolved in a thread-safe context.
+            ServiceLoader<T> serviceLoader = ServiceLoader.load(clazz, Thread.currentThread().getContextClassLoader());
+
+            for (T instance : serviceLoader) {
+                if (instance != defaultClass) {
+                    return instance;
+                }
+            }
+            return defaultClass.newInstance();
+        } catch (Throwable t) {
+            t.printStackTrace();
+            return null;
+        }
     }
 }

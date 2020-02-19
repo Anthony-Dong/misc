@@ -1,10 +1,15 @@
 package com.chat.client.netty;
 
 import com.chat.core.listener.ChatEventListener;
+import com.chat.core.model.NPack;
+import com.chat.core.model.URL;
+import com.chat.core.model.UrlConstants;
 import com.chat.core.netty.Constants;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.timeout.IdleStateEvent;
+
+import java.net.InetSocketAddress;
 
 /**
  * 客户端心跳检测
@@ -20,7 +25,12 @@ public final class ClientHeartBeatHandler extends ChannelDuplexHandler {
      */
     private final ChatEventListener listener;
 
-    ClientHeartBeatHandler(ChatEventListener listener) {
+    private final NPack pack;
+
+    ClientHeartBeatHandler(ChatEventListener listener, InetSocketAddress address) {
+        // 路由信息
+        URL url = new URL(UrlConstants.HEART_PROTOCOL, address.getHostName(), address.getPort());
+        this.pack = new NPack(URL.decode(url.toString()));
         this.listener = listener;
     }
 
@@ -28,7 +38,7 @@ public final class ClientHeartBeatHandler extends ChannelDuplexHandler {
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
         if (evt instanceof IdleStateEvent) {
             // 从下往上遍历
-            ctx.writeAndFlush(Constants.HEART_BEAT_NPACK);
+            ctx.writeAndFlush(pack);
         } else {
             // 交给其他处理
             ctx.fireUserEventTriggered(evt);

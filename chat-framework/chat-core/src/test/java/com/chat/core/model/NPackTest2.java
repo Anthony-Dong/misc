@@ -15,7 +15,7 @@ public class NPackTest2 {
         MessagePack messagePack = new MessagePack();
 
 
-        NPack nPack = NPack.buildWithStringBody("a", "b", "c");
+        NPack nPack = NpackBuilder.buildWithStringBody("a", "b", "c");
 
 
         byte[] write = messagePack.write(nPack);

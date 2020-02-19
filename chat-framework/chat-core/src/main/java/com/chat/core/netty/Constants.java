@@ -1,47 +1,59 @@
 package com.chat.core.netty;
 
-import com.chat.core.model.NPack;
-
 /**
- * 数据包的一些属性
+ * 所有的常量信息 , 客户端服务器端同理
  *
  * @date:2019/11/10 13:47
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 
+import static com.chat.core.netty.PropertiesConstant.*;
+
 public final class Constants {
 
-    //协议默认版本号  , 2个字节 16位 (-32768,32767)
-    public static final short PROTOCOL_VERSION = 1;
+    /**
+     * 协议版本号 , 默认是1 ,最好是无符号整数 ,协议默认版本号  , 2个字节 16位 (-32768,32767)
+     */
+    public static final short PROTOCOL_VERSION = Short.parseShort(System.getProperty(CLIENT_VERSION, "1"));
+
+    /**
+     * 默认的地址
+     */
+    public static final String DEFAULT_HOST = System.getProperty(CLIENT_HOST, "0.0.0.0");
+    public static final int DEFAULT_PORT = Integer.getInteger(CLIENT_PORT, 9999);
+
+    /**
+     * 默认处理器个数
+     */
+    public static final int DEFAULT_IO_THREADS = Math.min(Runtime.getRuntime().availableProcessors() + 1, 32);
+
+    /**
+     * 线程名字
+     */
+    public static final String DEFAULT_THREAD_NAME = "Netty-Handler";
+    /**
+     * 默认大小是100个线程
+     */
+    public static final int DEFAULT_THREAD_SIZE = Integer.getInteger(CLIENT_THREAD_CORE_SIZE, 100);
+    /**
+     * 无界队列,-1
+     */
+    public static final int DEFAULT_QUEUE_SIZE = Integer.getInteger(CLIENT_THREAD_QUEUE_SIZE, -1);
+
+    /**
+     * 超时时间,默认2000ms
+     */
+    public static final long DEFAULT_TIMEOUT = Long.getLong(CLIENT_TIME_OUT, 2000);
+
+    /**
+     * 默认值30S
+     */
+    public static final int DEFAULT_HEART_INTERVAL = Integer.getInteger(CLIENT_HEART_INTERVAL, 30);
 
 
-    // 头部的长度： 版本号 + 数据包长度(占用4个字节)
-    // 数据包长度 , 做校验  , 4个字节 32位 (-2147483648 , 2147483647 )
-    public static final int PROTOCOL_HEAD_LENGTH = 6;
-
-
-    //长度的偏移 , 从第二个字节开始
-    public static final short LENGTH_OFFSET = 2;
-
-
-    //长度的字节数 , 长度占多少字节
-    public static final int LENGTH_BYTES_COUNT = 4;
-
-
-    // 每帧的字节长度最多 1024*2  够上千个汉字了
-    public static final short MAX_FRAME_LENGTH = 1024 * 2;
-
-
-    // 心跳检测使用的
-    public static final String HEART_BEAT_NPACK_ROUTER = "heart";
-
-
-    // 默认的心跳包
-    public static final NPack HEART_BEAT_NPACK = new NPack(HEART_BEAT_NPACK_ROUTER);
-
-
-    public static final String VERSION_PREFIX = "server-";
-
-    public static final char REDIS_KEY_DELIMITER = '/';
+    /**
+     * 启动最长等待时间
+     */
+    public static final int DEFAULT_CONNECT_TIMEOUT = Integer.getInteger(CLIENT_CONNECT_TIMEOUT, 1000);
 
 }

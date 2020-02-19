@@ -1,22 +1,14 @@
 package com.chat.core.model;
 
 
-import com.chat.core.annotation.NotNull;
-import com.chat.core.util.FileUtil;
-import com.chat.core.util.JsonUtil;
-import com.chat.core.util.RouterUtil;
 import org.msgpack.annotation.Index;
 import org.msgpack.annotation.Message;
 
-import java.beans.Transient;
-import java.io.File;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketAddress;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * 数据包  所有 netty 传递的数据包
@@ -30,7 +22,7 @@ import java.util.List;
 public class NPack implements Serializable {
     private static final long serialVersionUID = -4696439084835068210L;
     /**
-     * 名字
+     * 路由信息, 其实就是URL .请看 {@link URL} 和 {@link RouterBuilder}
      */
     @Index(0)
     private String router;
@@ -76,6 +68,11 @@ public class NPack implements Serializable {
         this(router, body, System.currentTimeMillis());
     }
 
+    public NPack(String router, long timestamp) {
+        this(router, null, timestamp);
+    }
+
+
     public NPack(String router) {
         this(router, null);
     }
@@ -106,20 +103,39 @@ public class NPack implements Serializable {
     }
 
 
+//    @Override
+//    public String toString() {
+//        return "NPack[" +
+//                "router={" + decodeRouter() + '}' +
+//                ", timestamp=" + timestamp +
+//                ']';
+//
+//    }
+
+
     @Override
     public String toString() {
-        return "NPack[" +
-                "router={" + decodeRouter() + '}' +
+        return "NPack{" +
+                "router='" + decodeRouter() + '\'' +
+                ", body=" + convert() +
                 ", timestamp=" + timestamp +
-                ']';
-
+                '}';
     }
 
-    public String decodeRouter() {
+    private String convert() {
+        if (this.body == null||body.length==0) {
+            return ERROR;
+        } else {
+//            int len = body.length > 30 ? 30 : body.length;
+            return new String(body);
+        }
+    }
+
+
+    private String decodeRouter() {
         if (this.router == null) {
             return ERROR;
         }
-
         try {
             return URLDecoder.decode(this.router, "utf-8");
         } catch (UnsupportedEncodingException e) {
@@ -128,46 +144,8 @@ public class NPack implements Serializable {
     }
 
 
-    public static NPack buildWithStringBody(@NotNull String sender, @NotNull String receiver, @NotNull String msg) {
-        String router = RouterUtil.getRouterByString(RouterUtil.STRING_TYPE, sender, receiver);
-        return new NPack(router, msg.getBytes());
-    }
-
-    public static NPack buildWithByteBody(@NotNull String sender, @NotNull String receiver, String fileName, @NotNull byte[] msg) {
-        String router = RouterUtil.getRouterByFile(RouterUtil.BYTE_TYPE, sender, receiver, fileName);
-        return new NPack(router, msg);
-    }
-
-    public static List<NPack> buildWithByteBody(@NotNull String sender, @NotNull String receiver, File file, long slice) {
-        List<byte[]> list = null;
-        try {
-            list = FileUtil.cuttingFile(file, slice);
-
-        } catch (Exception e) {
-            //
-        }
-        if (list == null || list.size() == 0) {
-            return Collections.emptyList();
-        }
-        List<NPack> nPackes = new ArrayList<>(list.size());
-
-        String fileName = file.getName();
-        list.forEach(e -> nPackes.add(buildWithByteBody(sender, receiver, fileName, e)));
-        list = null;
-        return nPackes;
-    }
-
-
-    public static <T> NPack buildWithJsonBody(@NotNull String sender, @NotNull String receiver, @NotNull T msg) {
-        String classname = msg.getClass().getName();
-        String router = RouterUtil.getRouterByJson(RouterUtil.JSON_TYPE, sender, receiver, classname);
-        String json = JsonUtil.toJSONString(msg);
-        return new NPack(router, json.getBytes());
-    }
-
-
     /**
-     * 清空引用的.
+     * 清空引用对象.
      */
     public void release() {
         this.body = null;

@@ -33,9 +33,9 @@ public class ClientStartChatEventHandler implements ChatEventHandler {
         if (obj instanceof InetSocketAddress) {
             InetSocketAddress address = (InetSocketAddress) obj;
             if (null != chatClientContext) {
-                chatClientContext.onStart();
+                chatClientContext.onBootstrap();
             }
-            logger.error("[客户端] 启动成功 Host:{} Port:{} Version : {} ContextName :{} .", address.getHostName(), address.getPort(), chatClientContext.getVersion(), chatClientContext.getContextName());
+            logger.debug("[客户端] 启动成功 Host:{} Port:{} Version : {} ContextName :{} 等待连接中.", address.getHostName(), address.getPort(), chatClientContext.getVersion(), chatClientContext.getContextName());
         }
     }
 }

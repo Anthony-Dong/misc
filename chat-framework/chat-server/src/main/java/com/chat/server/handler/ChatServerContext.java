@@ -1,8 +1,9 @@
 package com.chat.server.handler;
 
+import com.chat.core.context.Context;
 import com.chat.core.exception.ContextException;
 import com.chat.core.netty.Constants;
-import com.chat.core.netty.DiscardChannelHandlerContext;
+import com.chat.core.register.RegistryService;
 import com.chat.core.util.ThreadPool;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -12,98 +13,83 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * ChatServerContext 上下文对象 , 优先级最高
+ *
  * @date:2019/12/25 11:16
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-public abstract class ChatServerContext {
+public abstract class ChatServerContext implements Context {
+
     /**
      * 协议版本号
      */
-    private final short version;
+    private short version = Constants.PROTOCOL_VERSION;
 
     /**
      * 上下文名称
      */
-    private final String contextName;
+    private String contextName = "server-context";
 
+    /**
+     * 服务器地址
+     */
+    private InetSocketAddress address;
+    /**
+     * 线程池
+     */
     private ThreadPool threadPool;
-
-    public final ThreadPool getThreadPool() {
-        return threadPool;
-    }
-
-    /**
-     * 这个是用来过封装的.
-     */
-    public final void setThreadPool(ThreadPool threadPool) {
-        this.threadPool = threadPool;
-    }
-
-    /**
-     * 默认上下文名称
-     */
-    private static final String DEFAULT_CONTEXT_NAME = "default-chat-server-name";
-
-    /**
-     * 默认版本号
-     */
-    private static final short DEFAULT_VERSION = Constants.PROTOCOL_VERSION;
-
-    private static final ChannelHandlerContext NULL_Context = new DiscardChannelHandlerContext();
-
 
     /**
      * 可以拿到所有的context , 然后去进行逻辑处理
      */
-    protected final Map<SocketAddress, ChannelHandlerContext> map;
+    protected final Map<SocketAddress, ChannelHandlerContext> map = new ConcurrentHashMap<>();
 
+    /**
+     * 注册中心
+     */
+    private RegistryService registryService;
 
-    public ChatServerContext(String contextName, int version) {
-        if (version > Short.MAX_VALUE || version < Short.MIN_VALUE) {
-            throw new RuntimeException("Version range in -32768 with 32767 !");
-        }
-        this.version = (short) version;
-        this.contextName = contextName;
-        this.map = new ConcurrentHashMap<>();
-    }
-
-    public ChatServerContext(short version) {
-        this(DEFAULT_CONTEXT_NAME, version);
-    }
-
-
-    public ChatServerContext() {
-        this(DEFAULT_VERSION);
-    }
-
-
-    public final short getVersion() {
-        return this.version;
-    }
 
     public final Map<SocketAddress, ChannelHandlerContext> getUserContextMap() {
         return this.map;
     }
 
 
+    /**
+     * 可以通过 address 获取context对象 , 记住{@link InetSocketAddress#hashCode()} hashcode是重写过得
+     */
     public final ChannelHandlerContext getContext(SocketAddress address) {
-        return map.getOrDefault(address, NULL_Context);
+        return map.get(address);
     }
 
 
-    public final String getContextName() {
-        return contextName;
+    /**
+     * 启动server服务器
+     */
+    final void onStart(InetSocketAddress address) throws ContextException {
+        try {
+            if (registryService != null) {
+                registryService.register(address, version);
+            }
+        } finally {
+            onBootstrap();
+        }
     }
 
-    // 启动上下文
-    protected void onStart(InetSocketAddress address) throws ContextException {
 
+    /**
+     * 关闭server服务器
+     */
+    final void onFail(InetSocketAddress address) throws ContextException {
+        try {
+            if (registryService != null) {
+                registryService.unregister(address, version);
+            }
+        } finally {
+            onShutdown();
+        }
     }
 
-    // 关闭上下文
-    protected void onFail(InetSocketAddress address) throws ContextException {
-
-    }
 
     /**
      * 注意  ChannelHandlerContext ,每一个客户端连接都会有一个 ChannelHandlerContext
@@ -120,6 +106,7 @@ public abstract class ChatServerContext {
     }
 
     protected void onChannelRemove(ChannelHandlerContext context) {
+
     }
 
     /**
@@ -145,4 +132,43 @@ public abstract class ChatServerContext {
 
     }
 
+    public final InetSocketAddress getAddress() {
+        return address;
+    }
+
+    public final void setAddress(InetSocketAddress address) {
+        this.address = address;
+    }
+
+    public final ThreadPool getThreadPool() {
+        return threadPool;
+    }
+
+    public final void setThreadPool(ThreadPool threadPool) {
+        this.threadPool = threadPool;
+    }
+
+    public final void setVersion(short version) {
+        this.version = version;
+    }
+
+    public final short getVersion() {
+        return this.version;
+    }
+
+    public final String getContextName() {
+        return contextName;
+    }
+
+    public final void setContextName(String contextName) {
+        this.contextName = contextName;
+    }
+
+    public final RegistryService getRegistryService() {
+        return registryService;
+    }
+
+    public final void setRegistryService(RegistryService registryService) {
+        this.registryService = registryService;
+    }
 }

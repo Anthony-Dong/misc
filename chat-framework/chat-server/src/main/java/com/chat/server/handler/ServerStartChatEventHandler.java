@@ -34,7 +34,7 @@ public class ServerStartChatEventHandler implements ChatEventHandler {
             if (this.chatServerContext != null) {
                 this.chatServerContext.onStart(address);
             }
-            logger.info("[服务器] 启动成功 Host:{} , Port:{} , Version:{} , ContextName:{}.", address.getHostName(), address.getPort(), chatServerContext.getVersion(), chatServerContext.getContextName());
+            logger.debug("[服务器] 启动成功 Host:{} , Port:{} , Version:{} , ContextName:{}.", address.getHostName(), address.getPort(), chatServerContext.getVersion(), chatServerContext.getContextName());
         }
     }
 }

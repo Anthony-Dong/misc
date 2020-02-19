@@ -9,6 +9,7 @@ import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
 import com.chat.core.listener.ChatEventListener;
 import com.chat.core.listener.ChatEventType;
+import com.chat.core.netty.Constants;
 import com.chat.core.util.ThreadPool;
 import com.chat.server.handler.ChatServerContext;
 import com.chat.server.handler.ServerChatHandlerConstant;
@@ -53,19 +54,18 @@ public class ChatServer extends ServerNode {
     private final ThreadPool threadPool;
 
 
-    private static final String DEFAULT_THREAD_NAME = "server-handler";
-
-    private static final int DEFAULT_THREAD_SIZE = 10;
-
+    /**
+     * 获取线程池状态
+     */
     public ThreadPool getThreadPool() {
         return threadPool;
     }
 
     /**
      * 构造方法 , 初始化一堆参数
-     *
-     * @param address
-     * @param listener
+     * @param threadPool  真正处理事务的线程池
+     * @param address  地址
+     * @param listener 监听器
      */
     public ChatServer(short version, InetSocketAddress address, ChatEventListener listener, ThreadPool threadPool) {
         this.threadPool = threadPool;
@@ -73,7 +73,7 @@ public class ChatServer extends ServerNode {
         this.address = address;
         this.listener = listener;
         this.bossGroup = new NioEventLoopGroup(1, new DefaultThreadFactory("NettyServerBoss", true));
-        this.workerGroup = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors(), new DefaultThreadFactory("NettyServerWorker", true));
+        this.workerGroup = new NioEventLoopGroup(Constants.DEFAULT_IO_THREADS, new DefaultThreadFactory("NettyServerWorker", true));
     }
 
     /**
@@ -88,7 +88,7 @@ public class ChatServer extends ServerNode {
         serverBootstrap
                 .group(bossGroup, workerGroup) // 添加组
                 .channel(NioServerSocketChannel.class)  // 添加管道
-                // 这几个参考自 org.apache.dubbo.remoting.transport.netty4.NettyServer
+                // 这几个参数考自 org.apache.dubbo.remoting.transport.netty4.NettyServer
                 .childOption(ChannelOption.TCP_NODELAY, Boolean.TRUE)
                 .childOption(ChannelOption.SO_REUSEADDR, Boolean.TRUE)
                 .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
@@ -151,38 +151,31 @@ public class ChatServer extends ServerNode {
     /**
      * 这是个阻塞方法, 只有发生异常, 才会停止
      *
-     * @param address 服务器地址
      * @param context 上下文
      * @throws Exception
      */
-    public static void run(InetSocketAddress address, ChatServerContext context, ThreadPool threadPool) throws Exception {
+    public static void run(ChatServerContext context) throws Exception {
+        if (context.getAddress() == null) {
+            context.setAddress(new InetSocketAddress(Constants.DEFAULT_HOST, Constants.DEFAULT_PORT));
+        }
+        if (context.getThreadPool() == null) {
+            context.setThreadPool(new ThreadPool(Constants.DEFAULT_THREAD_SIZE, Constants.DEFAULT_QUEUE_SIZE, Constants.DEFAULT_THREAD_NAME));
+        }
 
         final ServerChatHandlerConstant constant = new ServerChatHandlerConstant(context);
 
         final Map<ChatEventType, ChatEventHandler> handlerMap = constant.getHandlerMap();
 
-        context.setThreadPool(threadPool);
-
-        //这里不判断的原因是因为这个是设定好的. 不会出错.
-        final ChatServer server = new ChatServer(context.getVersion(), address, event -> {
+        //启动
+        final ChatServer server = new ChatServer(context.getVersion(), context.getAddress(), event -> {
             ChatEventHandler handler = handlerMap.get(event.eventType());
             handler.handler(event);
-        }, threadPool);
+        }, context.getThreadPool());
         server.start();
     }
 
-    public static void run(int port, ChatServerContext context, int poolSize, int queueSize, String name) throws Exception {
-        if (poolSize <= 0) {
-            throw new IllegalArgumentException("PoolSize  不能小于等于 0");
-        }
-        run(new InetSocketAddress(port), context, new ThreadPool(poolSize, queueSize, name));
-    }
-
-
-    /**
-     * 阻塞
-     */
     public static void run(int port, ChatServerContext context) throws Exception {
-        run(port, context, DEFAULT_THREAD_SIZE, -1, DEFAULT_THREAD_NAME);
+        context.setAddress(new InetSocketAddress(Constants.DEFAULT_HOST, port));
+        run(context);
     }
 }

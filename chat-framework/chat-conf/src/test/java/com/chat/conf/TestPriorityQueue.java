@@ -1,6 +1,6 @@
 package com.chat.conf;
 
-import com.chat.core.model.NServerInfo;
+import com.chat.conf.model.NServerInfo;
 import org.junit.Test;
 
 import java.util.Comparator;

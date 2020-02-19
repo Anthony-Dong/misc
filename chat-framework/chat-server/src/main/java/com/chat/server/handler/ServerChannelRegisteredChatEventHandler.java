@@ -32,7 +32,7 @@ public class ServerChannelRegisteredChatEventHandler implements ChatEventHandler
             if (this.chatServerContext != null) {
                 this.chatServerContext.onRegister(context);
             }
-            logger.info("[服务器] Registered Client : {} .", context.channel().remoteAddress().toString());
+            logger.debug("[服务器] Registered Client : {} .", context.channel().remoteAddress().toString());
         }
     }
 }

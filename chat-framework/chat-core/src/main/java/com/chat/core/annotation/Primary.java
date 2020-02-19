@@ -15,8 +15,6 @@ public @interface Primary {
 
     /**
      * 越大优先级越高
-     *
-     * @return
      */
     int order() default Integer.MIN_VALUE;
 
