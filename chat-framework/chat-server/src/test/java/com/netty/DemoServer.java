@@ -62,7 +62,7 @@ public class DemoServer {
        // CharSink sink;
 
         MyChannelDuplexHandler() {
-//            sink = Files.asCharSink(new File("D:\\MyDesktop\\template\\log.txt"), Charset.forName("utf-8"), FileWriteMode.APPEND);
+//            sink = Files.asCharSink(new FileAndPackageDecoder("D:\\MyDesktop\\template\\log.txt"), Charset.forName("utf-8"), FileWriteMode.APPEND);
         }
         // 添加一个线程池 .
 //        static final ExecutorService service = Executors.newFixedThreadPool(100);

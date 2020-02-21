@@ -1,21 +1,31 @@
 package com.chat.test;
 
-import com.chat.client.future.RpcProxy;
 import com.chat.client.context.DefaultChatClientContext;
+import com.chat.client.context.FileContext;
+import com.chat.client.future.RpcProxy;
 import com.chat.client.netty.AsyncChatClient;
 import com.chat.core.exception.BootstrapException;
 import com.chat.core.exception.ProxyException;
 import com.chat.core.exception.TimeOutException;
-import com.chat.core.inter.EchoService;
 import com.chat.core.model.netty.Response;
+import com.chat.core.test.EchoService;
+import org.junit.Test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Method;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
+import java.util.concurrent.*;
+import java.util.function.BiConsumer;
+import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
+
+import static com.chat.core.netty.Constants.DEFAULT_FILE_DIR;
+import static com.chat.core.netty.Constants.FILE_SEPARATOR;
 
 /**
  * @date:2019/12/24 17:22
@@ -26,37 +36,89 @@ public class ASyncClientBoot {
     public static void main(String[] args) throws Exception {
         DefaultChatClientContext clientContext = new DefaultChatClientContext();
         AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
+        CountDownLatch latch = new CountDownLatch(1);
+        long start = System.currentTimeMillis();
+        new Thread(() -> {
+            String response = clientContext.sendFileSync(new File("D:\\樊浩东\\media\\image\\1.jpg"), 1024 * 50);
+            System.out.printf("文件存储路径 : %s\n", response);
+            latch.countDown();
+        }).start();
 
-        Response response = clientContext.sendMessageBySync("hello world", "tom", "tony");
-//        System.out.println(response.getUrl());
+//        EchoService echoService = RpcProxy.newInstance(EchoService.class, clientContext);
+//        new Thread(() -> {
+//            IntStream.range(0, 2000).forEach(value -> System.out.println(echoService.hash(11111)));
+//            latch.countDown();
+//        }).start();
 
-//        clientContext.sendMessage("hello world", "tom", "tony");
-
-
-        clientContext.sendMessage("hello world", "tom", "tony");
-
-//        client.close();
-
-        EchoService service = RpcProxy.newInstance(EchoService.class, clientContext);
-        Map<String, Object> echo2 = service.echo(Collections.singletonMap("name", "a"), Collections.singletonList("value"));
-        System.out.println(echo2);
-//        client.close();
+        // 等待.
+        latch.await();
+        System.out.printf("耗时 : %dms\n", System.currentTimeMillis() - start);
+        client.close();
     }
 
-    private static void test(EchoService service) throws InterruptedException {
-        assert service != null;
-        TimeUnit.SECONDS.sleep(5);
 
+
+
+    private static void testFile() throws BootstrapException, IOException, ProxyException {
+        DefaultChatClientContext clientContext = new DefaultChatClientContext();
+        AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
+
+//        System.out.println(echoService.hash(11111));
+
+        client.close();
+    }
+
+
+    @Test
+    public void test2() throws Exception {
+        FileOutputStream stream = new FileOutputStream("D:\\代码库\\分布式聊天框架\\chat-framework\\test.txt");
+        FileChannel channel = stream.getChannel();
+        long start = channel.position();
+        System.out.println(start);
+        ByteBuffer allocate = ByteBuffer.allocate(10);
+        String ok = "hello";
+        allocate.put(ok.getBytes());
+        allocate.flip();
+        System.out.println(allocate);
+        channel.write(allocate);
+        System.out.println(allocate);
+        //
+        allocate.flip();
+        channel.write(allocate, channel.position());
+        System.out.println(channel.position());
+    }
+
+    @Test
+    public void testPro() throws FileNotFoundException {
+
+        FileOutputStream fileOutputStream = new FileOutputStream(DEFAULT_FILE_DIR + FILE_SEPARATOR + "a.txt");
+
+
+    }
+
+
+    private static void test3() throws Exception {
+        DefaultChatClientContext clientContext = new DefaultChatClientContext();
+        AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
+        EchoService service = RpcProxy.newInstance(EchoService.class, clientContext);
+        IntStream.range(0, 10000).forEach(value -> {
+            assert service != null;
+            String hash = service.hash(1111);
+            System.out.println(hash);
+        });
+        client.close();
+    }
+
+    private static void test() throws InterruptedException {
         ExecutorService pool = Executors.newFixedThreadPool(10);
         long start = System.currentTimeMillis();
-        IntStream.range(0, 10000).forEach(e -> {
-            pool.execute(() -> {
-                try {
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-            });
-        });
+        IntStream.range(0, 10).forEach(e -> pool.execute(() -> {
+            try {
+                test3();
+            } catch (Exception e1) {
+
+            }
+        }));
         pool.shutdown();
         pool.awaitTermination(Integer.MAX_VALUE, TimeUnit.DAYS);
         System.out.printf("cost : %dms\n", System.currentTimeMillis() - start);

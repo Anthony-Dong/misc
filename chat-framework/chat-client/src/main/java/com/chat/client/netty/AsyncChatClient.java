@@ -39,6 +39,10 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public final class AsyncChatClient extends ServerNode {
+    /**
+     * 用来阻塞
+     */
+    private final Object Lock = new Object();
 
     private static final Logger logger = LoggerFactory.getLogger(AsyncChatClient.class);
 
@@ -71,7 +75,7 @@ public final class AsyncChatClient extends ServerNode {
      * @param address  address   服务器地址
      * @param listener listener  事件监听器
      */
-    private AsyncChatClient(short version, InetSocketAddress address, ChatEventListener listener, Executor executor, long timeout,int heartInterval) {
+    private AsyncChatClient(short version, InetSocketAddress address, ChatEventListener listener, Executor executor, long timeout, int heartInterval) {
         this.version = version;
         this.address = address;
         this.listener = listener;
@@ -140,6 +144,10 @@ public final class AsyncChatClient extends ServerNode {
             shutDown();
         } catch (Exception e) {
             //
+        }
+        // 解锁防止万一
+        synchronized (Lock) {
+            Lock.notifyAll();
         }
     }
 
@@ -216,6 +224,20 @@ public final class AsyncChatClient extends ServerNode {
      */
     public static AsyncChatClient run(int port, ChatClientContext context) throws BootstrapException {
         context.setAddress(new InetSocketAddress(Constants.DEFAULT_HOST, port));
-        return run(context, Constants.DEFAULT_TIMEOUT);
+        return run(context, Constants.DEFAULT_CONNECT_TIMEOUT);
+    }
+
+    /**
+     * 等到服务器
+     */
+    public void sync() {
+        synchronized (Lock) {
+            try {
+                Lock.wait();
+            } catch (InterruptedException e) {
+                // 错误了直接关闭服务器
+                this.close();
+            }
+        }
     }
 }

@@ -10,6 +10,9 @@ import com.chat.core.listener.ChatEvent;
 import com.chat.core.listener.ChatEventListener;
 import com.chat.core.listener.ChatEventType;
 import com.chat.core.netty.Constants;
+import com.chat.core.netty.FileAndPackageDecoder;
+import com.chat.core.netty.PackageDecoder;
+import com.chat.core.netty.PackageEncoder;
 import com.chat.core.util.ThreadPool;
 import com.chat.server.handler.ChatServerContext;
 import com.chat.server.handler.ServerChatHandlerConstant;
@@ -20,6 +23,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.concurrent.DefaultThreadFactory;
 
 
@@ -53,6 +57,8 @@ public class ChatServer extends ServerNode {
      */
     private final ThreadPool threadPool;
 
+    private final boolean openFileProtocol;
+
 
     /**
      * 获取线程池状态
@@ -63,15 +69,17 @@ public class ChatServer extends ServerNode {
 
     /**
      * 构造方法 , 初始化一堆参数
-     * @param threadPool  真正处理事务的线程池
-     * @param address  地址
-     * @param listener 监听器
+     *
+     * @param threadPool 真正处理事务的线程池
+     * @param address    地址
+     * @param listener   监听器
      */
-    public ChatServer(short version, InetSocketAddress address, ChatEventListener listener, ThreadPool threadPool) {
+    public ChatServer(short version, InetSocketAddress address, ChatEventListener listener, ThreadPool threadPool, boolean openFileProtocol) {
         this.threadPool = threadPool;
         this.version = version;
         this.address = address;
         this.listener = listener;
+        this.openFileProtocol = openFileProtocol;
         this.bossGroup = new NioEventLoopGroup(1, new DefaultThreadFactory("NettyServerBoss", true));
         this.workerGroup = new NioEventLoopGroup(Constants.DEFAULT_IO_THREADS, new DefaultThreadFactory("NettyServerWorker", true));
     }
@@ -84,7 +92,8 @@ public class ChatServer extends ServerNode {
     @Override
     protected void start() throws Exception {
         final ServerBootstrap serverBootstrap = new ServerBootstrap();
-        final ChatServerInitializer initializer = new ChatServerInitializer(listener, version, threadPool);
+//        final ChatServerInitializer initializer = new ChatServerInitializer(listener, version, threadPool);
+        final ChatServerHandler handler = new ChatServerHandler(listener, threadPool);
         serverBootstrap
                 .group(bossGroup, workerGroup) // 添加组
                 .channel(NioServerSocketChannel.class)  // 添加管道
@@ -92,7 +101,30 @@ public class ChatServer extends ServerNode {
                 .childOption(ChannelOption.TCP_NODELAY, Boolean.TRUE)
                 .childOption(ChannelOption.SO_REUSEADDR, Boolean.TRUE)
                 .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                .childHandler(initializer);//设置初始化项目
+                .childHandler(new ChannelInitializer<Channel>() {
+                    @Override
+                    protected void initChannel(Channel ch) throws Exception {
+                        ChannelPipeline pipeline = ch.pipeline();
+                        // out  编码器
+                        pipeline.addLast("encoder", new PackageEncoder(version));
+
+                        if (openFileProtocol) {
+                            // 文件解码器+NPack解码器
+                            pipeline.addLast("file-decoder", new FileAndPackageDecoder(version));
+                        } else {
+                            // Npack解码器
+                            pipeline.addLast("decoder", new PackageDecoder(version));
+                        }
+                        // 心跳检测
+                        pipeline.addLast("idleStateHandler", new IdleStateHandler(0, 0, 90));
+
+                        // 心跳检测处理器
+                        pipeline.addLast("serverHeartBeatHandler", new ChatServerHeartBeatHandler());
+
+                        // handler
+                        pipeline.addLast("handler", handler);
+                    }
+                });//设置初始化项目
 
         try {
             final ChannelFuture channelFuture = serverBootstrap.bind(address).sync();
@@ -170,7 +202,7 @@ public class ChatServer extends ServerNode {
         final ChatServer server = new ChatServer(context.getVersion(), context.getAddress(), event -> {
             ChatEventHandler handler = handlerMap.get(event.eventType());
             handler.handler(event);
-        }, context.getThreadPool());
+        }, context.getThreadPool(), context.isUseFileProtocol());
         server.start();
     }
 

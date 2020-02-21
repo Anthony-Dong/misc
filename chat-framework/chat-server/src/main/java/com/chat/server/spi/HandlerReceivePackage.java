@@ -74,17 +74,17 @@ public final class HandlerReceivePackage {
         Request request = null;
         try {
             request = buildRequest(pack);
+            // 被拦截了直接不处理.
             if (this.filter.doFilter(request)) {
                 return;
             }
-            // 获取他关联的 context
+            // 获取他关联的 context, 这个SocketAddress的hashcode是一个重载的方法.
             channelContext = this.context.getContext(pack.getAddress());
-            // 然后清空pack的引用,释放他.
-            pack.release();
             // 从第一个去处理 , 处理空异常
             Objects.requireNonNull(process.getFirst()).handler(request, channelContext);
         } finally {
             if (request != null) {
+                // 清空我们的引用对象.释放内存.
                 request.release();
             }
         }

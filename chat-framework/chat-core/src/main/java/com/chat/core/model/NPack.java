@@ -1,6 +1,8 @@
 package com.chat.core.model;
 
 
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.util.ReferenceCounted;
 import org.msgpack.annotation.Index;
 import org.msgpack.annotation.Message;
 
@@ -123,7 +125,7 @@ public class NPack implements Serializable {
     }
 
     private String convert() {
-        if (this.body == null||body.length==0) {
+        if (this.body == null || body.length == 0) {
             return ERROR;
         } else {
 //            int len = body.length > 30 ? 30 : body.length;
@@ -145,11 +147,16 @@ public class NPack implements Serializable {
 
 
     /**
-     * 清空引用对象.
+     * {@link SimpleChannelInboundHandler#channelRead} 第112行
+     * 这里会帮助我们release掉对象. 释放内存.
+     *
+     * @return true . 无所谓的true/false
      */
-    public void release() {
+    public boolean release() {
         this.body = null;
         this.address = null;
         this.router = null;
+        return true;
     }
+
 }

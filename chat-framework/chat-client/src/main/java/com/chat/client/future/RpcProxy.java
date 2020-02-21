@@ -3,9 +3,11 @@ package com.chat.client.future;
 import com.chat.client.context.RpcContext;
 import com.chat.core.exception.ProxyException;
 import com.chat.core.netty.Constants;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 代理类
@@ -47,6 +49,7 @@ public class RpcProxy<T> implements InvocationHandler {
         if (method.isDefault()) {
             return invokeDefaultMethod(proxy, method, args);
         }
+        // Constants.DEFAULT_TIMEOUT
         return context.invoke(inter, method, Constants.DEFAULT_TIMEOUT, args);
     }
 
@@ -75,6 +78,6 @@ public class RpcProxy<T> implements InvocationHandler {
      */
     @Override
     public String toString() {
-        return inter.getName()+"@"+Integer.toHexString(this.hashCode());
+        return inter.getName() + "@" + Integer.toHexString(this.hashCode());
     }
 }

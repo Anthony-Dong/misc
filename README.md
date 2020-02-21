@@ -85,7 +85,7 @@ class java.util.HashMap	class java.util.ArrayList
 
 
 
-## MSG协议
+## 消息应答协议
 
 > ​	默认响应超时时间可以用 : `client.timeout`系统属性配置. 等后期加入注解开发.
 
@@ -115,9 +115,63 @@ msg://0.0.0.0:9999?id=1
 
 
 
-## file / log协议
+## 文件传输协议
 
-> ​	文件协议, 由于我们数据包设计的灵活, 可以处理很多类型 , 都是用户可以拓展的. 比如什么MQ哇, 都可以自己拓展实现. 
+> ​	文件传输协议,由于文件比较大体积, 一般如果使用我们原来的协议的话, 会造成大量的数据拷贝. 所以我们采用的是新的一套文件协议,依靠Java的NIO实现的. 来看看传输效率吧先. 我们以20KB为每个包的大小进行发送, 同时他也可以混合和普通协议一起传输.. 
+
+首先我们需要服务端开启文件传输协议 `context.setUseFileProtocol(true);` 这么就开启了. 
+
+为了测试速度快慢, 我们使用一个1G左右的大文档进行传输. `962 MB (1,009,090,560 字节)` office2010.iso
+
+```java
+public static void main(String[] args) throws Exception {
+    DefaultChatClientContext clientContext = new DefaultChatClientContext();
+    AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
+    long start = System.currentTimeMillis();
+    // 20K一个包进行拆分发送.
+    String response = clientContext.sendFileSync(new File(office2010.iso"),1024*20);
+    // 这里会响应服务器的存储路径                                                      
+    System.out.printf("文件存储路径 : %s\n", response);
+    System.out.printf("耗时 : %dms\n", System.currentTimeMillis() - start);
+    client.close();
+}
+```
+
+输出 : 
+
+```java
+文件存储路径 : file/office2010.iso
+耗时 : 23140ms
+```
+
+大约是耗时 23s . 我们将文件包调大. 默认是20K一个包(所以上面这种应该发了大约1M需要发50个包, 1000M大约需要 50000个包才能发送完成,次数太多需要消耗时间太长).   改成100K . 只用发送(1W个包) 
+
+```java
+文件存储路径 : file/office2010.iso
+耗时 : 2380ms
+```
+
+我们继续改成 1M 一个包 .  基本和100K差不多 . 
+
+```java
+文件存储路径 : file/office2010.iso
+耗时 : 2168ms
+```
+
+**经过我们测试发现Netty的Bytebuf对象每次最多只会接收到65536字节大小的数据, 也就是64KB的数据, 所以我们每次发送50K的数据是最好的,可以保证缓冲区数据维持较少.防止OOM溢出 ** 
+
+为了保证协议互存的可靠性, 我们加入rpc进行验证.俩线程同时执行.  代码在本文档结尾. 一个线程执行发送1G文件, 另一个线程执RPC调用2000次
+
+```java
+2020-02-21 16:39:50,351 4179   [read-1] DEBUG der.ClientReadChatEventHandler  - [客户端] ReceiveResponse : file://?id=1.
+2020-02-21 16:39:50,352 4180   [read-1] DEBUG der.ClientReadChatEventHandler  - [客户端] ReceiveResponse : rpc://0.0.0.0:9999?id=6.
+文件存储路径 : file/office2010.iso
+// ....
+2020-02-21 16:39:51,959 5787   [read-1] DEBUG der.ClientReadChatEventHandler  - [客户端] ReceiveResponse : rpc://0.0.0.0:9999?id=2001.
+耗时 : 4351ms
+```
+
+2001 次发送加存储文件没毛病. 还是效率可以的. 因为我们客户端处理线程也就一个. 用户可以去调整
 
 ## 框架设计原则
 
@@ -133,7 +187,7 @@ private byte[] body; // 数据体 (真正的数据体,比如:参数内容,消息
 private long timestamp; // 时间搓 (消息发送时间)
 ```
 
-#### 传输协议
+#### 普通传输协议
 
 我们的协议比较简单, 用户呢可以修改 , 在` com.chat.core.netty.PackageEncoder` 和 `com.chat.core.netty.PackageDecoder`   和这个包下面. 下面说说我们的实现吧. 
 
@@ -147,13 +201,49 @@ len : 4个字节, 指的是npack的体积, `我认为大部分情况下长度是
 
 npack数据包 : 这个会涉及到序列化与反序列化问题, 结合我们的数据包固定设计, 我们采用了`MessagePack` 进行序列化, 效率很好, 相比于Hessian2和Java的序列化 , 结合了两者的优点, 他基本都媲美 (这个仅限于我们遵循MessagePack的对象,普通Java对象不可以,具体可以去[官网](https://msgpack.org/)看看).  也许有些人会说使用JSON来处理,然后转成字节流. 但是我觉得么必要. (body部分可能涉及到JSON来传输).
 
+#### 文件传输协议
+
+目前只实现的客户端向服务端传输, 没有去写反过来的, 其实是一样的,只要编码器里加上我们编码器就行了. 
+
+在 `com.chat.core.netty.FileAndPackageDecoder`  这个类里. 
+
+简单说说文件协议吧. 
+
+`文件协议版本号`：两个字节 , 20000-29999最好
+
+`文件写入方式校验码`  : 两个字节 , 30000-31000 , 包含两个写和写完操作.(比如写入过程, 和写完后发送一个end命令)
+
+`File-Name-Len` : 两个字节. 文件名的长度
+
+`File_Name`  : 文件名
+
+`File_Write_Index`  : 值文件写入的起始位置. (8个字节)
+
+`File_Len`  : 写入多少字节的文件. (4个字节)
 
 
-#### 拆包和粘包问题解决
 
-对于Netty来说 , 他是不会帮助你进行拆包的, 你可能拿到的是多个对象, 也就是说, 可能一次拿到的是好几个数据包, 但是经过我测试发现, 他可以保证他的完整性. 对于大多数人开发一般都是使用`io.netty.handler.codec.ByteToMessageDecoder` 和 `io.netty.handler.codec.MessageToByteEncoder` 进行解码和编码的. 
+`File` : 最后就是写入File_Len字节数的文件. 
 
+这个基本可以保证数据的可靠性和完整性. 我们可以保证数据写入的顺序 . 
 
+我们基于NIO实现的, 直接内存拷贝, 节省了一次文件IO. 
+
+```java
+// 写入
+ByteBuf.writeBytes(in, position, length);
+
+// 写出
+ByteBuf.readBytes(out,position,length);
+```
+
+可以实现快速的IO . 
+
+为了防止大量的实例化 stream 和channel. 我们使用map保存起来, 当发送end指令的时候我们会关闭. 或者当连接断开我们会释放资源.  对于Netty中只要是涉及到解码, 如果解码错误了,或者逻辑上发生错误了, 会有不可估计的后果, 就是OOM . 不断开连接的话. 
+
+#### 半包/粘包/拆包等问题解决
+
+对于Netty来说 , 他是不会帮助你进行拆包的, 你可能拿到的是多个对象, 也就是说, 可能一次拿到的是好几个数据包, 但是经过我测试发现, 他可以保证他的完整性. 对于大多数人开发一般都是使用`io.netty.handler.codec.ByteToMessageDecoder` 和 `io.netty.handler.codec.MessageToByteEncoder` 进行解码和编码的.  这个`ByteToMessageDecoder` 会帮助我们维护一个缓冲区, 每次没有读完的会帮助我们维护起来,所以对于半包问题我们基本可以解决.  同时可以调整 `discardAfterReads`大小来通过拷贝来防止OOM等问题.  **这里就要说Netty的不足之地了. 就是无法向一个ByteBuf中向前插入数据. 比如B1为 [R0,W100,C100], 我想将[R0,W5000,C5000]的数据插入到B1前面. 显然Netty的ByteBuf无法实现.** 
 
 编码其实很简单, 因为就是一个pack -> 一个网络数据包 , 只要格式遵循自己的协议就可以了 . 
 
@@ -402,6 +492,37 @@ public class RecordRequestHandler extends AbstractRequestHandler {
 用户可以自行拓展. 我感觉 redis 和 zookeeper 各有优缺点. 看大家如何做吧. 
 
 可以参考Dubbo的实现. 其实Dubbo就是 可以拓展zookeeper 和 redis的. 
+
+
+
+## 测试代码
+
+文件传输+RPC测试.
+
+```java
+public static void main(String[] args) throws Exception {
+    DefaultChatClientContext clientContext = new DefaultChatClientContext();
+    AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
+    CountDownLatch latch = new CountDownLatch(2);
+    long start = System.currentTimeMillis();
+    new Thread(() -> {
+        String response = clientContext.sendFileSync(new File("office2010.iso"), 1024 * 100);
+        System.out.printf("文件存储路径 : %s\n", response);
+        latch.countDown();
+    }).start();
+
+    EchoService echoService = RpcProxy.newInstance(EchoService.class, clientContext);
+    new Thread(() -> {
+        IntStream.range(0, 2000).forEach(value -> System.out.println(echoService.hash(11111)));
+        latch.countDown();
+    }).start();
+
+    // 等待.
+    latch.await();
+    System.out.printf("耗时 : %dms\n", System.currentTimeMillis() - start);
+    client.close();
+}
+```
 
 
 

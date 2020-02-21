@@ -8,7 +8,7 @@ package com.chat.core.netty;
  */
 public final class PropertiesConstant {
 
-    static final String CLIENT_VERSION = "client.version";
+    static final String CLIENT_VERSION = "client.proto.version";
 
     static final String CLIENT_THREAD_QUEUE_SIZE = "client.thread.queue.size";
 
@@ -18,6 +18,12 @@ public final class PropertiesConstant {
 
     static final String CLIENT_HOST = "client.host";
 
+    static final String CLIENT_FILE_PROTOCOL = "client.file.version";
+
+    static final String CLIENT_FILE_START = "client.file.start";
+
+    static final String CLIENT_FILE_END = "client.file.end";
+    static final String CLIENT_ID_END = "client.file.id";
     /**
      * ms
      */

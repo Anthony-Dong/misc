@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 /**
  * 分写测试
  */
-public class FileUtilTest {
+public class FileAndPackageDecoderUtilTest {
 
     @Test
     public void cuttingFile() throws Exception {

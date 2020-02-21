@@ -21,6 +21,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public abstract class ChatServerContext implements Context {
 
     /**
+     * 是否使用文件传输协议
+     */
+    private boolean useFileProtocol = false;
+
+    /**
      * 协议版本号
      */
     private short version = Constants.PROTOCOL_VERSION;
@@ -170,5 +175,13 @@ public abstract class ChatServerContext implements Context {
 
     public final void setRegistryService(RegistryService registryService) {
         this.registryService = registryService;
+    }
+
+    public final boolean isUseFileProtocol() {
+        return useFileProtocol;
+    }
+
+    public final void setUseFileProtocol(boolean useFileProtocal) {
+        this.useFileProtocol = useFileProtocal;
     }
 }

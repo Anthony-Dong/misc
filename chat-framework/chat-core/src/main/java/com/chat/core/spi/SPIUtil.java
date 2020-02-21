@@ -63,8 +63,6 @@ public final class SPIUtil {
         return handlerReceivePackage;
     }
 
-    private static final Map<String, ServiceLoader> SERVICE_LOADER_MAP = new ConcurrentHashMap<String, ServiceLoader>();
-
     /**
      * 获取默认值
      */

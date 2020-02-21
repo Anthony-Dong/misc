@@ -5,6 +5,7 @@ import com.chat.core.netty.PackageDecoder;
 import com.chat.core.netty.PackageEncoder;
 import com.chat.core.util.ThreadPool;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.handler.timeout.IdleStateHandler;
@@ -13,6 +14,7 @@ import io.netty.handler.timeout.IdleStateHandler;
 /**
  * ChannelInitializer 初始化器
  */
+@Deprecated
 public final class ChatServerInitializer extends ChannelInitializer<Channel> {
 
     private final ChatServerHandler handler;

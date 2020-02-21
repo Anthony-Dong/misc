@@ -12,7 +12,7 @@ import java.net.URLEncoder;
  * @date:2019/12/26 22:16
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-
+@Deprecated
 public class URLUtil {
 
     // 编码

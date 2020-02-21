@@ -3,6 +3,7 @@ package com.chat.client.context;
 import com.alibaba.fastjson.JSON;
 import com.chat.client.future.NpackFuture;
 import com.chat.client.hander.ChatClientContext;
+import com.chat.core.exception.ContextException;
 import com.chat.core.exception.TimeOutException;
 import com.chat.core.model.NPack;
 import com.chat.core.model.RouterBuilder;
@@ -12,6 +13,8 @@ import com.chat.core.netty.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.function.Consumer;
 
@@ -19,7 +22,7 @@ import java.util.function.Consumer;
  * @date:2020/2/17 10:55
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-public class DefaultChatClientContext extends ChatClientContext implements RpcContext, MsgContext {
+public class DefaultChatClientContext extends ChatClientContext implements RpcContext, MsgContext, FileContext {
 
     /**
      * 本来想做缓存的,发现麻烦了
@@ -157,5 +160,40 @@ public class DefaultChatClientContext extends ChatClientContext implements RpcCo
     @Override
     public void onShutdown() {
         // 啥也不做
+    }
+
+    public void sendFile(File file) throws ContextException {
+        sendFile(file, file.getName(), 1024 * 20);
+    }
+
+    @Override
+    public void sendFile(File file, String fileName, int split) throws ContextException {
+        try {
+            FileContext.sendFileMethod(context, file, fileName, false, 0, split);
+        } catch (IOException e) {
+            throw new ContextException(e);
+        }
+    }
+
+    public String sendFileSync(File file,int split) throws ContextException {
+        return sendFileSync(file, file.getName(), split);
+    }
+
+    public String sendFileSync(File file) throws ContextException {
+        return sendFileSync(file, file.getName(), 1024 * 20);
+    }
+
+    @Override
+    public String sendFileSync(File file, String fileName, int split) throws ContextException {
+        try {
+            int count = NpackFuture.getCount();
+            NPack pack = new NPack(fileName);
+            // 最多等待1分钟
+            NpackFuture future = new NpackFuture(count, 60000, pack);
+            FileContext.sendFileMethod(context, file, file.getName(), true, count, 1024 * 50);
+            return new String(future.get().getResult());
+        } catch (IOException | TimeOutException e) {
+            throw new ContextException(e);
+        }
     }
 }

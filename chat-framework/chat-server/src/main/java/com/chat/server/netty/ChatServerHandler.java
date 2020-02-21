@@ -31,6 +31,7 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
     }
 
     ChatServerHandler(ChatEventListener listener, ThreadPool threadPool) {
+        super(true);
         this.listener = listener;
         this.executor = threadPool.getExecutor();
     }
@@ -77,6 +78,7 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
                 return ctx;
             }
         });
+
     }
 
     /**
@@ -88,11 +90,8 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        if (cause instanceof IOException) {
-            ctx.close();
-        } else {
-            logger.error("[服务器] 发生异常 客户端 IP : {}  Exception : {}.", ctx.channel().remoteAddress(), cause.getMessage());
-        }
+        ctx.close();
+        logger.error("[服务器] Napck服务发生异常 客户端 IP : {} 将断开连接 Exception : {}.", ctx.channel().remoteAddress(), cause.getMessage());
     }
 
 
@@ -115,6 +114,8 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
                 });
             } catch (Exception e) {
                 logger.error("[服务器] 发生异常 客户端 IP : {}  Exception : {}.", ctx.channel().remoteAddress(), e.getMessage());
+            } finally {
+                msg.release();
             }
         });
     }

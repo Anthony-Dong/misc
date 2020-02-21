@@ -7,14 +7,36 @@ package com.chat.core.netty;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 
+import java.io.File;
+import java.util.Properties;
+
 import static com.chat.core.netty.PropertiesConstant.*;
 
 public final class Constants {
 
     /**
-     * 协议版本号 , 默认是1 ,最好是无符号整数 ,协议默认版本号  , 2个字节 16位 (-32768,32767)
+     * Npack协议版本号 , 默认是1
      */
-    public static final short PROTOCOL_VERSION = Short.parseShort(System.getProperty(CLIENT_VERSION, "1"));
+    public static final short PROTOCOL_VERSION = Short.parseShort(System.getProperty(CLIENT_VERSION, "10010"));
+
+    /**
+     * 文件协议
+     */
+    public static final short FILE_PROTOCOL_VERSION = Short.parseShort(System.getProperty(CLIENT_FILE_PROTOCOL, "20001"));
+
+    /**
+     * 读取文件标识符
+     */
+    public static final short FILE_START_VERSION = Short.parseShort(System.getProperty(CLIENT_FILE_START, "30001"));
+
+    /**
+     * 关闭文件标识符
+     */
+    public static final short FILE_END_VERSION = Short.parseShort(System.getProperty(CLIENT_FILE_END, "30002"));
+
+    public static final short FILE_NEED_RESPONSE = 30003;
+
+    public static final short FILE_NULL_RESPONSE = 30004;
 
     /**
      * 默认的地址
@@ -56,4 +78,18 @@ public final class Constants {
      */
     public static final int DEFAULT_CONNECT_TIMEOUT = Integer.getInteger(CLIENT_CONNECT_TIMEOUT, 1000);
 
+
+    public static final String FILE_SEPARATOR = System.getProperty("file.separator");
+
+    public static final String FILE_TMP = "file";
+
+    public static final String DEFAULT_FILE_DIR = System.getProperty("user.dir") + FILE_SEPARATOR + FILE_TMP;
+
+
+    static {
+        File file = new File(DEFAULT_FILE_DIR);
+        if (!file.exists()) {
+            boolean mkdir = file.mkdir();
+        }
+    }
 }

@@ -124,4 +124,8 @@ public class NpackFuture {
             return this.response;
         }
     }
+
+    public void handlerFile(){
+
+    }
 }

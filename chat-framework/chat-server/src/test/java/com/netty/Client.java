@@ -12,7 +12,10 @@ import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
+import java.io.FileInputStream;
 import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -47,7 +50,7 @@ public class Client {
                 });
         try {
             ChannelFuture future = handler.connect(new InetSocketAddress(10086)).sync();
-
+            System.out.printf("ChannelFuture %d\n", future.channel().hashCode());
             System.out.println("connect = localhost:10086");
 
             future.channel().closeFuture().sync();
@@ -61,46 +64,33 @@ public class Client {
     @ChannelHandler.Sharable
     private static class MyClientChannelDuplexHandler extends ChannelDuplexHandler {
 
-        private AtomicInteger count = new AtomicInteger(0);
+        @Override
+        public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+            System.out.printf("handlerAdded %d\n", ctx.channel().hashCode());
+        }
 
-        private LongAdder spend = new LongAdder();
-
-        long start_spend = 0;
-        int start_count = 0;
+        @Override
+        public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+            System.out.printf("channelRegistered %d\n", ctx.channel().hashCode());
+        }
 
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
-            new Thread(() -> {
-                for (int i = 0; i < 100; i++) {
-                    ctx.writeAndFlush(Unpooled.copyLong(System.currentTimeMillis()));
-                }
-            }).start();
-
-            new Timer().scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    long a = spend.sum();
-                    long sum = a - start_spend;
-                    start_spend = a;
-                    int b = MyClientChannelDuplexHandler.this.count.get();
-                    int count = b - start_count;
-                    start_count = b;
-                    try {
-                        long avg = sum / count;
-                        System.out.printf("QPS : %d , avg : %d, count-all : %d\n", count, avg, MyClientChannelDuplexHandler.this.count.get());
-                    } catch (Exception e) {
-                        //
-                    }
-                }
-            }, 1000, 1000);
+            System.out.printf("channelActive %d\n", ctx.channel().hashCode());
+            FileInputStream stream = new FileInputStream("D:\\樊浩东\\软件\\office2010.iso");
+            FileChannel channel =
+                    stream.getChannel();
+            ByteBuf buf = Unpooled.directBuffer(1024);
+            buf.writeBytes(channel, 0, stream.available());
+            System.out.println(buf);
+            ctx.channel().writeAndFlush(buf);
+            channel.close();
+            stream.close();
         }
 
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-            ByteBuf buf = (ByteBuf) msg;
-            long cost = buf.readLong();
-            count.incrementAndGet();
-            spend.add(cost);
+
         }
 
         @Override

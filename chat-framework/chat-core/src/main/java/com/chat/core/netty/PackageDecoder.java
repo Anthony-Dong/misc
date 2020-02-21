@@ -54,12 +54,17 @@ public final class PackageDecoder extends ByteToMessageDecoder {
         handler(in, out);
     }
 
+
     /**
      * 处理器 - 主要处理逻辑
      */
     private void handler(ByteBuf in, List<Object> out) {
         // 如果可读
         while (in.isReadable()) {
+            // 如果只能读个版本号,不读也罢
+            if (in.readableBytes() < 3) {
+                return;
+            }
 
             // 1. 记录最开始读取的位置 , 防止出错
             int release = in.readerIndex();
@@ -67,46 +72,39 @@ public final class PackageDecoder extends ByteToMessageDecoder {
             // 2. 读取版本号 , 2个字节
             short version = in.readShort();
 
-            // 3. 版本号一致 - > 继续执行
-            if (version == VERSION) {
+            // 版本不一致
+            if (version != VERSION) {
+                in.readerIndex(release);
+                return;
+            }
 
-                // 4. 解码 -> 操作
-                NPack read = null;
-                byte[] bytes = null;
+            // 4. 解码 -> 操作
+            NPack read = null;
+            byte[] bytes = null;
 
-                try {
+            try {
+                // 5. 读取长度 , 4个字节
+                int len = in.readInt();
 
-                    // 5. 读取长度 , 4个字节
-                    int len = in.readInt();
+                // 6. 实例化数组
+                bytes = new byte[len];
 
-                    // 6. 实例化数组
-                    bytes = new byte[len];
+                // 7. 读取到数组中 , 此时可能会有异常 - > 我们抓住 indexOutOfBoundException
+                in.readBytes(bytes, 0, len);
 
-                    // 7. 读取到数组中 , 此时可能会有异常 - > 我们抓住 indexOutOfBoundException
-                    in.readBytes(bytes, 0, len);
-
-                    // 8. 如果么问题, 就进行解码 -> 也可能出现异常 -> 抓取异常
-                    read = pack.read(bytes, NPack.class);
-
-                    // catch 抓取任何异常
-                } catch (Throwable e) {
-                    // 不做任何处理
-                } finally {
-
-                    // 清空数组引用 - 快速释放内存
-                    bytes = null;
-                }
-
-                // 解码错误-> 重置读指针位置 -> 返回
-                if (read == null) {
-                    in.readerIndex(release);
-                    return;
-                } else {
-                    // 一致就添加进去 - > 啥也不做
-                    out.add(read);
-                }
+                // 8. 如果么问题, 就进行解码 -> 也可能出现异常 -> 抓取异常
+                read = pack.read(bytes, NPack.class);
+                // catch 抓取任何异常
+            } catch (Exception e) {
+                // 不做任何处理
+            } finally {
+                // 清空数组引用 - 快速释放内存
+                bytes = null;
+            }
+            //
+            if (read != null) {
+                out.add(read);
             } else {
-                // 版本不一致 -> 重置读指针位置 -> 返回
                 in.readerIndex(release);
                 return;
             }
