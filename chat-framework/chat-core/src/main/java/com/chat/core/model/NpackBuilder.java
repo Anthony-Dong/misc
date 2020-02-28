@@ -29,7 +29,7 @@ public class NpackBuilder {
         return new NPack(router, msg);
     }
 
-    public static List<NPack> buildWithByteBody(@NotNull String sender, @NotNull String receiver, File file, long slice) {
+    public static List<NPack> buildWithByteBody(@NotNull String sender, @NotNull String receiver, File file, int slice) {
         List<byte[]> list = null;
         try {
             list = FileUtil.cuttingFile(file, slice);

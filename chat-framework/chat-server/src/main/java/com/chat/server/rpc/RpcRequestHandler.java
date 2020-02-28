@@ -83,8 +83,7 @@ public class RpcRequestHandler extends AbstractRequestHandler {
             Object[] objects = null;
             // 不需要就不转换了
             if (body != null && body.length != 0) {
-                String json = new String(request.getBody());
-                objects = ArgsUtil.convert(json, method);
+                objects = ArgsUtil.convert(body, method);
             }
             return method.invoke(obj, objects);
         } catch (Throwable e) {

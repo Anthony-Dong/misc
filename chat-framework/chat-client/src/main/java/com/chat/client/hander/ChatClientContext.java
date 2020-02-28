@@ -1,13 +1,19 @@
 package com.chat.client.hander;
 
+import com.chat.client.netty.ChatClient;
 import com.chat.core.context.Context;
 import com.chat.core.model.netty.Response;
 import com.chat.core.netty.Constants;
+import com.chat.core.netty.NettyProperties;
+import com.chat.core.netty.SerializableType;
+import com.chat.core.util.NetUtils;
 import com.chat.core.util.ThreadPool;
 import io.netty.channel.ChannelHandlerContext;
 
-import java.net.InetSocketAddress;
 import java.util.concurrent.CountDownLatch;
+
+import static com.chat.core.netty.PropertiesConstant.*;
+import static com.chat.core.netty.PropertiesConstant.CLIENT_PORT;
 
 /**
  * 客户端上下文
@@ -16,6 +22,11 @@ import java.util.concurrent.CountDownLatch;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public abstract class ChatClientContext implements Context {
+
+    /**
+     * 一些必要属性
+     */
+    private NettyProperties properties = new NettyProperties();
 
     /**
      * 全局唯一的context 对象
@@ -28,17 +39,28 @@ public abstract class ChatClientContext implements Context {
     private int heartInterval = -1;
 
     // 版本号, 默认值
-    private short version = Constants.PROTOCOL_VERSION;
+    protected short version = Constants.PROTOCOL_VERSION;
+
+
+    private SerializableType serializableType = Constants.DEFAULT_SERIALIZABLE_TYPE;
 
     // 上下文名称
     private String contextName = "chat-server";
 
-    public InetSocketAddress address;
 
-    private final CountDownLatch latch = new CountDownLatch(1);
+    protected String hostName = Constants.DEFAULT_HOST;
 
 
-    private ThreadPool threadPool;
+    protected String realHostName = NetUtils.filterLocalHost(hostName);
+
+    protected int port = Constants.DEFAULT_PORT;
+
+
+    private CountDownLatch latch = new CountDownLatch(1);
+    /**
+     * 线程池
+     */
+    private ThreadPool threadPool = new ThreadPool(1, 0, "Netty-Worker");
 
     /**
      * 阻塞过程
@@ -64,21 +86,10 @@ public abstract class ChatClientContext implements Context {
      *
      * @param context NPack
      */
-    protected void onReading(Response context) {
-
-    }
-
+    protected abstract void onRead(Response context);
 
     public CountDownLatch getLatch() {
         return latch;
-    }
-
-    public final InetSocketAddress getAddress() {
-        return address;
-    }
-
-    public final void setAddress(InetSocketAddress address) {
-        this.address = address;
     }
 
     public final String getContextName() {
@@ -89,7 +100,8 @@ public abstract class ChatClientContext implements Context {
         return this.version;
     }
 
-    public final void setVersion(short version) {
+    public final void setVersion(Short version) {
+        properties.setShort(CLIENT_PROTOCOL_VERSION, version);
         this.version = version;
     }
 
@@ -113,17 +125,74 @@ public abstract class ChatClientContext implements Context {
         this.heartInterval = heartInterval;
     }
 
-    public static void init(ChatClientContext context) {
-        // context 优先级高
-        if (context.getAddress() == null) {
-            context.setAddress(new InetSocketAddress(Constants.DEFAULT_HOST, Constants.DEFAULT_PORT));
-        }
-        // 一个线程就可以了, 防止阻塞解码线程
-        if (context.getThreadPool() == null) {
-            context.setThreadPool(new ThreadPool(1, 0, "Netty-Worker"));
-        }
-        if (context.getHeartInterval() == -1) {
-            context.setHeartInterval(Constants.DEFAULT_HEART_INTERVAL);
+
+    public final NettyProperties getProperties() {
+        return properties;
+    }
+
+    public final SerializableType getSerializableType() {
+        return serializableType;
+    }
+
+    public final void setSerializableType(SerializableType type) {
+        properties.setByte(CLIENT_PROTOCOL_TYPE, type.getCode());
+        this.serializableType = type;
+    }
+
+
+    public final String getHostName() {
+        return hostName;
+    }
+
+    public final void setHostName(String hostName) {
+        properties.setString(CLIENT_HOST, hostName);
+        this.realHostName = NetUtils.filterLocalHost(hostName);
+        this.hostName = hostName;
+    }
+
+    public final int getPort() {
+        return port;
+    }
+
+    public final void setPort(int port) {
+        properties.setInt(CLIENT_PORT, port);
+        this.port = port;
+    }
+
+
+    // 为了关闭掉服务器
+    protected ChatClient client;
+
+    public final void setClient(ChatClient client) {
+        this.client = client;
+    }
+
+    // 清空引用
+    private void relese() {
+        if (client != null) {
+            client.shutDown();
+            client = null;
         }
     }
+
+    /**
+     * 收到事件后, 先释放掉 client.
+     */
+    @Override
+    public void onShutdown() {
+        try {
+            relese();
+        } finally {
+            onClose();
+        }
+    }
+
+    @Override
+    public void onBootstrap() {
+        onStart();
+    }
+
+    protected abstract void onStart();
+
+    protected abstract void onClose();
 }

@@ -1,16 +1,13 @@
 package com.chat.core.netty;
 
 
-import com.chat.core.model.NPack;
-import com.chat.core.model.NpackBuilder;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
-import org.msgpack.MessagePack;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static com.chat.core.netty.CodecType.*;
 
 /**
  * 解码器会很麻烦
@@ -33,15 +30,25 @@ public final class PackageDecoder extends ByteToMessageDecoder {
     /**
      * 默认值是 {@link com.chat.core.netty.Constants#PROTOCOL_VERSION}
      */
-    private final short VERSION;
-    private static final MessagePack pack = new MessagePack();
+    private final short serverVersion;
+
+    /**
+     * 魔数(1) + 版本号(2) + 类型(1)
+     */
+    private static final int VERSION_AND_TYPE_LEN = 4;
+
+    /**
+     * 为了线程安全会保存一个私有对象
+     */
+    private final FileProtocol fileProtocol;
 
     /**
      * 构造方法
      */
-    public PackageDecoder(short version) {
+    public PackageDecoder(short version, String dir) {
         super();
-        this.VERSION = version;
+        this.serverVersion = version;
+        this.fileProtocol = new FileProtocol(dir);
     }
 
     /**
@@ -51,134 +58,100 @@ public final class PackageDecoder extends ByteToMessageDecoder {
      */
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        handler(in, out);
-    }
+        // version+type+magic 等于4
+        while (in.readableBytes() > VERSION_AND_TYPE_LEN) {
+            // 1.保存点
+            int save = in.readerIndex();
 
-
-    /**
-     * 处理器 - 主要处理逻辑
-     */
-    private void handler(ByteBuf in, List<Object> out) {
-        // 如果可读
-        while (in.isReadable()) {
-            // 如果只能读个版本号,不读也罢
-            if (in.readableBytes() < 3) {
+            // 判断魔数.
+            byte magic = in.readByte();
+            if (magic != MAGIC_NUMBER) {
+                in.readerIndex(save);
                 return;
             }
 
-            // 1. 记录最开始读取的位置 , 防止出错
-            int release = in.readerIndex();
-
-            // 2. 读取版本号 , 2个字节
+            // 2. 获取版本号
             short version = in.readShort();
-
-            // 版本不一致
-            if (version != VERSION) {
-                in.readerIndex(release);
+            if (version != serverVersion) {
+                in.readerIndex(save);
                 return;
             }
-
-            // 4. 解码 -> 操作
-            NPack read = null;
-            byte[] bytes = null;
-
-            try {
-                // 5. 读取长度 , 4个字节
-                int len = in.readInt();
-
-                // 6. 实例化数组
-                bytes = new byte[len];
-
-                // 7. 读取到数组中 , 此时可能会有异常 - > 我们抓住 indexOutOfBoundException
-                in.readBytes(bytes, 0, len);
-
-                // 8. 如果么问题, 就进行解码 -> 也可能出现异常 -> 抓取异常
-                read = pack.read(bytes, NPack.class);
-                // catch 抓取任何异常
-            } catch (Exception e) {
-                // 不做任何处理
-            } finally {
-                // 清空数组引用 - 快速释放内存
-                bytes = null;
-            }
-            //
-            if (read != null) {
-                out.add(read);
-            } else {
-                in.readerIndex(release);
-                return;
+            // 3. 判断类型
+            byte type = in.readByte();
+            // 4. 以后修改这里.处理逻辑. switch . case 太过于拓展性差.
+            switch (type) {
+                // message_pack类型
+                case MESSAGE_PACK:
+                    Object msg = MessagePackProtocol.decode(in);
+                    if (msg == CodecType.NEED_MORE) {
+                        in.readerIndex(save);
+                        return;
+                    } else {
+                        out.add(msg);
+                        break;
+                    }
+                    // zip
+                case GZIP_MESSAGE_PACK:
+                    Object zip = MessagePackGzipProtocol.decode(in);
+                    if (zip == CodecType.NEED_MORE) {
+                        in.readerIndex(save);
+                        return;
+                    } else {
+                        out.add(zip);
+                        break;
+                    }
+                    // json
+                case JSON_PACK:
+                    Object json = JsonProtocol.decode(in);
+                    if (json == CodecType.NEED_MORE) {
+                        in.readerIndex(save);
+                        return;
+                    } else {
+                        out.add(json);
+                        break;
+                    }
+                    // 文件开始标识符
+                case FILE_START:
+                    if (fileProtocol.decodeFile(in)) {
+                        break;
+                    } else {
+                        in.readerIndex(save);
+                        return;
+                    }
+                    // 文件结束标识符
+                case FILE_END:
+                    if (fileProtocol.removeChannel(in, ctx)) {
+                        break;
+                    } else {
+                        in.readerIndex(save);
+                        return;
+                    }
+                default:
+                    in.readerIndex(save);
+                    handlerDefault(type);
+                    return;
             }
         }
     }
 
+    /**
+     * 抛出异常,无法处理直接移除.
+     */
+    private void handlerDefault(byte type) {
+        throw new RuntimeException(String.format("[服务器] 无法处理此类型:%d", type));
+    }
+
 
     /**
-     * 测试用例
-     *
-     * @param args
-     * @throws Exception
+     * Gets called after the {@link ByteToMessageDecoder} was removed from the actual context and it doesn't handle
+     * events anymore.
      */
-    public static void main(String[] args) throws Exception {
-
-
-        // 初始化 pack
-        MessagePack pack = new MessagePack();
-
-
-        NPack nPack1 = NpackBuilder.buildWithJsonBody("1111", "22222", "3333");
-        byte[] write1 = pack.write(nPack1);
-        NPack nPack2 = NpackBuilder.buildWithJsonBody("BBBB", "CCCCC", "DDDD");
-        byte[] write2 = pack.write(nPack2);
-
-
-        // 模拟 in
-        ByteBuf buffer = Unpooled.buffer(100);
-        int release = buffer.readerIndex();
-
-        buffer.writeShort(Constants.PROTOCOL_VERSION);
-        buffer.writeInt(123);
-
-        // 1. 写一个包
-        buffer.writeShort(Constants.PROTOCOL_VERSION);
-        buffer.writeInt(write1.length);
-        buffer.writeBytes(write1, 0, write1.length);
-
-        // 2. 写第二个包
-        buffer.writeShort(Constants.PROTOCOL_VERSION);
-        buffer.writeInt(write2.length);
-        buffer.writeBytes(write2, 0, write1.length);
-
-
-        // 3. 写可能出错的地方
-        buffer.writeShort(Constants.PROTOCOL_VERSION);
-        buffer.writeInt(1111);
-
-
-        // 4. 重置
-        buffer.readerIndex(release);
-
-
-        ArrayList<Object> list = new ArrayList<>();
-
-
-        PackageDecoder decoder = new PackageDecoder(Constants.PROTOCOL_VERSION);
-
-
-        decoder.decode(null, buffer, list);
-
-
-        System.out.println("=====已读======");
-        list.forEach(System.out::println);
-        System.out.println("==================");
-
-
-        System.out.println("buffer.refCnt() = " + buffer.refCnt());
-        System.out.println("buffer.writerIndex() = " + buffer.writerIndex());
-
-        System.out.println("buffer.readerIndex() = " + buffer.readerIndex());
-
-        System.out.println("buffer.readShort() = " + buffer.readShort());
-        System.out.println("buffer.readInt() = " + buffer.readInt());
-
+    @Override
+    protected void handlerRemoved0(ChannelHandlerContext ctx) throws Exception {
+        try {
+            fileProtocol.release();
+        } finally {
+            super.handlerRemoved0(ctx);
+        }
     }
 }

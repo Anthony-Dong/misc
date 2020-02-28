@@ -1,5 +1,6 @@
 package com.chat.test;
 
+import com.chat.core.netty.SerializableType;
 import com.chat.core.test.EchoService;
 import com.chat.core.util.ThreadPool;
 import com.chat.server.handler.ChatServerContext;
@@ -14,18 +15,13 @@ import com.chat.server.spi.defaulthandler.RpcMapBuilder;
 public class ServerBoot {
 
     public static void main(String[] args) throws Exception {
-        RpcMapBuilder.addService(EchoService.class, new EchoService() {
-            @Override
-            public String hash(int hash) {
-                return "hello world";
-            }
-        });
 
+        RpcMapBuilder.addService(EchoService.class, String::hashCode);
 
         ChatServerContext context = new DefaultChatServerContext();
-        context.setThreadPool(new ThreadPool(20, -1, "work"));
-        context.setUseFileProtocol(true);
 
+        context.setSerializableType(SerializableType.JSON);
+        context.setThreadPool(new ThreadPool(20, -1, "work"));
         ChatServer.run(9999, context);
     }
 }

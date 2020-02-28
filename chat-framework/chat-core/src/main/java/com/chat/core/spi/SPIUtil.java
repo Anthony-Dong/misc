@@ -4,6 +4,7 @@ import com.chat.core.annotation.MayEmpty;
 import com.chat.core.annotation.Primary;
 import com.chat.core.annotation.SPI;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 

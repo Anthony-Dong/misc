@@ -7,10 +7,10 @@ import com.chat.core.model.NPack;
 import com.chat.core.util.ThreadPool;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.timeout.IdleStateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.net.SocketAddress;
 import java.util.concurrent.Executor;
 
@@ -38,6 +38,19 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
 
 
     /**
+     * 不需要传递,浪费时间罢了
+     *
+     * @param evt 心跳事件
+     */
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        if (evt instanceof IdleStateEvent) {
+            logger.error("[服务器] 心跳服务 IP:{}为客户端即将断开连接,心跳超时.", ctx.channel().remoteAddress());
+            ctx.close();
+        }
+    }
+
+    /**
      * 执行断开业务的逻辑
      *
      * @param ctx
@@ -56,7 +69,6 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
                 return ctx;
             }
         });
-        super.handlerRemoved(ctx);
     }
 
     /**
@@ -67,31 +79,32 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
      */
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        listener.onChatEvent(new ChatEvent() {
-            @Override
-            public ChatEventType eventType() {
-                return ChatEventType.SERVER_CHANNEL_REGISTERED;
-            }
+        try {
+            listener.onChatEvent(new ChatEvent() {
+                @Override
+                public ChatEventType eventType() {
+                    return ChatEventType.SERVER_CHANNEL_REGISTERED;
+                }
 
-            @Override
-            public Object event() {
-                return ctx;
-            }
-        });
-
+                @Override
+                public Object event() {
+                    return ctx;
+                }
+            });
+        } finally {
+            ctx.fireChannelRegistered();
+        }
     }
 
     /**
      * 如果发生异常就关闭
      *
-     * @param ctx
-     * @param cause
      * @throws Exception
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         ctx.close();
-        logger.error("[服务器] Napck服务发生异常 客户端 IP : {} 将断开连接 Exception : {}.", ctx.channel().remoteAddress(), cause.getMessage());
+        logger.error("[服务器] Happened exception the client-ip: {} will be disconnected because of :{}.", ctx.channel().remoteAddress(), cause.getMessage());
     }
 
 
@@ -107,13 +120,14 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<NPack> {
 
                     @Override
                     public Object event() {
+
                         SocketAddress address = ctx.channel().remoteAddress();
                         msg.setAddress(address);
                         return msg;
                     }
                 });
             } catch (Exception e) {
-                logger.error("[服务器] 发生异常 客户端 IP : {}  Exception : {}.", ctx.channel().remoteAddress(), e.getMessage());
+                logger.error("[服务器] Happened exception client-ip: {}, exception: {}.", ctx.channel().remoteAddress(), e.getMessage());
             } finally {
                 msg.release();
             }

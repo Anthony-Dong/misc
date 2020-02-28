@@ -4,9 +4,11 @@ import com.chat.core.exception.HandlerException;
 import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
 import com.chat.core.listener.ChatEventType;
+import com.chat.core.util.NetUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nullable;
 import java.net.InetSocketAddress;
 
 /**
@@ -34,7 +36,10 @@ public class ServerStartChatEventHandler implements ChatEventHandler {
             if (this.chatServerContext != null) {
                 this.chatServerContext.onStart(address);
             }
-            logger.debug("[服务器] 启动成功 Host:{} , Port:{} , Version:{} , ContextName:{}.", address.getHostName(), address.getPort(), chatServerContext.getVersion(), chatServerContext.getContextName());
+            logger.debug("[服务器] Start-up success host: {}, port: {}, version:{}, type: {}, contextName:{}, thread-size: {}, thread-queue-size: {}, thread-name: {}.", NetUtils.filterLocalHost(address.getHostName()), address.getPort()
+                    , chatServerContext.getVersion(), chatServerContext.getSerializableType(), chatServerContext.getContextName()
+                    , chatServerContext.getThreadPool().getPoolSize(), chatServerContext.getThreadPool().getQueueSize(), chatServerContext.getThreadPool().getThreadGroupName()
+            );
         }
     }
 }

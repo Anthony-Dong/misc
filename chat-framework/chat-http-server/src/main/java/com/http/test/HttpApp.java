@@ -15,7 +15,7 @@ public class HttpApp {
 
     public static void main(String[] args) {
         try {
-            HttpServer.run(8888);
+            HttpServer.run(new InetSocketAddress(8888));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -5,7 +5,7 @@
 
     <groupId>com.chat</groupId>
     <artifactId>chat-client</artifactId>
-    <version>0.0.1.SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>chat-client</name>
     <description>Chat Client</description>
 
@@ -17,7 +17,7 @@
         <dependency>
             <groupId>com.chat</groupId>
             <artifactId>chat-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

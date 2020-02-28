@@ -5,6 +5,7 @@ import com.chat.core.model.NPack;
 import com.chat.core.model.URL;
 import com.chat.core.model.netty.Request;
 import com.chat.core.spi.SPIUtil;
+import com.chat.core.util.NetUtils;
 import com.chat.server.handler.ChatServerContext;
 import com.chat.server.handler.ServerReadChatEventHandler;
 import com.chat.server.spi.defaulthandler.DefaultHandlerChainBuilder;
@@ -55,7 +56,7 @@ public final class HandlerReceivePackage {
      */
     public HandlerReceivePackage(ChatServerContext context) {
         this.context = context;
-        this.host = context.getAddress().getHostName();
+        this.host = NetUtils.filterLocalHost(context.getAddress().getHostName());
         this.port = context.getAddress().getPort();
         this.version = context.getVersion();
         this.filter = SPIUtil.loadFirstInstanceOrDefault(Filter.class, DefaultFilter.class);
@@ -99,4 +100,6 @@ public final class HandlerReceivePackage {
         }
         return new Request(url, pack.getBody(), pack.getTimestamp(), this.host, this.port, this.version);
     }
+
+
 }

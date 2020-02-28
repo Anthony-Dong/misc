@@ -2,7 +2,10 @@ package com.chat.server.handler;
 
 import com.chat.core.context.Context;
 import com.chat.core.exception.ContextException;
+import com.chat.core.netty.CodecType;
 import com.chat.core.netty.Constants;
+import com.chat.core.netty.NettyProperties;
+import com.chat.core.netty.SerializableType;
 import com.chat.core.register.RegistryService;
 import com.chat.core.util.ThreadPool;
 import io.netty.channel.ChannelHandlerContext;
@@ -12,6 +15,8 @@ import java.net.SocketAddress;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static com.chat.core.netty.PropertiesConstant.*;
+
 /**
  * ChatServerContext 上下文对象 , 优先级最高
  *
@@ -20,10 +25,12 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class ChatServerContext implements Context {
 
+    private final NettyProperties properties = new NettyProperties();
+
     /**
-     * 是否使用文件传输协议
+     * 默认协议
      */
-    private boolean useFileProtocol = false;
+    private SerializableType serializableType = Constants.DEFAULT_SERIALIZABLE_TYPE;
 
     /**
      * 协议版本号
@@ -38,11 +45,11 @@ public abstract class ChatServerContext implements Context {
     /**
      * 服务器地址
      */
-    private InetSocketAddress address;
+    private InetSocketAddress address = new InetSocketAddress(Constants.DEFAULT_HOST, Constants.DEFAULT_PORT);
     /**
      * 线程池
      */
-    private ThreadPool threadPool;
+    private ThreadPool threadPool = new ThreadPool(Constants.DEFAULT_THREAD_SIZE, Constants.DEFAULT_QUEUE_SIZE, Constants.DEFAULT_THREAD_NAME);
 
     /**
      * 可以拿到所有的context , 然后去进行逻辑处理
@@ -142,6 +149,8 @@ public abstract class ChatServerContext implements Context {
     }
 
     public final void setAddress(InetSocketAddress address) {
+        properties.setString(CLIENT_HOST, address.getHostName());
+        properties.setInt(CLIENT_PORT, address.getPort());
         this.address = address;
     }
 
@@ -154,11 +163,17 @@ public abstract class ChatServerContext implements Context {
     }
 
     public final void setVersion(short version) {
+        properties.setShort(CLIENT_PROTOCOL_VERSION, version);
         this.version = version;
     }
 
     public final short getVersion() {
-        return this.version;
+        return version;
+    }
+
+    public final void setSerializableType(SerializableType type) {
+        properties.setByte(CLIENT_PROTOCOL_TYPE, type.getCode());
+        this.serializableType = type;
     }
 
     public final String getContextName() {
@@ -177,11 +192,12 @@ public abstract class ChatServerContext implements Context {
         this.registryService = registryService;
     }
 
-    public final boolean isUseFileProtocol() {
-        return useFileProtocol;
+    public final SerializableType getSerializableType() {
+        return serializableType;
     }
 
-    public final void setUseFileProtocol(boolean useFileProtocal) {
-        this.useFileProtocol = useFileProtocal;
+
+    public final NettyProperties getProperties() {
+        return properties;
     }
 }

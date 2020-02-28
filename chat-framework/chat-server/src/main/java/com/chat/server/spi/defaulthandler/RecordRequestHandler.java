@@ -26,7 +26,7 @@ public class RecordRequestHandler extends AbstractRequestHandler {
             fireHandler(request, context);
         } finally {
             if (!request.getProtocol().equals(UrlConstants.HEART_PROTOCOL)) {
-                logger.debug("[服务器] HandlerRequest Protocol:{} , Url:{} , Spend:{}ms.", request.getProtocol(), request.getUrl(), System.currentTimeMillis() - request.getTimestamp());
+                logger.debug("[服务器] HandlerRequest protocol: {}, url: {}, spend: {}ms.", request.getProtocol(), request.getUrl(), System.currentTimeMillis() - request.getTimestamp());
             }
         }
     }

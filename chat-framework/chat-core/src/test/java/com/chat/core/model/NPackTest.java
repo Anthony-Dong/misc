@@ -2,17 +2,18 @@ package com.chat.core.model;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.chat.core.model.netty.Arg;
+import com.chat.core.model.netty.ArgsUtil;
+import com.chat.core.util.FileUtil;
 import com.chat.core.util.JsonUtil;
 import com.chat.core.util.RouterUtil;
 import org.junit.Test;
 import org.msgpack.MessagePack;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URLDecoder;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -91,5 +92,58 @@ public class NPackTest {
 
         System.out.println("end : " + (System.currentTimeMillis() - start));
 
+    }
+
+    @Test
+    public void release() throws IOException {
+        MessagePack pack = new MessagePack();
+        NPack pack1 = new NPack("hello world", "ok".getBytes(), 1582695713240L);
+        byte[] write = pack.write(pack1);
+
+        for (byte b : write) {
+            System.out.printf("%d\t", b);
+        }
+        System.out.println();
+
+        System.out.println(write.length);
+    }
+
+    @Test
+    public void update() throws IOException {
+
+        NPack pack = new NPack("hello world");
+
+        String str = JSON.toJSONString(pack);
+        System.out.println(str);
+        System.out.println(str.getBytes().length);
+
+        MessagePack messagePack = new MessagePack();
+        byte[] write = messagePack.write(str);
+        System.out.println(write.length);
+
+        String read = messagePack.read(write, String.class);
+        System.out.println(read);
+
+    }
+
+    @Test
+    public void testJson(){
+        NPack pack = new NPack("hello world", "body".getBytes(),1582695713240L);
+
+        String string = JSON.toJSONString(pack);
+        System.out.println(string);
+
+        NPack pack1 = JSON.parseObject(string, NPack.class);
+
+        System.out.println(pack1);
+
+        byte[] bytes = JSON.toJSONBytes(pack);
+
+
+        byte[] world = ArgsUtil.convertArgs("hello world", 100);
+        TypeReference<List<Arg>> listTypeReference = new TypeReference<List<Arg>>(){};
+        Type type = listTypeReference.getType();
+        Object object1 = JSON.parseObject(world, type);
+        System.out.println(object1);
     }
 }

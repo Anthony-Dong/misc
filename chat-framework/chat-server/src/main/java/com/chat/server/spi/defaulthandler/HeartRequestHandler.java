@@ -20,7 +20,7 @@ public class HeartRequestHandler extends AbstractRequestHandler {
      */
     @Override
     public void handler(Request request, ChannelHandlerContext context) throws HandlerException {
-        logger.debug("[服务器] Receive Heart : {} .", request.getUrl());
+        logger.debug("[服务器] Receive Heart: {}, timestamp: {}.", request.getUrl(),request.getTimestamp());
         fireHandler(request, context);
     }
 }

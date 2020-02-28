@@ -10,6 +10,7 @@ import com.chat.core.model.RouterBuilder;
 import com.chat.core.model.netty.ArgsUtil;
 import com.chat.core.model.netty.Response;
 import com.chat.core.netty.Constants;
+import com.chat.core.netty.FileProtocol;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,8 +39,18 @@ public class DefaultChatClientContext extends ChatClientContext implements RpcCo
      * 客户端接收到信息
      */
     @Override
-    protected void onReading(Response response) {
+    protected void onRead(Response response) {
         NpackFuture.received(response, fallback);
+    }
+
+    @Override
+    protected void onStart() {
+
+    }
+
+    @Override
+    protected void onClose() {
+
     }
 
     /**
@@ -115,16 +126,16 @@ public class DefaultChatClientContext extends ChatClientContext implements RpcCo
             // 机器唯一ID
             int id = NpackFuture.getCount();
             // 路由信息
-            String router = RouterBuilder.buildRPC(path, name, id, timeout);
+            String router = RouterBuilder.buildRPC(realHostName, port, path, name, id, timeout);
 
             // 参数信息, 转成json
-            String json = ArgsUtil.convertArgs(args);
+            byte[] json = ArgsUtil.convertArgs(args);
             NPack pack;
             long start = System.currentTimeMillis();
-            if (json == null) {
+            if (json == null || json.length == 0) {
                 pack = new NPack(router, start);
             } else {
-                pack = new NPack(router, json.getBytes(), start);
+                pack = new NPack(router, json, start);
             }
             // 1.先实例化对象
             NpackFuture future = new NpackFuture(id, timeout, pack);
@@ -152,15 +163,6 @@ public class DefaultChatClientContext extends ChatClientContext implements RpcCo
         this.fallback = fallback;
     }
 
-    @Override
-    public void onBootstrap() {
-        // 啥也不做
-    }
-
-    @Override
-    public void onShutdown() {
-        // 啥也不做
-    }
 
     public void sendFile(File file) throws ContextException {
         sendFile(file, file.getName(), 1024 * 20);
@@ -169,18 +171,18 @@ public class DefaultChatClientContext extends ChatClientContext implements RpcCo
     @Override
     public void sendFile(File file, String fileName, int split) throws ContextException {
         try {
-            FileContext.sendFileMethod(context, file, fileName, false, 0, split);
+            FileProtocol.sendFileMethod(context, version, file, fileName, false, 0, split);
         } catch (IOException e) {
             throw new ContextException(e);
         }
     }
 
-    public String sendFileSync(File file,int split) throws ContextException {
+    public String sendFileSync(File file, int split) throws ContextException {
         return sendFileSync(file, file.getName(), split);
     }
 
     public String sendFileSync(File file) throws ContextException {
-        return sendFileSync(file, file.getName(), 1024 * 20);
+        return sendFileSync(file, file.getName(), 1024 * 50);
     }
 
     @Override
@@ -190,7 +192,7 @@ public class DefaultChatClientContext extends ChatClientContext implements RpcCo
             NPack pack = new NPack(fileName);
             // 最多等待1分钟
             NpackFuture future = new NpackFuture(count, 60000, pack);
-            FileContext.sendFileMethod(context, file, file.getName(), true, count, 1024 * 50);
+            FileProtocol.sendFileMethod(context, version, file, file.getName(), true, count, split);
             return new String(future.get().getResult());
         } catch (IOException | TimeOutException e) {
             throw new ContextException(e);

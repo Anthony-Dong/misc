@@ -5,8 +5,8 @@ import com.alibaba.fastjson.TypeReference;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ public class ArgsUtil {
     /**
      * 如果返回空代表无数据,请注意空指针
      */
-    public static String convertArgs(Object... args) {
+    public static byte[] convertArgs(Object... args) {
         if (args == null || args.length == 0) return null;
         List<Arg> list = new ArrayList<>(args.length);
         for (int i = 0; i < args.length; i++) {
@@ -31,8 +31,9 @@ public class ArgsUtil {
             arg.setValue(JSON.toJSONString(args[i]));
             list.add(arg);
         }
-        return JSON.toJSONString(list);
+        return JSON.toJSONBytes(list);
     }
+
     /**
      * 比如 echo(string name) 输出 ->  echo.java.long.string
      */
@@ -47,9 +48,11 @@ public class ArgsUtil {
         return builder.toString();
     }
 
-    private static final TypeReference<List<Arg>> TYPE = new TypeReference<List<Arg>>() {
-
-    };
+    /**
+     * 一个类型转换器
+     */
+    private static final Type TYPE = new TypeReference<List<Arg>>() {
+    }.getType();
 
     /**
      * 转换 , 如果为空就抛出异常
@@ -58,7 +61,7 @@ public class ArgsUtil {
      * @throws IllegalArgumentException
      */
     @SuppressWarnings("all")
-    public static Object[] convert(String json, Method method) throws IllegalArgumentException {
+    public static Object[] convert(byte[] json, Method method) throws IllegalArgumentException {
         List<Arg> args = JSON.parseObject(json, TYPE);
         if (args == null || args.size() != method.getParameters().length) {
             throw new IllegalArgumentException("传入参数和实际参数长度不一致");

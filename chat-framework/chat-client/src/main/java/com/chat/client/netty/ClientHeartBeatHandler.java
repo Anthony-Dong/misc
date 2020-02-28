@@ -5,6 +5,7 @@ import com.chat.core.model.NPack;
 import com.chat.core.model.URL;
 import com.chat.core.model.UrlConstants;
 import com.chat.core.netty.Constants;
+import com.chat.core.util.NetUtils;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.timeout.IdleStateEvent;
@@ -29,7 +30,7 @@ public final class ClientHeartBeatHandler extends ChannelDuplexHandler {
 
     ClientHeartBeatHandler(ChatEventListener listener, InetSocketAddress address) {
         // 路由信息
-        URL url = new URL(UrlConstants.HEART_PROTOCOL, address.getHostName(), address.getPort());
+        URL url = new URL(UrlConstants.HEART_PROTOCOL, NetUtils.filterLocalHost(address.getHostName()), address.getPort());
         this.pack = new NPack(URL.decode(url.toString()));
         this.listener = listener;
     }

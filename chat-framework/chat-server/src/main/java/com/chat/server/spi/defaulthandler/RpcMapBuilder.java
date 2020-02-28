@@ -10,7 +10,7 @@ public class RpcMapBuilder {
 
     static final RpcMap map = new RpcMap();
 
-    public static void addService(Class<?> service, Object proxy) {
+    public static <T> void addService(Class<T> service, T proxy) {
         map.addService(service, proxy);
     }
 }

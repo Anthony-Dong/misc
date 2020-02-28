@@ -11,11 +11,16 @@ import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.util.CharsetUtil;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 
 import java.io.FileInputStream;
 import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -35,7 +40,7 @@ public class Client {
 
         Bootstrap bootstrap = new Bootstrap();
 
-        ChannelDuplexHandler duplexHandler = new MyClientChannelDuplexHandler();
+//        ChannelDuplexHandler duplexHandler = new MyClientChannelDuplexHandler();
         NioEventLoopGroup work = new NioEventLoopGroup();
         Bootstrap handler = bootstrap.group(work)
                 .channel(NioSocketChannel.class)
@@ -43,17 +48,20 @@ public class Client {
                     @Override
                     protected void initChannel(Channel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
-                        pipeline.addLast(new FixedLengthFrameDecoder(Long.BYTES));
+//                        pipeline.addLast(new FixedLengthFrameDecoder(Long.BYTES));
                         // 自己的Handler
-                        pipeline.addLast(duplexHandler);
+                        pipeline.addLast("1", MyClientChannelDuplexHandler1.HANDLER);
+
+                        pipeline.addLast("2", MyClientChannelDuplexHandler2.instance);
                     }
                 });
         try {
-            ChannelFuture future = handler.connect(new InetSocketAddress(10086)).sync();
+            ChannelFuture future = handler.connect(new InetSocketAddress("192.168.28.1", 6666)).sync();
             System.out.printf("ChannelFuture %d\n", future.channel().hashCode());
             System.out.println("connect = localhost:10086");
 
             future.channel().closeFuture().sync();
+            System.out.println("失败.........");
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -62,30 +70,27 @@ public class Client {
     }
 
     @ChannelHandler.Sharable
-    private static class MyClientChannelDuplexHandler extends ChannelDuplexHandler {
+    private static class MyClientChannelDuplexHandler1 extends ChannelDuplexHandler {
+        static final MyClientChannelDuplexHandler1 HANDLER = new MyClientChannelDuplexHandler1();
 
         @Override
         public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-            System.out.printf("handlerAdded %d\n", ctx.channel().hashCode());
+            System.out.printf("handlerAdded1 %d\n", ctx.channel().hashCode());
         }
 
         @Override
         public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-            System.out.printf("channelRegistered %d\n", ctx.channel().hashCode());
+            System.out.printf("channelRegistered1 %d\n", ctx.channel().hashCode());
+            ctx.fireChannelRegistered();
         }
 
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
-            System.out.printf("channelActive %d\n", ctx.channel().hashCode());
-            FileInputStream stream = new FileInputStream("D:\\樊浩东\\软件\\office2010.iso");
-            FileChannel channel =
-                    stream.getChannel();
-            ByteBuf buf = Unpooled.directBuffer(1024);
-            buf.writeBytes(channel, 0, stream.available());
-            System.out.println(buf);
-            ctx.channel().writeAndFlush(buf);
-            channel.close();
-            stream.close();
+            System.out.println("channelActive1");
+            ctx.fireChannelActive();
+
+            ctx.fireUserEventTriggered("触发了");
+
         }
 
         @Override
@@ -95,7 +100,98 @@ public class Client {
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+
+        }
+
+
+        @Override
+        public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
+            System.out.println("write1 .......");
+            ByteBuf buffer = Unpooled.buffer(10);
+            buffer.writeCharSequence((String) msg, StandardCharsets.UTF_8);
+            super.write(ctx, buffer, promise);
+
+        }
+
+
+        @Override
+        public void flush(ChannelHandlerContext ctx) throws Exception {
+            System.out.println("flush1 .......");
+            super.flush(ctx);
+        }
+
+        @Override
+        public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+            super.handlerRemoved(ctx);
+        }
+
+        @Override
+        public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+            System.out.println("event1 : " + evt);
+            super.userEventTriggered(ctx, evt);
+        }
+    }
+
+    @ChannelHandler.Sharable
+    private static class MyClientChannelDuplexHandler2 extends ChannelDuplexHandler {
+        static final MyClientChannelDuplexHandler2 instance = new MyClientChannelDuplexHandler2();
+
+        @Override
+        public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+            System.out.printf("handlerAdded2 %d\n", ctx.channel().hashCode());
+        }
+
+        @Override
+        public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+            System.out.printf("channelRegistered2 %d\n", ctx.channel().hashCode());
+            ctx.fireChannelRegistered();
+        }
+
+        @Override
+        public void channelActive(ChannelHandlerContext ctx) throws Exception {
+            System.out.println("channelActive2");
+            ctx.executor().scheduleAtFixedRate(() -> {
+                ctx.channel().writeAndFlush(System.getProperty("name"));
+            }, 0, 1000, TimeUnit.MILLISECONDS);
+        }
+
+        @Override
+        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+
+        }
+
+        @Override
+        public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+            super.handlerRemoved(ctx);
+        }
+
+        @Override
+        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
             ctx.close();
+        }
+
+        @Override
+        public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
+            System.out.println("write2 .......");
+            super.write(ctx, msg, promise);
+        }
+
+
+        @Override
+        public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+            super.channelReadComplete(ctx);
+        }
+
+        @Override
+        public void flush(ChannelHandlerContext ctx) throws Exception {
+            System.out.println("flush2 .......");
+            super.flush(ctx);
+        }
+
+        @Override
+        public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+            System.out.println("event2 : " + evt);
+            super.userEventTriggered(ctx, evt);
         }
     }
 }

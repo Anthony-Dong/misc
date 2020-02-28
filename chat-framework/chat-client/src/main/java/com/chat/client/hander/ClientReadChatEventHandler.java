@@ -31,7 +31,7 @@ public class ClientReadChatEventHandler implements ChatEventHandler {
         Object obj = event.event();
         Response response = convert(obj);
         if (response != null) {
-            chatClientContext.onReading(response);
+            chatClientContext.onRead(response);
             logger.debug("[客户端] ReceiveResponse : {}.", response.getUrl().toString());
         } else {
             logger.error("[客户端] {} 解码异常.", obj);

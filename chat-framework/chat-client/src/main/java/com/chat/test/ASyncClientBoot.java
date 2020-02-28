@@ -1,17 +1,17 @@
 package com.chat.test;
 
 import com.chat.client.context.DefaultChatClientContext;
-import com.chat.client.context.FileContext;
 import com.chat.client.future.RpcProxy;
-import com.chat.client.netty.AsyncChatClient;
+import com.chat.client.netty.ChatClient;
 import com.chat.core.exception.BootstrapException;
 import com.chat.core.exception.ProxyException;
 import com.chat.core.exception.TimeOutException;
 import com.chat.core.model.netty.Response;
+import com.chat.core.netty.CodecType;
+import com.chat.core.netty.SerializableType;
 import com.chat.core.test.EchoService;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,12 +20,10 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.function.BiConsumer;
 import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
-import static com.chat.core.netty.Constants.DEFAULT_FILE_DIR;
-import static com.chat.core.netty.Constants.FILE_SEPARATOR;
+import static com.chat.core.netty.Constants.*;
 
 /**
  * @date:2019/12/24 17:22
@@ -35,36 +33,21 @@ public class ASyncClientBoot {
 
     public static void main(String[] args) throws Exception {
         DefaultChatClientContext clientContext = new DefaultChatClientContext();
-        AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
-        CountDownLatch latch = new CountDownLatch(1);
-        long start = System.currentTimeMillis();
-        new Thread(() -> {
-            String response = clientContext.sendFileSync(new File("D:\\樊浩东\\media\\image\\1.jpg"), 1024 * 50);
-            System.out.printf("文件存储路径 : %s\n", response);
-            latch.countDown();
-        }).start();
+        clientContext.setSerializableType(SerializableType.MESSGAE_PACK_GZIP);
+        ChatClient client = ChatClient.run(9999, clientContext);
 
-//        EchoService echoService = RpcProxy.newInstance(EchoService.class, clientContext);
-//        new Thread(() -> {
-//            IntStream.range(0, 2000).forEach(value -> System.out.println(echoService.hash(11111)));
-//            latch.countDown();
-//        }).start();
-
-        // 等待.
-        latch.await();
-        System.out.printf("耗时 : %dms\n", System.currentTimeMillis() - start);
+        EchoService service = RpcProxy.newInstance(EchoService.class, clientContext);
+        IntStream.range(0, 10).forEach(value -> {
+            Integer hash = service.hash("hello rpc");
+            System.out.println(hash);
+        });
         client.close();
     }
 
 
-
-
     private static void testFile() throws BootstrapException, IOException, ProxyException {
         DefaultChatClientContext clientContext = new DefaultChatClientContext();
-        AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
-
-//        System.out.println(echoService.hash(11111));
-
+        ChatClient client = ChatClient.run(9999, clientContext);
         client.close();
     }
 
@@ -90,22 +73,27 @@ public class ASyncClientBoot {
 
     @Test
     public void testPro() throws FileNotFoundException {
-
         FileOutputStream fileOutputStream = new FileOutputStream(DEFAULT_FILE_DIR + FILE_SEPARATOR + "a.txt");
-
 
     }
 
 
     private static void test3() throws Exception {
         DefaultChatClientContext clientContext = new DefaultChatClientContext();
-        AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
+        ChatClient client = ChatClient.run(9999, clientContext);
         EchoService service = RpcProxy.newInstance(EchoService.class, clientContext);
-        IntStream.range(0, 10000).forEach(value -> {
-            assert service != null;
-            String hash = service.hash(1111);
-            System.out.println(hash);
+        assert service != null;
+        ExecutorService pool = Executors.newFixedThreadPool(10);
+        long start = System.currentTimeMillis();
+        IntStream.range(0, 10).forEach(value -> {
+            pool.execute(() -> IntStream.range(0, 1000).forEach(v -> {
+//                String hash = service.hash(1111);
+//                System.out.println(hash);
+            }));
         });
+        pool.shutdown();
+        pool.awaitTermination(Integer.MAX_VALUE, TimeUnit.DAYS);
+        System.out.println(String.format("耗时 : %dms.", System.currentTimeMillis() - start));
         client.close();
     }
 
@@ -132,7 +120,7 @@ public class ASyncClientBoot {
 
     private static void testRpc() throws BootstrapException, InterruptedException {
         DefaultChatClientContext clientContext = new DefaultChatClientContext();
-        AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
+        ChatClient client = ChatClient.run(9999, clientContext);
 
 
         Method[] methods = EchoService.class.getMethods();
@@ -159,7 +147,7 @@ public class ASyncClientBoot {
 
     private static void testSyncMsg() throws Exception {
         DefaultChatClientContext clientContext = new DefaultChatClientContext();
-        AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
+        ChatClient client = ChatClient.run(9999, clientContext);
         IntStream.range(0, 1000).forEach(e -> {
             try {
                 Response response = clientContext.sendMessageBySync("hello world", "tony", "tom");
@@ -174,10 +162,8 @@ public class ASyncClientBoot {
 
     private static void testAsyncMsg() throws Exception {
         DefaultChatClientContext clientContext = new DefaultChatClientContext();
-        AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
-        IntStream.range(0, 1000).forEach(e -> {
-            clientContext.sendMessage("hello world", "tony", "tom");
-        });
+        ChatClient client = ChatClient.run(9999, clientContext);
+        IntStream.range(0, 1000).forEach(e -> clientContext.sendMessage("hello world", "tony", "tom"));
         client.close();
     }
 }

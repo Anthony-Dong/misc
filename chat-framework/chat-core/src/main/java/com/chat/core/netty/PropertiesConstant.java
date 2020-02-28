@@ -8,15 +8,22 @@ package com.chat.core.netty;
  */
 public final class PropertiesConstant {
 
+    public static final String CLIENT_PROTOCOL_VERSION = "client.content.version";
+    public static final String CLIENT_PROTOCOL_TYPE = "client.content.type";
+
     static final String CLIENT_VERSION = "client.proto.version";
 
     static final String CLIENT_THREAD_QUEUE_SIZE = "client.thread.queue.size";
 
     static final String CLIENT_THREAD_CORE_SIZE = "client.thread.core.size";
 
-    static final String CLIENT_PORT = "client.port";
+    public static final String CLIENT_PORT = "client.port";
 
-    static final String CLIENT_HOST = "client.host";
+    public static final String CLIENT_HOST = "client.host";
+
+
+    public static final String CLIENT_FILE_DIR = "client.file.dir";
+
 
     static final String CLIENT_FILE_PROTOCOL = "client.file.version";
 
@@ -27,9 +34,12 @@ public final class PropertiesConstant {
     /**
      * ms
      */
-    static final String CLIENT_TIME_OUT = "client.timeout";
+    public static final String CLIENT_TIME_OUT = "client.timeout";
 
-    static final String CLIENT_HEART_INTERVAL = "client.heart.interval";
+    /**
+     * s
+     */
+    public static final String CLIENT_HEART_INTERVAL = "client.heart.interval";
 
     public static final String CLIENT_REGISTER_REDIS_HOST = "client.register.redis.host";
 

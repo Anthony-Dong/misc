@@ -57,25 +57,25 @@ public class PackageDecoderTest {
 
         ArrayList<Object> list = new ArrayList<>();
 
-
-        PackageDecoder decoder = new PackageDecoder((short) 1);
-
-
-        decoder.decode(null, buffer, list);
-
-
-        System.out.println("=====已读======");
-        list.forEach(System.out::println);
-        System.out.println("==================");
-
-
-        System.out.println("buffer.refCnt() = " + buffer.refCnt());
-        System.out.println("buffer.writerIndex() = " + buffer.writerIndex());
-
-        System.out.println("buffer.readerIndex() = " + buffer.readerIndex());
-
-        System.out.println("buffer.readShort() = " + buffer.readShort());
-        System.out.println("buffer.readInt() = " + buffer.readInt());
+//
+//        PackageDecoder decoder = new PackageDecoder( 1);
+//
+//
+//        decoder.decode(null, buffer, list);
+//
+//
+//        System.out.println("=====已读======");
+//        list.forEach(System.out::println);
+//        System.out.println("==================");
+//
+//
+//        System.out.println("buffer.refCnt() = " + buffer.refCnt());
+//        System.out.println("buffer.writerIndex() = " + buffer.writerIndex());
+//
+//        System.out.println("buffer.readerIndex() = " + buffer.readerIndex());
+//
+//        System.out.println("buffer.readShort() = " + buffer.readShort());
+//        System.out.println("buffer.readInt() = " + buffer.readInt());
 
     }
 }

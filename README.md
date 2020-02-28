@@ -19,71 +19,85 @@
 
 ## PRC协议
 
-> ​	默认响应超时时间可以用 : `client.timeout`系统属性配置. 等后期加入注解开发. 超时会抛出`TimeOutException`异常
+> ​	默认响应超时时间可以用 : `client.timeout`系统属性配置, 超时会抛出`TimeOutException`异常  , 为了对接网卡, 展示效果. 我的server端, 在Linux系统上, 也就是虚拟机上. 
+
+服务接口: 
+
+```java
+public interface EchoService {
+    Integer hash(String str);
+}
+```
 
 服务端代码 : 
 
 ```java
-public static void main(String[] args) throws Exception {
-    // 需要暴露的接口, 和接口实现类. 
-    RpcMapBuilder.addService(EchoService.class, new EchoService() {
-        @Override
-        public String echo() {
-            return "hello world";
-        }
-        @Override
-        public Map<String, Object> echo(Map<String, Object> msg, List<String> list) {
-            System.out.printf("%s\t%s\n", msg.getClass(), list.getClass());
-            msg.put("list", list);
-            return msg;
-        }
-    });
-
-    // 上下文对象
-    ChatServerContext context = new DefaultChatServerContext();
-    // 线程池 . 和dubbo默认的一致 200个线程池
-    context.setThreadPool(new ThreadPool(200, -1, "work"));
-    ChatServer.run(9999, context);
+public class ServerBoot {
+	// 虚拟机IP是192.168.58.131
+    public static void main(String[] args) throws Exception {
+        // 1.暴漏的接口
+        RpcMapBuilder.addService(EchoService.class, String::hashCode);
+        // 2.上下文对象
+        ChatServerContext context = new DefaultChatServerContext();
+		// 3.设置序列号方式为 JSON(指的是响应的时候发送消息序列号为JSON),默认是MessagePack
+        context.setSerializableType(SerializableType.JSON);
+        // 4.设置线程池大小. 
+        context.setThreadPool(new ThreadPool(20, -1, "work"));
+        // 5.启动...阻塞会一直.
+        ChatServer.run(9999, context);
+    }
 }
 ```
 
 客户端代码: 
 
 ```java
-public static void main(String[] args) throws Exception {
-    // 上下文
-    DefaultChatClientContext clientContext = new DefaultChatClientContext();
-    // 注入上下文启动,默认是单个线程处理, 客户端,并不需要多个线程,编解码一个业务一个足矣
-    AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
-    // 拿到一个代理对象, 需要告诉代理接口和上下文
-    EchoService service = RpcProxy.newInstance(EchoService.class, clientContext);
-    // rpc调用
-    Map<String, Object> echo2 = service.echo(Collections.singletonMap("name", "a"), Collections.singletonList("value"));
-    System.out.println(echo2);
-    // 关闭客户端, 释放资源.
-    client.close();
+public class ClientBoot {
+
+    // 连接虚拟机
+    public static void main(String[] args) throws Exception {
+        // 1.初始化上下文
+        DefaultChatClientContext clientContext = new DefaultChatClientContext();
+        // 2.设置使用message_pack_zip
+        clientContext.setSerializableType(SerializableType.MESSGAE_PACK_GZIP);
+        // 3.启动
+        ChatClient client = ChatClient.run("192.168.58.131",9999, clientContext);
+        // 4.获取代理对象.
+        EchoService service = RpcProxy.newInstance(EchoService.class, clientContext);
+        IntStream.range(0, 10).forEach(value -> {
+            // rpc调用
+            Integer hash = service.hash("hello rpc");
+            System.out.println(hash);
+        });
+        // 5.关闭客户端.释放资源.
+        client.close();
+    }
 }
 ```
 
-输出 : 
+服务端输出 日志信息如下: 
 
 ```java
-// 服务器端,第一次处理响应会稍微慢一点.后续基本是0ms左右,还要看用户具体实现.
-2020-02-19 12:17:27,468 7957   [er-3-1] DEBUG il.ResourceLeakDetectorFactory  - Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@566ec476
-class java.util.HashMap	class java.util.ArrayList
-2020-02-19 12:17:27,687 8176   [read-1] DEBUG lthandler.RecordRequestHandler  - [服务器] HandlerRequest Protocol:rpc , Url:rpc:///com.chat.core.inter.EchoService?id=1&method=echo.java.util.Map.java.util.List&timeout=1000 , Spend:360ms.
-2020-02-19 12:17:27,749 8238   [er-3-1] INFO  HandlerRemovedChatEventHandler  - [服务器] Remove Client : /192.168.28.1:5936 .
+// 服务端日志信息
+2020-02-02 13:13:36,337 1946   [  main] DEBUG er.ServerStartChatEventHandler  - [服务器] Start-up success host: 192.168.28.1, port: 9999, version:1, type: JSON, contextName:server-context, thread-size: 20, thread-queue-size: -1, thread-name: work.
+2020-02-02 13:13:41,033 6642   [er-3-1] DEBUG nnelRegisteredChatEventHandler  - [服务器] Registered client address: /192.168.28.1:3584.
+2020-02-02 13:13:41,549 7158   [read-1] DEBUG lthandler.RecordRequestHandler  - [服务器] HandlerRequest protocol: rpc, url: rpc://192.168.28.1:9999/com.chat.core.test.EchoService?id=1&method=hash.java.lang.String&timeout=111111111, spend: 444ms.
+2020-02-02 13:13:41,583 7192   [read-2] DEBUG lthandler.RecordRequestHandler  - [服务器] HandlerRequest protocol: rpc, url: rpc://192.168.28.1:9999/com.chat.core.test.EchoService?id=2&method=hash.java.lang.String&timeout=111111111, spend: 1ms.
+/// .... 记录了响应时间 . 同时记录日志
+2020-02-02 13:13:41,618 7227   [er-3-1] INFO  HandlerRemovedChatEventHandler  - [服务器] Remove client address: /192.168.28.1:3584.    
 
 
-// 客户端
-2020-02-19 12:17:27,733 1905   [read-1] DEBUG der.ClientReadChatEventHandler  - [客户端] ReceiveResponse : rpc://0.0.0.0:9999?id=1.
-{name=a, list=["value"]}
-2020-02-19 12:17:27,733 1905   [  main] ERROR ClientShutDownChatEventHandler  - [客户端] 关闭成功 Host:0.0.0.0 Port:9999. 
+// 客户端日志信息
+2020-02-02 13:13:41,014 1804   [er-1-1] DEBUG der.ClientReadChatEventHandler  - [客户端] Connect server success host: 192.168.28.1, port: 9999, version:1, type: MESSGAE_PACK_GZIP, contextName:chat-server, thread-size: 1, thread-queue-size: 0, thread-name: Netty-Worker.
+2020-02-02 13:13:41,581 2371   [read-1] DEBUG der.ClientReadChatEventHandler  - [客户端] ReceiveResponse : rpc://192.168.28.1:9999?id=1.
+hash值 : 1195156887
+2020-02-02 13:13:41,584 2374   [read-1] DEBUG der.ClientReadChatEventHandler  - [客户端] ReceiveResponse : rpc://192.168.28.1:9999?id=2.
+hash值 : 1195156887
+/// ... 还有很多 ,关闭日志
+2020-02-02 13:13:41,614 2404   [  main] DEBUG m.chat.client.netty.ChatClient  - [客户端] Shutdown success the connected server host: 192.168.28.1, port: 9999.    
 ```
 
 这就是 一个最简单的例子. 
-
-
 
 ## 消息应答协议
 
@@ -91,11 +105,15 @@ class java.util.HashMap	class java.util.ArrayList
 
 > ​	有些时候我们需要确认消息的ACK机制, 就是必须已经对方收到了, 此时就需要使用这个.  同时提供了不需要ack机制的.
 
+需要ACK
+
 ```java
 // 消息, 消息发送方, 消息接收方.
 Response response = clientContext.sendMessageBySync("hello world", "tom", "tony");
 System.out.println(response.getUrl());//需要ack
 ```
+
+不需要ACK
 
 ```java
 clientContext.sendMessage("hello world", "tom", "tony"); // 不需要ack
@@ -117,61 +135,69 @@ msg://0.0.0.0:9999?id=1
 
 ## 文件传输协议
 
+最好不要本地测试, windows本地测试.比如同一个网卡下面是不会出入网卡的,所以速度很快,体现不出传输效果.
+
 > ​	文件传输协议,由于文件比较大体积, 一般如果使用我们原来的协议的话, 会造成大量的数据拷贝. 所以我们采用的是新的一套文件协议,依靠Java的NIO实现的. 来看看传输效率吧先. 我们以20KB为每个包的大小进行发送, 同时他也可以混合和普通协议一起传输.. 
 
 首先我们需要服务端开启文件传输协议 `context.setUseFileProtocol(true);` 这么就开启了. 
 
-为了测试速度快慢, 我们使用一个1G左右的大文档进行传输. `962 MB (1,009,090,560 字节)` office2010.iso
+为了测试速度快慢, 我们使用一个1G左右的大文档进行传输. `962 MB (1,009,090,560 字节)` 的office2010.iso , 本地无法模拟速度的 , 因为windows测试的时候, 同一个网卡之间不会进行流入流出. 所以并不能体现速度. 
 
 ```java
 public static void main(String[] args) throws Exception {
     DefaultChatClientContext clientContext = new DefaultChatClientContext();
-    AsyncChatClient client = AsyncChatClient.run(9999, clientContext);
+    ChatClient client = ChatClient.run("192.168.58.131",9999, clientContext);
     long start = System.currentTimeMillis();
-    // 20K一个包进行拆分发送.
-    String response = clientContext.sendFileSync(new File(office2010.iso"),1024*20);
-    // 这里会响应服务器的存储路径                                                      
-    System.out.printf("文件存储路径 : %s\n", response);
-    System.out.printf("耗时 : %dms\n", System.currentTimeMillis() - start);
+    // 发送一个 15.4 MB 的netty电子书 ,默认拆分大小为50K一个包.
+    String s = clientContext.sendFileSync(new File("D:\\MyDesktop\\文档\\java\\Netty实战.pdf"));
+    System.out.println(String.format("save path: %s , spend: %dms.", s, System.currentTimeMillis() - start));
     client.close();
 }
 ```
 
-输出 : 
+输出 :  这是一个15M的文档, 跨网卡传输, 580MS. 速度还行. 
 
 ```java
-文件存储路径 : file/office2010.iso
-耗时 : 23140ms
+save path: /home/admin/java-jar/file/Netty实战.pdf , spend: 580ms.
 ```
 
-大约是耗时 23s . 我们将文件包调大. 默认是20K一个包(所以上面这种应该发了大约1M需要发50个包, 1000M大约需要 50000个包才能发送完成,次数太多需要消耗时间太长).   改成100K . 只用发送(1W个包) 
+服务端 : 确实保存了. 
 
 ```java
-文件存储路径 : file/office2010.iso
-耗时 : 2380ms
+[admin@hadoop1 file]$ ll
+total 15872
+-rw-rw-r-- 1 admin admin 16252675 Feb 28 14:04 Netty实战.pdf
 ```
 
-我们继续改成 1M 一个包 .  基本和100K差不多 . 
+为了增加难度. 我们测试了. 一个G的文档. 
 
 ```java
-文件存储路径 : file/office2010.iso
-耗时 : 2168ms
+public static void test(DefaultChatClientContext clientContext) throws Exception {
+    long start = System.currentTimeMillis();
+    // 发送一个 15.4 MB 的netty电子书
+    String s = clientContext.sendFileSync(new File("D:\樊浩东\软件\office2010.iso"));
+    System.out.println(String.format("save path: %s , spend: %dms.", s, System.currentTimeMillis() - start));
+}
 ```
 
-**经过我们测试发现Netty的Bytebuf对象每次最多只会接收到65536字节大小的数据, 也就是64KB的数据, 所以我们每次发送50K的数据是最好的,可以保证缓冲区数据维持较少.防止OOM溢出 ** 
-
-为了保证协议互存的可靠性, 我们加入rpc进行验证.俩线程同时执行.  代码在本文档结尾. 一个线程执行发送1G文件, 另一个线程执RPC调用2000次
+测试的时候我不断 ll 命令的敲击  , 大约花了30S传完. 这个文档,模拟远程传输.  
 
 ```java
-2020-02-21 16:39:50,351 4179   [read-1] DEBUG der.ClientReadChatEventHandler  - [客户端] ReceiveResponse : file://?id=1.
-2020-02-21 16:39:50,352 4180   [read-1] DEBUG der.ClientReadChatEventHandler  - [客户端] ReceiveResponse : rpc://0.0.0.0:9999?id=6.
-文件存储路径 : file/office2010.iso
-// ....
-2020-02-21 16:39:51,959 5787   [read-1] DEBUG der.ClientReadChatEventHandler  - [客户端] ReceiveResponse : rpc://0.0.0.0:9999?id=2001.
-耗时 : 4351ms
+save path: /home/admin/java-jar/file/office2010.iso , spend: 29358ms.
 ```
 
-2001 次发送加存储文件没毛病. 还是效率可以的. 因为我们客户端处理线程也就一个. 用户可以去调整
+查看虚拟机:
+
+```java
+[admin@hadoop1 file]$ ll
+total 1001312
+-rw-rw-r-- 1 admin admin   16252675 Feb 28 14:04 Netty实战.pdf
+-rw-rw-r-- 1 admin admin 1009090560 Feb 28 14:10 office2010.iso
+```
+
+​	`为了保证协议互存的可靠性, 我们加入rpc协议进行验证.` 俩线程可以同时执行进行发送,服务端也可以很好的处理.  代码在本文档结尾. 一个线程执行发送1G文件, 另一个线程执RPC调用200
+
+2001 次发送加存储文件没毛病. 效率还是可以的. 1G的文件从源拆包->发送->接收->拆包->落盘 同时还携带着2000其他包. 只需要4S多(本地测试,不跨网卡,所以很快), 还保证了不丢失的问题. 
 
 ## 框架设计原则
 
@@ -189,45 +215,33 @@ private long timestamp; // 时间搓 (消息发送时间)
 
 #### 普通传输协议
 
-我们的协议比较简单, 用户呢可以修改 , 在` com.chat.core.netty.PackageEncoder` 和 `com.chat.core.netty.PackageDecoder`   和这个包下面. 下面说说我们的实现吧. 
+我们的协议比较简单, 用户呢可以拓展修改 , 在` com.chat.core.netty.PackageEncoder` 和 `com.chat.core.netty.PackageDecoder`   和这个包下面. 下面说说我们的实现吧. 
 
-每一个完整的数据包 : 
+协议格式 : 
 
-version(2个字节)+length(4个字节)+napck(数据包)  就这四部分组成,本来还要加入校验码之类的信息, 但是大多数情况下是不会出现 version len npack解析会出现成功的问题, 这种概率极低 . 
+`魔数(一个字节,固定为0XF) `   + `version (版本号 2个字节)`  + `type 协议类型(一个字节)`  
 
-version : 2个字节, 要求客户端服务器端 version版本一致, 才可以解码成功.
+协议类型会进行判断分法给真正处理的协议.  比如message-pack , json , java序列化哇. 都很好地可以处理. 
 
-len : 4个字节, 指的是npack的体积, `我认为大部分情况下长度是不会超过2^31-1的大小`, 就算是文件协议也是不会去传输这么大的文件, 也会进行拆包处理. 
+比如如普通的JSON协议 . 
 
-npack数据包 : 这个会涉及到序列化与反序列化问题, 结合我们的数据包固定设计, 我们采用了`MessagePack` 进行序列化, 效率很好, 相比于Hessian2和Java的序列化 , 结合了两者的优点, 他基本都媲美 (这个仅限于我们遵循MessagePack的对象,普通Java对象不可以,具体可以去[官网](https://msgpack.org/)看看).  也许有些人会说使用JSON来处理,然后转成字节流. 但是我觉得么必要. (body部分可能涉及到JSON来传输).
+会有 `len (4个字节)`+ `body(len)` 组成.  我们拿到body , 会帮助我们反序列化成我们需要的对象(也就是Napck对象).
+
+同时我们也引入了Message-Pack来序列化Java对象, 它利用哈弗曼树的优点进行压缩, 相比于JSON,更为轻量级. 所以很好地解决了文件大的问题.  
 
 #### 文件传输协议
 
-目前只实现的客户端向服务端传输, 没有去写反过来的, 其实是一样的,只要编码器里加上我们编码器就行了. 
+协议头部, 依旧是上述讲的. 我们将文件协议类型分为开始写 + 写完, 所以就是两个类型. 
 
-在 `com.chat.core.netty.FileAndPackageDecoder`  这个类里. 
+具体的实现逻辑在 `com.chat.core.netty.FileProtocol` 中实现. 
 
-简单说说文件协议吧. 
+文件协议主要分. 
 
-`文件协议版本号`：两个字节 , 20000-29999最好
+`魔数(一个字节)` + `服务版本号(两个字节)` + `协议类型(一个字节)` (start为127, end为126)+ `文件名长度(一个字节)` +`文件写入位置(8个字节)` +`文件写入具体长度(四个字节)`
 
-`文件写入方式校验码`  : 两个字节 , 30000-31000 , 包含两个写和写完操作.(比如写入过程, 和写完后发送一个end命令)
+以上部分就是协议头. 
 
-`File-Name-Len` : 两个字节. 文件名的长度
-
-`File_Name`  : 文件名
-
-`File_Write_Index`  : 值文件写入的起始位置. (8个字节)
-
-`File_Len`  : 写入多少字节的文件. (4个字节)
-
-
-
-`File` : 最后就是写入File_Len字节数的文件. 
-
-这个基本可以保证数据的可靠性和完整性. 我们可以保证数据写入的顺序 . 
-
-我们基于NIO实现的, 直接内存拷贝, 节省了一次文件IO. 
+依靠头部, 可以知道文件名和文件体 , 以及文件写入位置和长度. 就解决了Netty的NIO文件机制. (可以考虑传输的时候讲文件压缩.但是目前的压缩方式来说, 不支持之间内存压缩, 所以效果很差. 小文件还好.)
 
 ```java
 // 写入
@@ -243,7 +257,7 @@ ByteBuf.readBytes(out,position,length);
 
 #### 半包/粘包/拆包等问题解决
 
-对于Netty来说 , 他是不会帮助你进行拆包的, 你可能拿到的是多个对象, 也就是说, 可能一次拿到的是好几个数据包, 但是经过我测试发现, 他可以保证他的完整性. 对于大多数人开发一般都是使用`io.netty.handler.codec.ByteToMessageDecoder` 和 `io.netty.handler.codec.MessageToByteEncoder` 进行解码和编码的.  这个`ByteToMessageDecoder` 会帮助我们维护一个缓冲区, 每次没有读完的会帮助我们维护起来,所以对于半包问题我们基本可以解决.  同时可以调整 `discardAfterReads`大小来通过拷贝来防止OOM等问题.  **这里就要说Netty的不足之地了. 就是无法向一个ByteBuf中向前插入数据. 比如B1为 [R0,W100,C100], 我想将[R0,W5000,C5000]的数据插入到B1前面. 显然Netty的ByteBuf无法实现.** 
+​	对于Netty来说 , 他是不会帮助你进行拆包的, 你可能拿到的是多个对象, 也就是说, 可能一次拿到的是好几个数据包, 但是经过我测试发现, 他可以保证他的完整性. 对于大多数人开发一般都是使用`io.netty.handler.codec.ByteToMessageDecoder` 和 `io.netty.handler.codec.MessageToByteEncoder` 进行解码和编码的.  这个`ByteToMessageDecoder` 会帮助我们维护一个缓冲区, 每次没有读完的会帮助我们维护起来,所以对于半包问题我们基本可以解决.  同时可以调整 `discardAfterReads`大小来通过拷贝来防止OOM等问题.  **这里就要说Netty的不足之地了. 就是无法向一个ByteBuf中向前插入数据. 比如B1为 [R0,W100,C100], 我想将[R0,W5000,C5000]的数据插入到B1前面. 显然Netty的ByteBuf无法实现. 需要拷贝,其实对于Bytebuf来说, 底层是ByteBuffer, 再底层其实是数组, 数组是固定大小的, 添加一个也需要进行大量的复制.** 
 
 编码其实很简单, 因为就是一个pack -> 一个网络数据包 , 只要格式遵循自己的协议就可以了 . 
 
@@ -277,7 +291,15 @@ out就是我们需要拿到的对象 , in->out的转变
 
 ​		设计模式其实名字就是一个定义罢了. 桥接模式,比如我们的链接Netty的事件和我们真正的Handler,使用Map根据类型进行桥接, 这不就是桥接模式吗. 更多的体现在原则上. 
 
+## Netty如何优化和解决半包带来的数据拷贝问题
 
+> ​	对于数据包大小如果我们可以精准的把控, 可以解决最少了复制次数. 解决问题.  那么就要找到入口在哪, 
+
+​	对于Netty来说, 这点是可以做到的. 我们知道Netty是基于NIO实现的. 所以他接收数据的入口一定是`socketChannel.read() `方法.   源码在`io.netty.channel.nio.AbstractNioByteChannel.NioByteUnsafe#read`  方法中的 `doReadBytes(byteBuf)` , 其实进去就是一个需要实现 `RecvByteBufAllocator` 这个接口,提供一个Handler方法进行处理, 他类似于一个切面提供大小, 记录此时读取的大小.  所以可以自适应 . 
+
+​	默认实现的是 :  `io.netty.channel.AdaptiveRecvByteBufAllocator`  , 这是一个自适应的, 默认可以到达64KB.最大值.   他同时也是一个自适应的可以根据记录进行调整大小. 会给一个初始值, 最小值, 最大值.(`但是必须是2的幂,比如20KB会取16KB的.所以这点注意`) . 
+
+​		其实还有很多. 如果对于数据包大小是一定的情况下, 我们可以采用 `FixedRecvByteBufAllocator`  之类的. 一个合理的选择方式 可以为我们提供很好的性能提升. 
 
 ## 客户端设计
 
@@ -322,7 +344,17 @@ public interface ChatEventHandler {
 }
 ```
 
-所以对于 Netty的每一个事件, 我们都申明了大量的 `ChatEventType` 枚举类型.  然后封装成我们事件类型, 告诉监听者. 监听者拿到后, 根据类型再选择真正的处理者.   很好地解耦. 
+所以对于 Netty的每一个事件, 我们都申明了大量的 `ChatEventType` 枚举类型.  然后封装成我们事件类型, 告诉监听者. 监听者拿到后, 根据类型再选择真正的处理者.   很好地解耦.  
+
+我们在处理的时候使用的是 : 
+
+```java
+// 下面就是事件处理器. 依靠map来维护事件处理器,这样拓展性很高.
+final ChatServer server = new ChatServer(context.getProperties(), event -> {
+            ChatEventHandler handler = handlerMap.get(event.eventType());
+            handler.handler(event);
+        }, context.getThreadPool());
+```
 
 ### 细节点: 
 
@@ -334,9 +366,13 @@ public interface ChatEventHandler {
 
 ​		如何保证拿到这个对象, 又可以防止不出现问题, 我们引入了countdownlatch . 一个控制器, 只有拿到`ChannelHandlerContext`这个对象, 客户端才会真正初始化完成 (可以设置超时时间.)
 
+​		其实对于 Netty事件来说, 客户端连接真正完成的时候是在active事件触发, 同时 `ChannelFuture future = handler.connect(addr).sync();` 也会等待客户端完成连接之后才会响应结果. `sync`意思就是等待到连接成功建立. 
+
+​		但是如果用这个`future.channel()` , 我们依靠是channel进行传输. 如果了解netty的话. channel传输是从低到上传输, 效率低, 其实效果并不好, 我们这里却是一种取巧的方式.
+
 ####  二. 消息协议处理封装
 
-基于URL类 , 可以高效的实现各种信息封装, `com.chat.core.model.URL` . 提供了很多构造URL的方法. 和提取. 并不受到限制 . 
+​		基于URL类 , 可以高效的实现各种信息封装, `com.chat.core.model.URL` . 提供了很多构造URL的方法. 和提取. 并不受到限制 .  所以我们不依靠与协议头进行封装信息. 我们主要依靠于我们的URL路径.
 
 #### 三. RPC响应/AKC机制
 
@@ -374,11 +410,9 @@ Response response = context.sendMessageBySync("hello world", "tom", "tony");
 
 如何区分你收到的响应和你发布的请求联系起来呢, 而且是多线程环境, 我使用的是 `ConcurrentHashMap`  , 那么这个ID如何做呢, 我第一次考虑的是时间搓(Java只支持ms类型, 不支持ns(`golang真香`))  ,精确度不够, pass掉. 第二次雪花算法, 单机没必要, 性能差,  第三次想到UUID,不行哇,太大了, 占用空间, 第三次LongAddr , 虽然保证了自增, 但是我们拿到的数据时候是可能一致的 , 最后就是 AtomicInteger/AtomicLong , 这俩基本可以满足. 对于客户端我觉得AtomicInteger足够了, 而且你服务要跑一辈子哇, 2^31-1 足够了. 如果不够可以换long类型. 
 
-
-
 #### 四. 保证消息不丢失,可靠性高
 
-RPC调用, 你可以保证客户端代码, 也就是服务消费方, 那么提供方,你可以告诉他超时吗, 不可以, 所以对于这个你发出了在数据不丢失的情况下 (不考虑限流) 一定会被调用,  那么有个问题 ? 请求超时, 但是服务端执行了, 对于那些幂等性操作, 执行N次结果不一样. 所以我们做了一种乐观处理的态度.  
+​	RPC调用, 你可以保证客户端代码, 也就是服务消费方, 那么提供方,你可以告诉他超时吗, 不可以, 所以对于这个你发出了在数据不丢失的情况下 (不考虑限流) 一定会被调用,  那么有个问题 ? 请求超时, 但是服务端执行了, 对于那些幂等性操作, 执行N次结果不一样. 所以我们做了一种乐观处理的态度.  
 
 > ​	如果超时 ? 我们去判断response是否为空 ? , 空我们就将Map中我们这条记录删除 . 那么客户端的响应结果拿到的时候会发现Map中没有这条数据 , 此时就调用fallback接口 , 用户可以提供. 保证不丢失.
 
@@ -513,7 +547,7 @@ public static void main(String[] args) throws Exception {
 
     EchoService echoService = RpcProxy.newInstance(EchoService.class, clientContext);
     new Thread(() -> {
-        IntStream.range(0, 2000).forEach(value -> System.out.println(echoService.hash(11111)));
+        IntStream.range(0, 2000).forEach(value -> System.out.println(echoService.hash("hello file")));
         latch.countDown();
     }).start();
 
@@ -528,3 +562,20 @@ public static void main(String[] args) throws Exception {
 
 
 
+## 打包 - 发布-使用
+
+我们加入了Maven脚本, 用idea , 直接将core包, (install明了)发布到自己的maven仓库, 然后打包server端 . 记住放入自己的主类, 在pom文件中设置. 然后package打包一下就可以; 直接java -jar 启动 , 具体参数设置
+
+
+
+## 配合Golang开发 实现跨平台.
+
+具体实现可以看[https://github.com/Anthony-Dong/golang-netty-rpc](https://github.com/Anthony-Dong/golang-netty-rpc )  , 我的这个实现. 
+
+实现很简单Golang原生性能就很强, 主要是编解码机制的实现, 封装Bytebuf对象进行操作, 等. 基本还是很简单的. 
+
+对接Java还是可以实现的. 
+
+主要是在想如何实现接口话调用, 比如RestTemplate 一样 , Java的Rpc会保存接口信息. 一级参数类型, 等等. 都需要考虑到. 
+
+但是Golang调用Java显得,有一些难度. 必须重新定义. 等我看看Dubbo-go的实现吧, 期待. 

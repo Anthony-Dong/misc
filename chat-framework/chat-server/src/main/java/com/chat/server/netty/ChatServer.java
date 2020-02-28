@@ -9,10 +9,7 @@ import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
 import com.chat.core.listener.ChatEventListener;
 import com.chat.core.listener.ChatEventType;
-import com.chat.core.netty.Constants;
-import com.chat.core.netty.FileAndPackageDecoder;
-import com.chat.core.netty.PackageDecoder;
-import com.chat.core.netty.PackageEncoder;
+import com.chat.core.netty.*;
 import com.chat.core.util.ThreadPool;
 import com.chat.server.handler.ChatServerContext;
 import com.chat.server.handler.ServerChatHandlerConstant;
@@ -23,8 +20,12 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.concurrent.DefaultThreadFactory;
+
+import static com.chat.core.netty.Constants.*;
+import static com.chat.core.netty.PropertiesConstant.*;
 
 
 /**
@@ -50,36 +51,29 @@ public class ChatServer extends ServerNode {
      */
     private final ChatEventListener listener;
 
-    private final short version;
-
     /**
      * 线程池
      */
     private final ThreadPool threadPool;
 
-    private final boolean openFileProtocol;
-
-
     /**
-     * 获取线程池状态
+     * 属性
      */
-    public ThreadPool getThreadPool() {
-        return threadPool;
-    }
+    private final NettyProperties properties;
+
 
     /**
      * 构造方法 , 初始化一堆参数
      *
      * @param threadPool 真正处理事务的线程池
-     * @param address    地址
+     * @param properties 属性
      * @param listener   监听器
      */
-    public ChatServer(short version, InetSocketAddress address, ChatEventListener listener, ThreadPool threadPool, boolean openFileProtocol) {
+    private ChatServer(NettyProperties properties, ChatEventListener listener, ThreadPool threadPool) {
         this.threadPool = threadPool;
-        this.version = version;
-        this.address = address;
+        this.address = new InetSocketAddress(properties.getString(CLIENT_HOST, DEFAULT_HOST), properties.getInt(CLIENT_PORT, DEFAULT_PORT));
         this.listener = listener;
-        this.openFileProtocol = openFileProtocol;
+        this.properties = properties;
         this.bossGroup = new NioEventLoopGroup(1, new DefaultThreadFactory("NettyServerBoss", true));
         this.workerGroup = new NioEventLoopGroup(Constants.DEFAULT_IO_THREADS, new DefaultThreadFactory("NettyServerWorker", true));
     }
@@ -92,8 +86,15 @@ public class ChatServer extends ServerNode {
     @Override
     protected void start() throws Exception {
         final ServerBootstrap serverBootstrap = new ServerBootstrap();
-//        final ChatServerInitializer initializer = new ChatServerInitializer(listener, version, threadPool);
         final ChatServerHandler handler = new ChatServerHandler(listener, threadPool);
+
+
+        final short version = properties.getShort(CLIENT_PROTOCOL_VERSION, PROTOCOL_VERSION);
+        final byte type = properties.getByte(CLIENT_PROTOCOL_TYPE, DEFAULT_SERIALIZABLE_TYPE.getCode());
+        final String dir = properties.getString(CLIENT_FILE_DIR, DEFAULT_FILE_DIR);
+        final int heartInterval = properties.getInt(CLIENT_HEART_INTERVAL, DEFAULT_SERVER_HEART_INTERVAL);
+
+//        final RecvByteBufAllocator allocator = new AdaptiveRecvByteBufAllocator(64, 512, 1024 * 40);
         serverBootstrap
                 .group(bossGroup, workerGroup) // 添加组
                 .channel(NioServerSocketChannel.class)  // 添加管道
@@ -101,25 +102,20 @@ public class ChatServer extends ServerNode {
                 .childOption(ChannelOption.TCP_NODELAY, Boolean.TRUE)
                 .childOption(ChannelOption.SO_REUSEADDR, Boolean.TRUE)
                 .childOption(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
-                .childHandler(new ChannelInitializer<Channel>() {
+//                .childOption(ChannelOption.RCVBUF_ALLOCATOR, allocator)
+                .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
-                    protected void initChannel(Channel ch) throws Exception {
+                    protected void initChannel(NioSocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
                         // out  编码器
-                        pipeline.addLast("encoder", new PackageEncoder(version));
+                        pipeline.addLast("encoder", new PackageEncoder(version, type));
 
-                        if (openFileProtocol) {
-                            // 文件解码器+NPack解码器
-                            pipeline.addLast("file-decoder", new FileAndPackageDecoder(version));
-                        } else {
-                            // Npack解码器
-                            pipeline.addLast("decoder", new PackageDecoder(version));
-                        }
+                        pipeline.addLast("decoder", new PackageDecoder(version, dir));
                         // 心跳检测
-                        pipeline.addLast("idleStateHandler", new IdleStateHandler(0, 0, 90));
+                        pipeline.addLast("idleStateHandler", new IdleStateHandler(0, 0, heartInterval));
 
-                        // 心跳检测处理器
-                        pipeline.addLast("serverHeartBeatHandler", new ChatServerHeartBeatHandler());
+                        // 心跳检测处理器 , 整合到最后面了
+                        //pipeline.addLast("serverHeartBeatHandler", new ChatServerHeartBeatHandler());
 
                         // handler
                         pipeline.addLast("handler", handler);
@@ -187,27 +183,26 @@ public class ChatServer extends ServerNode {
      * @throws Exception
      */
     public static void run(ChatServerContext context) throws Exception {
-        if (context.getAddress() == null) {
-            context.setAddress(new InetSocketAddress(Constants.DEFAULT_HOST, Constants.DEFAULT_PORT));
-        }
-        if (context.getThreadPool() == null) {
-            context.setThreadPool(new ThreadPool(Constants.DEFAULT_THREAD_SIZE, Constants.DEFAULT_QUEUE_SIZE, Constants.DEFAULT_THREAD_NAME));
-        }
 
         final ServerChatHandlerConstant constant = new ServerChatHandlerConstant(context);
 
         final Map<ChatEventType, ChatEventHandler> handlerMap = constant.getHandlerMap();
 
         //启动
-        final ChatServer server = new ChatServer(context.getVersion(), context.getAddress(), event -> {
+        final ChatServer server = new ChatServer(context.getProperties(), event -> {
             ChatEventHandler handler = handlerMap.get(event.eventType());
             handler.handler(event);
-        }, context.getThreadPool(), context.isUseFileProtocol());
+        }, context.getThreadPool());
         server.start();
     }
 
     public static void run(int port, ChatServerContext context) throws Exception {
         context.setAddress(new InetSocketAddress(Constants.DEFAULT_HOST, port));
+        run(context);
+    }
+
+    public static void run(String host, int port, ChatServerContext context) throws Exception {
+        context.setAddress(new InetSocketAddress(host, port));
         run(context);
     }
 }

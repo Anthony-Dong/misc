@@ -6,5 +6,5 @@ package com.chat.core.test;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public interface EchoService {
-    String hash(int hash);
+    Integer hash(String str);
 }

@@ -45,7 +45,7 @@ public class RouterBuilder {
     /**
      * RPC协议 构建
      */
-    public static String buildRPC(String path, String method, int id, long timeout) {
+    public static String buildRPC(String hostName,int port,String path, String method, int id, long timeout) {
         HashMap<String, String> map = new HashMap<>();
         StringBuilder builder = new StringBuilder();
         builder.append(id);
@@ -60,7 +60,7 @@ public class RouterBuilder {
         builder.append(timeout);
         map.put(TIMEOUT_KEY, builder.toString());
         // 编码
-        return URL.encode(new URL(RPC_PROTOCOL, null, 0, path, map).toString());
+        return URL.encode(new URL(RPC_PROTOCOL, hostName, port, path, map).toString());
     }
 
 

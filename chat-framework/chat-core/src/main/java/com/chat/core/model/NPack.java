@@ -1,8 +1,8 @@
 package com.chat.core.model;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.util.ReferenceCounted;
 import org.msgpack.annotation.Index;
 import org.msgpack.annotation.Message;
 
@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketAddress;
 import java.net.URLDecoder;
-import java.util.Arrays;
 
 /**
  * 数据包  所有 netty 传递的数据包
@@ -26,16 +25,22 @@ public class NPack implements Serializable {
     /**
      * 路由信息, 其实就是URL .请看 {@link URL} 和 {@link RouterBuilder}
      */
+    @JSONField(name = "url", ordinal = 1)
     @Index(0)
     private String router;
 
     /**
      * 由于灵活性的问题我们采用byte
      */
+    @JSONField(name = "body", ordinal = 2)
     @Index(1)
     private byte[] body;
 
-    // 时间错  , 默认不用设置
+
+    /**
+     * 时间搓
+     */
+    @JSONField(name = "time", ordinal = 3)
     @Index(2)
     private long timestamp;
 
@@ -43,6 +48,7 @@ public class NPack implements Serializable {
     /**
      * 这个是方便 获取上下文ctx使用的.
      */
+    @JSONField(serialize = false)
     private transient SocketAddress address;
 
     public SocketAddress getAddress() {
@@ -64,7 +70,7 @@ public class NPack implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public static final String ERROR = "";
+    private static final String ERROR = "";
 
     public NPack(String router, byte[] body) {
         this(router, body, System.currentTimeMillis());
@@ -159,4 +165,9 @@ public class NPack implements Serializable {
         return true;
     }
 
+
+    public NPack update() {
+        this.timestamp = System.currentTimeMillis();
+        return this;
+    }
 }

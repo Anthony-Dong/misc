@@ -4,6 +4,7 @@ import com.chat.client.netty.ChantClientHandler;
 import com.chat.core.exception.HandlerException;
 import com.chat.core.handler.ChatEventHandler;
 import com.chat.core.listener.ChatEvent;
+import com.chat.core.util.NetUtils;
 import io.netty.channel.ChannelHandlerContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,10 @@ public class ClientConnectedChatEventHandler implements ChatEventHandler {
             chatClientContext.setContext(context);
             // 启动,代表ChannelHandlerContext已经拿到了.可以运行了
             chatClientContext.getLatch().countDown();
-            logger.debug("[客户端] 注册成功 ServerAddress : {}.", context.channel().remoteAddress());
+            logger.debug("[客户端] Connect server success host: {}, port: {}, version:{}, type: {}, contextName:{}, thread-size: {}, thread-queue-size: {}, thread-name: {}.", NetUtils.filterLocalHost(chatClientContext.getHostName()), chatClientContext.getPort()
+                    , chatClientContext.getVersion(), chatClientContext.getSerializableType(), chatClientContext.getContextName()
+                    , chatClientContext.getThreadPool().getPoolSize(), chatClientContext.getThreadPool().getQueueSize(), chatClientContext.getThreadPool().getThreadGroupName()
+            );
         }
     }
 }
