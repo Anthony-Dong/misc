@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+
+package com.anthony.protobuf;
+
+// 引入其他的protobuf文件
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+option java_package = "com.chat.core.model";
+option java_outer_classname = "NPack";
+
+message People {
+    // 1 ,2 ,3 ,4 的意思是index , 所以传输的时候可以直接考这个传输位置. 这个是死的, 千万别随意改变.
+    // 1-15 占用一个字节.  后面的占用两个字节. 所以最好使用前面的15个字段.
+    string url = 1;
+    bytes body = 2;
+    int64 timeStamp = 3;
+}
