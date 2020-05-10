@@ -1,4 +1,4 @@
-# Netty- IM & RPC & MQ
+# Misc
 
 [![](https://img.shields.io/badge/GitHub-1+-blue.svg?style=social&logo=github)](https://github.com/Anthony-Dong/netty-IM)[![](https://img.shields.io/badge/download-10-brightgreen.svg)](https://github.com/Anthony-Dong/netty-IM)![](https://img.shields.io/badge/language-java-green.svg)![](https://img.shields.io/badge/framework-netty-green.svg)
 
@@ -42,7 +42,7 @@ public class ServerBoot {
 		// 3.设置序列号方式为 JSON(指的是响应的时候发送消息序列号为JSON),默认是MessagePack
         context.setSerializableType(SerializableType.JSON);
         // 4.设置线程池大小. 
-        context.setThreadPool(new ThreadPool(20, -1, "work"));
+        context.setThreadPool(20);
         // 5.启动...阻塞会一直.
         ChatServer.run(9999, context);
     }

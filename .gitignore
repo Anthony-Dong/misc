@@ -29,3 +29,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## log ###
+*.log
+
+# static ##
+/file
