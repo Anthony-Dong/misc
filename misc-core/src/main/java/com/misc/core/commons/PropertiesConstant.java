@@ -36,9 +36,15 @@ public final class PropertiesConstant {
 
 
     /**
-     * 日志
+     * 文件系统需要保存的位置地址
      */
-    public static final String CLIENT_FILE_DIR = "misc.log.dir";
+    public static final String CLIENT_FILE_DIR = "misc.file.dir";
+
+
+    /**
+     * 文件系统需要保存的位置地址
+     */
+    public static final String CLIENT_LOG_DIR = "misc.log.dir";
 
 
     /**

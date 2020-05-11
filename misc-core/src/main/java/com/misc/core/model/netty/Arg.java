@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSON;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public class Arg {
+
     /**
      * 索引
      */
@@ -69,7 +70,7 @@ public class Arg {
         this.value = value;
     }
 
-    public static Arg of(int index,  Object object) {
+    public static Arg of(int index, Object object) {
         return new Arg(index, object.getClass(), JSON.toJSONString(object));
     }
 }

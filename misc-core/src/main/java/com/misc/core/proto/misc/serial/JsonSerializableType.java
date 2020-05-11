@@ -23,6 +23,7 @@ public class JsonSerializableType implements MiscSerializableHandler {
 
     public void encode(MiscPack msg, ByteBuf out) throws CodecException {
         byte[] body = JSON.toJSONBytes(msg);
+        System.out.println(new String(body));
         out.writeInt(body.length);
         out.writeBytes(body);
     }

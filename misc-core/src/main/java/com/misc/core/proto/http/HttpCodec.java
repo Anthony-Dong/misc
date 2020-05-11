@@ -12,6 +12,8 @@ import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
 import io.netty.handler.codec.http.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
@@ -19,10 +21,13 @@ import java.util.Map;
 
 
 /**
+ * HTTP处理器
+ *
  * @date: 2020-05-10
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public class HttpCodec extends ChannelDuplexHandler {
+    private static final Logger logger = LoggerFactory.getLogger(HttpCodec.class);
     private final Byte type;
     private final Map<Byte, MiscSerializableHandler> serializeHandlerMap;
     private static final Type TYPE = new TypeReference<MiscPack>() {
@@ -41,6 +46,7 @@ public class HttpCodec extends ChannelDuplexHandler {
                 MiscPack miscPack = handlerRequest(request);
                 ctx.fireChannelRead(miscPack);
             } catch (Exception e) {
+                logger.error("[Misc-Server] Happened exception client-ip: {}, exception: {}.", ctx.channel().remoteAddress(), e.getMessage());
                 ByteBuf buffer = ctx.alloc().buffer();
                 try {
                     ctx.writeAndFlush(writeError(buffer, e.getMessage()));
@@ -62,6 +68,7 @@ public class HttpCodec extends ChannelDuplexHandler {
         ByteBuf content = request.content();
         byte[] body = new byte[content.readableBytes()];
         content.readBytes(body);
+        System.out.println(new String(body));
         return JSON.parseObject(body, TYPE);
     }
 
@@ -75,12 +82,17 @@ public class HttpCodec extends ChannelDuplexHandler {
     }
 
 
+    /**
+     * 做一次转换
+     */
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
         byte[] bytes = JSON.toJSONBytes(msg);
         ByteBuf buffer = ctx.alloc().buffer();
         buffer.writeBytes(bytes);
         DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, buffer);
+
+        // todo 添加拦截器
         super.write(ctx, response, promise);
     }
 

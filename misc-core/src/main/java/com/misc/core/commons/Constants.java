@@ -89,8 +89,14 @@ public final class Constants {
     public static final String FILE_SEPARATOR = System.getProperty("file.separator");
 
 
+    /**
+     * 默认的保存文件夹
+     */
     private static final String FILE_TMP = "file";
 
+    /**
+     * 默认的保存路径
+     */
     public static final String DEFAULT_FILE_DIR = getFileDir();
 
     /**
@@ -104,4 +110,15 @@ public final class Constants {
         return file;
     }
 
+
+    /**
+     * 默认的清空文件管道的时间
+     */
+    public static final long DEFAULT_CLEAR_FILE_CHANNEL_TIME = 1000;
+
+
+    /**
+     * 默认的清空文件管道的时间
+     */
+    public static final int DEFAULT_OPEN_FILE_COUNT = 100;
 }

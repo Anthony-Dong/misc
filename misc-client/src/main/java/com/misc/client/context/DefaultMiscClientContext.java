@@ -21,6 +21,7 @@ import java.util.function.Consumer;
 
 /**
  * 默认的实现类
+ *
  * @date:2020/2/17 10:55
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
