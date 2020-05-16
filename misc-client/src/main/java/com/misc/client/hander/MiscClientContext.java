@@ -1,6 +1,6 @@
 package com.misc.client.hander;
 
-import com.misc.client.netty.MiscClient;
+import com.misc.client.netty.MiscServerClient;
 import com.misc.core.context.AbstractContext;
 import com.misc.core.model.netty.Response;
 import com.misc.core.commons.Constants;
@@ -78,19 +78,12 @@ public abstract class MiscClientContext extends AbstractContext {
     }
 
     // 为了关闭掉服务器
-    protected MiscClient client;
+    protected MiscServerClient client;
 
-    public final void setClient(MiscClient client) {
+    public final void setClient(MiscServerClient client) {
         this.client = client;
     }
 
-    // 清空引用
-    private void release() {
-        if (client != null) {
-            client.stop();
-            client = null;
-        }
-    }
 
 //    /**
 //     * 收到事件后, 先释放掉 client.

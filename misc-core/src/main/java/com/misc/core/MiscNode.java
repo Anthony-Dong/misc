@@ -1,5 +1,7 @@
 package com.misc.core;
 
+import com.misc.core.model.MiscMessage;
+
 /**
  * Server节点
  *

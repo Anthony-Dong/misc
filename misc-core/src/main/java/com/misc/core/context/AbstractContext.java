@@ -1,10 +1,10 @@
 package com.misc.core.context;
 
-import com.misc.core.env.MiscProperties;
+import com.misc.core.proto.misc.common.MiscProperties;
 
 
 import com.misc.core.proto.ProtocolType;
-import com.misc.core.proto.SerializableType;
+import com.misc.core.proto.misc.common.MiscSerializableType;
 import com.misc.core.register.RegistryService;
 import com.misc.core.util.ThreadPool;
 
@@ -68,9 +68,9 @@ public abstract class AbstractContext extends MiscProperties implements Context 
 
 
     /**
-     * 序列号类型{@link SerializableType}
+     * 序列号类型{@link MiscSerializableType}
      */
-    protected SerializableType serializableType = DEFAULT_SERIALIZABLE_TYPE;
+    protected MiscSerializableType miscSerializableType = DEFAULT_SERIALIZABLE_TYPE;
 
 
     /**
@@ -96,7 +96,7 @@ public abstract class AbstractContext extends MiscProperties implements Context 
         return port;
     }
 
-    public short getVersion() {
+    public Short getVersion() {
         return version;
     }
 
@@ -170,13 +170,13 @@ public abstract class AbstractContext extends MiscProperties implements Context 
         this.connectTimeout = connectTimeout;
     }
 
-    public SerializableType getSerializableType() {
-        return serializableType;
+    public MiscSerializableType getMiscSerializableType() {
+        return miscSerializableType;
     }
 
-    public void setSerializableType(SerializableType serializableType) {
-        setByte(CLIENT_SERIALIZABLE_TYPE, serializableType.getCode());
-        this.serializableType = serializableType;
+    public void setMiscSerializableType(MiscSerializableType miscSerializableType) {
+        setByte(CLIENT_SERIALIZABLE_TYPE, miscSerializableType.getCode());
+        this.miscSerializableType = miscSerializableType;
     }
 
     public ProtocolType getProtocolType() {

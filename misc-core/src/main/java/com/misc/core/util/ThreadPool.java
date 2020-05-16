@@ -91,4 +91,14 @@ public class ThreadPool {
     public Executor getExecutor() {
         return this.executor;
     }
+
+
+    @Override
+    public String toString() {
+        return "ThreadPool{" +
+                ", nThreads=" + nThreads +
+                ", threadName='" + threadName + '\'' +
+                ", queues=" + queues +
+                '}';
+    }
 }

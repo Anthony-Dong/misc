@@ -34,7 +34,7 @@ public class ServerShutdownMiscEventHandler implements MiscEventHandler {
                 this.miscServerContext.onFail(address);
             }
             logger.debug("[服务器] Shutdown success host: {}, port: {}, version:{}, type: {}, contextName:{}, thread-size: {}, thread-queue-size: {}, thread-name: {}.", NetUtils.filterLocalHost(address.getHostName()), address.getPort()
-                    , miscServerContext.getVersion(), miscServerContext.getSerializableType(), miscServerContext.getContextName()
+                    , miscServerContext.getVersion(), miscServerContext.getMiscSerializableType(), miscServerContext.getContextName()
                     , miscServerContext.getThreadPool().getPoolSize(), miscServerContext.getThreadPool().getQueueSize(), miscServerContext.getThreadPool().getThreadGroupName()
             );
         }

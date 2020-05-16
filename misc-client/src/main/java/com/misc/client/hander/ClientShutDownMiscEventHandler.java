@@ -31,10 +31,9 @@ public class ClientShutDownMiscEventHandler implements MiscEventHandler {
             InetSocketAddress address = (InetSocketAddress) obj;
             if (null != miscClientContext) {
                 logger.debug("[客户端] Disconnect server host: {}, port: {}, version:{}, type: {}, contextName:{}, thread-size: {}, thread-queue-size: {}, thread-name: {}.", NetUtils.filterLocalHost(address.getHostName()), address.getPort()
-                        , miscClientContext.getVersion(), miscClientContext.getSerializableType(), miscClientContext.getContextName()
+                        , miscClientContext.getVersion(), miscClientContext.getMiscSerializableType(), miscClientContext.getContextName()
                         , miscClientContext.getThreadPool().getPoolSize(), miscClientContext.getThreadPool().getQueueSize(), miscClientContext.getThreadPool().getThreadGroupName()
                 );
-                miscClientContext.onShutdown();
             }
         }
     }

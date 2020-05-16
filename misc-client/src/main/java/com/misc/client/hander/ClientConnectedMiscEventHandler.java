@@ -41,7 +41,7 @@ public class ClientConnectedMiscEventHandler implements MiscEventHandler {
             // 启动,代表ChannelHandlerContext已经拿到了.可以运行了
             miscClientContext.getLatch().countDown();
             logger.debug("[客户端] Connect server success host: {}, port: {}, version:{}, type: {}, contextName:{}, thread-size: {}, thread-queue-size: {}, thread-name: {}.", NetUtils.filterLocalHost(miscClientContext.getHost()), miscClientContext.getPort()
-                    , miscClientContext.getVersion(), miscClientContext.getSerializableType(), miscClientContext.getContextName()
+                    , miscClientContext.getVersion(), miscClientContext.getMiscSerializableType(), miscClientContext.getContextName()
                     , miscClientContext.getThreadPool().getPoolSize(), miscClientContext.getThreadPool().getQueueSize(), miscClientContext.getThreadPool().getThreadGroupName()
             );
         }

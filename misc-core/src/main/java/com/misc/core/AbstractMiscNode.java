@@ -1,12 +1,11 @@
 package com.misc.core;
 
-import com.misc.core.env.MiscProperties;
+import com.misc.core.proto.misc.common.MiscProperties;
 import com.misc.core.func.FunctionType;
 import com.misc.core.listener.MiscEvent;
 import com.misc.core.listener.MiscEventListener;
-import com.misc.core.netty.ChannelHandler;
 import com.misc.core.proto.ProtocolType;
-import com.misc.core.proto.SerializableType;
+import com.misc.core.proto.misc.common.MiscSerializableType;
 import com.misc.core.proto.misc.serial.*;
 import com.misc.core.util.ThreadPool;
 
@@ -18,12 +17,14 @@ import static com.misc.core.commons.Constants.*;
 import static com.misc.core.commons.PropertiesConstant.*;
 
 /**
- * 公共的属性
+ * 配置属性
  *
  * @date: 2020-05-10
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public abstract class AbstractMiscNode implements MiscNode {
+
+    private static final long serialVersionUID = -1257564495480060947L;
 
     /**
      * netty 绑定的 ip
@@ -57,17 +58,12 @@ public abstract class AbstractMiscNode implements MiscNode {
     protected ProtocolType protocolType;
 
     /**
-     * 处理真正的请求和响应
-     */
-    protected ChannelHandler channelHandler;
-
-    /**
      *
      */
     protected int heartInterval;
 
 
-    public AbstractMiscNode(MiscEventListener listener, ThreadPool threadPool, MiscProperties properties, ProtocolType protocolType, FunctionType functionType, ChannelHandler channelHandler) {
+    public AbstractMiscNode(MiscEventListener listener, ThreadPool threadPool, MiscProperties properties, ProtocolType protocolType, FunctionType functionType) {
         this.properties = properties == null ? new MiscProperties() : properties;
         this.address = new InetSocketAddress(this.properties.getProperty(CLIENT_HOST, DEFAULT_HOST), this.properties.getInt(CLIENT_PORT, DEFAULT_PORT));
         this.heartInterval = this.properties.getInt(SERVER_HEART_INTERVAL, DEFAULT_SERVER_HEART_INTERVAL);
@@ -75,7 +71,6 @@ public abstract class AbstractMiscNode implements MiscNode {
         } : listener;
         this.threadPool = threadPool == null ? new ThreadPool(DEFAULT_THREAD_SIZE, DEFAULT_THREAD_QUEUE_SIZE, DEFAULT_THREAD_NAME) : threadPool;
         this.protocolType = protocolType;
-        this.channelHandler = channelHandler;
     }
 
 
@@ -85,13 +80,13 @@ public abstract class AbstractMiscNode implements MiscNode {
     private static void initSerializeHandleMap(Map<Byte, MiscSerializableHandler> codecHandlerMap) {
 //        if (codecHandlerMap == null) return;
 //        Set<Byte> set = codecHandlerMap.keySet();
-//        set.forEach(SerializableType::filterCodecType);
+//        set.forEach(MiscSerializableType::filterCodecType);
 
         // 初始化Map
-        codecHandlerMap.put(SerializableType.MESSAGE_PACK.getCode(), new MessagePackSerializableType());
-        codecHandlerMap.put(SerializableType.MESSGAE_PACK_GZIP.getCode(), new GzipMessagePackSerializableType());
-        codecHandlerMap.put(SerializableType.JSON.getCode(), new JsonSerializableType());
-        codecHandlerMap.put(SerializableType.Java_Serializable.getCode(), new ByteSerializableType());
+        codecHandlerMap.put(MiscSerializableType.MESSAGE_PACK.getCode(), new MessagePackSerializableType());
+        codecHandlerMap.put(MiscSerializableType.MESSGAE_PACK_GZIP.getCode(), new GzipMessagePackSerializableType());
+        codecHandlerMap.put(MiscSerializableType.JSON.getCode(), new JsonSerializableType());
+        codecHandlerMap.put(MiscSerializableType.Java_Serializable.getCode(), new ByteSerializableType());
     }
 
     /**

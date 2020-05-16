@@ -1,7 +1,6 @@
 package com.misc.core.func;
 
-import com.misc.core.netty.ProtocolHandler;
-import com.misc.core.netty.rpc.RpcServerProtocolHandler;
+import com.misc.core.netty.NettyConvertHandler;
 import com.misc.core.proto.ProtocolType;
 
 /**
@@ -11,7 +10,7 @@ import com.misc.core.proto.ProtocolType;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public class FunctionTypeAdapter {
-    public ProtocolHandler getProtocolHandler(ProtocolType protocolType, FunctionType functionType) {
-        return new RpcServerProtocolHandler(protocolType);
+    public NettyConvertHandler getProtocolHandler(ProtocolType protocolType, FunctionType functionType) {
+        return new RpcServerNettyConvertHandler(protocolType);
     }
 }

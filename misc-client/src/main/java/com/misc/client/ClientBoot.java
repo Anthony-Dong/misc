@@ -1,13 +1,15 @@
 package com.misc.client;
 
-import com.misc.client.context.DefaultMiscClientContext;
-import com.misc.client.future.RpcProxy;
-import com.misc.client.netty.MiscClient;
-import com.misc.core.proto.SerializableType;
-import com.misc.core.test.EchoService;
-
-import java.io.File;
-import java.util.stream.IntStream;
+import com.misc.client.netty.MiscServerClient;
+import com.misc.core.proto.misc.common.MiscProperties;
+import com.misc.core.exception.HandlerException;
+import com.misc.core.model.MiscPack;
+import com.misc.core.netty.NettyEventListener;
+import com.misc.core.netty.NettyClient;
+import com.misc.core.netty.NettyConvertHandler;
+import com.misc.core.proto.misc.common.MiscSerializableType;
+import io.netty.buffer.ByteBufAllocator;
+import io.netty.channel.Channel;
 
 
 /**
@@ -18,21 +20,57 @@ import java.util.stream.IntStream;
  */
 public class ClientBoot {
 
-    public static void main(String[] args) throws Exception {
-        DefaultMiscClientContext clientContext = new DefaultMiscClientContext();
-        clientContext.setSerializableType(SerializableType.JSON);
-        MiscClient client = MiscClient.run(9999, clientContext);
+    public static void main(String[] args) throws Throwable {
 
-        EchoService service = RpcProxy.newInstance(EchoService.class, clientContext);
+        NettyConvertHandler<MiscPack, MiscPack, String, String> handler = new NettyConvertHandler<MiscPack, MiscPack, String, String>() {
+            @Override
+            protected String decode(MiscPack msg) {
+                return msg.getRouter();
+            }
 
-        long start = System.currentTimeMillis();
+            @Override
+            protected MiscPack encode(ByteBufAllocator allocator, String msg) {
+                return new MiscPack(msg);
+            }
+        };
 
-        IntStream.range(0, 10).forEach(value -> {
-            Integer hash = service.hash("hello world");
-            System.out.println(hash);
-        });
+        NettyEventListener<String, String> channelHandler = new NettyEventListener<String, String>() {
+            @Override
+            public void connected(Channel channel) throws HandlerException {
+                System.out.println("connected");
+            }
 
-        System.out.println(System.currentTimeMillis() - start);
-        client.stop();
+            @Override
+            public void disconnected(Channel channel) throws HandlerException {
+                System.out.println("disconnected");
+            }
+
+            @Override
+            public void sent(Channel channel, String message) throws HandlerException {
+                System.out.println("sent");
+            }
+
+            @Override
+            public void received(Channel channel, String message) throws HandlerException {
+                System.out.println("received " + message);
+            }
+
+            @Override
+            public void caught(Channel channel, Throwable exception) throws HandlerException {
+                System.out.println("e" + exception);
+            }
+        };
+
+        MiscProperties properties = new MiscProperties();
+        properties.setVersion((short) 10);
+        properties.setSerialType(MiscSerializableType.BYTE_ARRAY);
+        MiscServerClient<String, String> client = new MiscServerClient<>(properties);
+        client.setPort(9999);
+        client.setNettyEventListener(channelHandler);
+        client.setNettyConvertHandler(handler);
+        NettyClient<MiscPack, MiscPack, String, String> build = client.build();
+        build.start();
+        build.getChannel().writeAndFlush("helll world");
+        build.sync();
     }
 }

@@ -2,7 +2,7 @@ package com.misc.core.proto.misc.serial;
 
 import com.misc.core.exception.CodecException;
 import com.misc.core.model.MiscPack;
-import com.misc.core.proto.SerializableType;
+import com.misc.core.proto.misc.common.MiscSerializableType;
 import com.misc.core.util.FileUtil;
 import io.netty.buffer.ByteBuf;
 import org.msgpack.MessagePack;
@@ -34,12 +34,12 @@ public class GzipMessagePackSerializableType implements MiscSerializableHandler 
     public Object decode(ByteBuf in) throws CodecException {
         // 小于4直接返回
         if (in.readableBytes() < 4) {
-            return SerializableType.NEED_MORE;
+            return MiscSerializableType.NEED_MORE;
         }
         // 小于已读长度返回
         int len = in.readInt();
         if (in.readableBytes() < len) {
-            return SerializableType.NEED_MORE;
+            return MiscSerializableType.NEED_MORE;
         }
         byte[] body = new byte[len];
         in.readBytes(body, 0, len);

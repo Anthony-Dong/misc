@@ -17,7 +17,6 @@ public class SystemUtil {
     public static int getCurrentProcessPid() {
         RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
         String name = runtime.getName();
-        System.out.println("当前进程的标识为：" + name);
         int index = name.indexOf("@");
         return Integer.parseInt(name.substring(0, index));
     }

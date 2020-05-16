@@ -57,8 +57,7 @@ public class NettyServer {
                                 System.out.println("read-2");
                                 ByteBuf byteBuf = ctx.alloc().directBuffer();
                                 byteBuf.writeCharSequence("byteBuf", StandardCharsets.UTF_8);
-                                ctx.write(byteBuf);
-//                                super.channelRead(ctx, msg);
+                                ctx.writeAndFlush(byteBuf);
                             }
 
                             @Override
@@ -67,11 +66,6 @@ public class NettyServer {
                                 super.write(ctx, msg, promise);
                             }
 
-                            @Override
-                            public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-                                System.out.println("read - complete ...");
-                                ctx.flush();
-                            }
 
                             @Override
                             public void flush(ChannelHandlerContext ctx) throws Exception {

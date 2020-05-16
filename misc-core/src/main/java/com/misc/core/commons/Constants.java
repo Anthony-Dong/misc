@@ -1,7 +1,7 @@
 package com.misc.core.commons;
 
 import com.misc.core.proto.ProtocolType;
-import com.misc.core.proto.SerializableType;
+import com.misc.core.proto.misc.common.MiscSerializableType;
 import com.misc.core.util.SystemUtil;
 
 import static com.misc.core.commons.PropertiesConstant.*;
@@ -34,7 +34,7 @@ public final class Constants {
     /**
      * 序列化类型，默认是 message pack
      */
-    public static final SerializableType DEFAULT_SERIALIZABLE_TYPE = SerializableType.MESSAGE_PACK;
+    public static final MiscSerializableType DEFAULT_SERIALIZABLE_TYPE = MiscSerializableType.MESSAGE_PACK;
 
 
     /**
@@ -125,4 +125,7 @@ public final class Constants {
 
 
     public static final int CURRENT_PROCESS_PID = SystemUtil.getCurrentProcessPid();
+
+
+    public static final int DEFAULT_MIN_WAIT_TIME = 2000;
 }

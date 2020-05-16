@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.misc.core.commons.Constants;
 import com.misc.core.commons.PropertiesConstant;
-import com.misc.core.env.MiscProperties;
+import com.misc.core.proto.misc.common.MiscProperties;
 import com.misc.core.model.MiscPack;
 import com.misc.core.proto.misc.serial.MiscSerializableHandler;
 import io.netty.buffer.ByteBuf;

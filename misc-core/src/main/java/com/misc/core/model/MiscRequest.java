@@ -13,7 +13,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public abstract class MiscRequest extends MiscMessage {
-    private static final long serialVersionUID = -5557855661541199464L;
     /**
      * 请求头
      */

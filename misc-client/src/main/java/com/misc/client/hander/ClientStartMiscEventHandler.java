@@ -27,7 +27,6 @@ public class ClientStartMiscEventHandler implements MiscEventHandler {
         Object obj = event.event();
         if (obj instanceof InetSocketAddress) {
             if (null != miscClientContext) {
-                miscClientContext.onBootstrap();
             }
         }
     }

@@ -2,7 +2,7 @@ package com.misc.core.proto.misc.serial;
 
 import com.misc.core.exception.CodecException;
 import com.misc.core.model.MiscPack;
-import com.misc.core.proto.SerializableType;
+import com.misc.core.proto.misc.common.MiscSerializableType;
 import io.netty.buffer.ByteBuf;
 
 /**
@@ -16,32 +16,37 @@ public class ByteSerializableType implements MiscSerializableHandler {
 
     public void encode(MiscPack msg, ByteBuf out) throws CodecException {
         // url
-        byte[] url = msg.getRouter().getBytes();
+        byte[] url = null;
 
-        int url_len = url.length;
+        int url_len = 0;
+        if (msg.getRouter() != null) {
+            url_len = msg.getRouter().length();
+            url = msg.getRouter().getBytes();
+        }
 
-        // body
-        int body_len = msg.getBody().length;
-
+        int body_len = 0;
+        if (msg.getBody() != null) {
+            body_len = msg.getBody().length;
+        }
         out.writeInt(url_len);
-
         out.writeInt(body_len);
-
-        out.writeBytes(url);
-
-        out.writeBytes(msg.getBody());
-
+        if (url != null) {
+            out.writeBytes(url);
+        }
+        if (msg.getBody() != null) {
+            out.writeBytes(msg.getBody());
+        }
         out.writeLong(msg.getTimestamp());
     }
 
     public Object decode(ByteBuf in) throws CodecException {
-        if (in.readableBytes() < 8) return SerializableType.NEED_MORE;
+        if (in.readableBytes() < 8) return MiscSerializableType.NEED_MORE;
 
         int url_len = in.readInt();
 
         int body_len = in.readInt();
 
-        if (in.readableBytes() < url_len + body_len + 8) return SerializableType.NEED_MORE;
+        if (in.readableBytes() < url_len + body_len + 8) return MiscSerializableType.NEED_MORE;
 
         byte[] url = new byte[url_len];
 
