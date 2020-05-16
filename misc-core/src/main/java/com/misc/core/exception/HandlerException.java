@@ -10,7 +10,7 @@ import com.misc.core.handler.MiscEventHandler;
  * @date:2019/12/26 20:28
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-public class HandlerException extends Exception {
+public class HandlerException extends RuntimeException {
 
     private static final long serialVersionUID = -603746667483767491L;
 

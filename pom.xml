@@ -29,13 +29,17 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>
         <project-version>1.0.0</project-version>
         <msgpack-version>0.6.12</msgpack-version>
         <fastjson-version>1.2.58</fastjson-version>
-        <netty-all-version>4.1.36.Final</netty-all-version>
+        <netty-all-version>4.1.27.Final</netty-all-version>
         <jedis-version>3.1.0</jedis-version>
         <zookeeper-version>3.4.14</zookeeper-version>
         <slf4j-api-version>1.7.21</slf4j-api-version>

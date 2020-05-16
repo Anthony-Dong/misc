@@ -1,6 +1,7 @@
-package com.misc.core.proto;
+package com.misc.core.netty;
 
 import com.misc.core.env.MiscProperties;
+import com.misc.core.proto.ProtocolType;
 import com.misc.core.proto.http.HttpCodec;
 import com.misc.core.proto.misc.MiscCodecHandler;
 import com.misc.core.proto.misc.serial.MiscSerializableHandler;

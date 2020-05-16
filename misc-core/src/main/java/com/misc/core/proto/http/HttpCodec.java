@@ -91,7 +91,6 @@ public class HttpCodec extends ChannelDuplexHandler {
         ByteBuf buffer = ctx.alloc().buffer();
         buffer.writeBytes(bytes);
         DefaultFullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, buffer);
-
         // todo 添加拦截器
         super.write(ctx, response, promise);
     }

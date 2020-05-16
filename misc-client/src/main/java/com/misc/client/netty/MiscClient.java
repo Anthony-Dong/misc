@@ -11,7 +11,7 @@ import com.misc.core.listener.MiscEventListener;
 import com.misc.core.listener.MiscEventType;
 import com.misc.core.commons.Constants;
 import com.misc.core.env.MiscProperties;
-import com.misc.core.proto.ProtocolAdapter;
+import com.misc.core.netty.ProtocolAdapter;
 import com.misc.core.proto.ProtocolType;
 import com.misc.core.util.NetUtils;
 import io.netty.bootstrap.Bootstrap;
@@ -56,7 +56,7 @@ public final class MiscClient extends AbstractMiscNode {
      * @param listener listener  事件监听器
      */
     private MiscClient(MiscProperties properties, MiscEventListener listener, Executor executor, ProtocolType protocolType) {
-        super(getAddress(properties), listener, executor, properties, protocolType);
+        super(listener, null, properties, protocolType, null, null);
     }
 
     /**
@@ -68,7 +68,7 @@ public final class MiscClient extends AbstractMiscNode {
     public void start() throws Exception {
         // 初始化属性
         final Bootstrap bootstrap = new Bootstrap();
-        final ChantClientHandler handler = new ChantClientHandler(listener, executor, address);
+        final ChantClientHandler handler = new ChantClientHandler(listener, threadPool.getExecutor(), address);
         final int heartInterval = properties.getInt(CLIENT_HEART_INTERVAL, DEFAULT_CLIENT_HEART_INTERVAL);
         final long connctTimeout = properties.getLong(CLIENT_CONNECT_TIMEOUT, DEFAULT_CONNECT_TIMEOUT);
         final ProtocolAdapter protocolAdapter = new ProtocolAdapter();

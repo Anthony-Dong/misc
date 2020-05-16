@@ -2,6 +2,7 @@ package com.misc.core.commons;
 
 import com.misc.core.proto.ProtocolType;
 import com.misc.core.proto.SerializableType;
+import com.misc.core.util.SystemUtil;
 
 import static com.misc.core.commons.PropertiesConstant.*;
 
@@ -121,4 +122,7 @@ public final class Constants {
      * 默认的清空文件管道的时间
      */
     public static final int DEFAULT_OPEN_FILE_COUNT = 100;
+
+
+    public static final int CURRENT_PROCESS_PID = SystemUtil.getCurrentProcessPid();
 }

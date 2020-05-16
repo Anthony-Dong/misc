@@ -92,22 +92,22 @@ public abstract class MiscClientContext extends AbstractContext {
         }
     }
 
-    /**
-     * 收到事件后, 先释放掉 client.
-     */
-    @Override
-    public void onShutdown() {
-        try {
-            release();
-        } finally {
-            onClose();
-        }
-    }
-
-    @Override
-    public void onBootstrap() {
-        onStart();
-    }
+//    /**
+//     * 收到事件后, 先释放掉 client.
+//     */
+//    @Override
+//    public void onShutdown() {
+//        try {
+//            release();
+//        } finally {
+//            onClose();
+//        }
+//    }
+//
+//    @Override
+//    public void onBootstrap() {
+//        onStart();
+//    }
 
     protected abstract void onStart();
 

@@ -16,6 +16,8 @@
  */
 package com.misc.core.model;
 
+import com.misc.core.util.StringUtils;
+
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
@@ -109,6 +111,13 @@ public final class URL implements Serializable {
         this.parameters = null;
     }
 
+    private static final String KEY = "key";
+
+    public URL(String protocol, String host, int port, long key) {
+        this(protocol, null, null, host, port, null, Collections.singletonMap(KEY, String.valueOf(key)));
+    }
+
+
     public URL(String protocol, String host, int port) {
         this(protocol, null, null, host, port, null, (Map<String, String>) null);
     }
@@ -121,8 +130,8 @@ public final class URL implements Serializable {
         this(protocol, null, null, host, port, null, parameters);
     }
 
-    public URL(String protocol, String host, int port, String path) {
-        this(protocol, null, null, host, port, path, (Map<String, String>) null);
+    public URL(String type, String host, int port, String path) {
+        this(type, null, null, host, port, path, (Map<String, String>) null);
     }
 
     public URL(String protocol, String host, int port, String path, String... pairs) {
@@ -168,6 +177,58 @@ public final class URL implements Serializable {
     public static URL valueOfByDecode(String url) {
         return valueOf(decode(url));
     }
+
+
+    /**
+     * 超时
+     */
+    private static final String TIMEOUT = "timeout";
+
+    /**
+     * 获取超时时间
+     *
+     * @return
+     */
+    public long getTimeout() {
+        String parameter = getParameter(TIMEOUT);
+        if (StringUtils.isEmpty(parameter)) {
+            return Long.MAX_VALUE;
+        }
+        return Long.parseLong(parameter);
+    }
+
+    /**
+     * 设置超时时间
+     */
+    public void setTimeout(long timeout) {
+        addParameter(TIMEOUT, String.valueOf(timeout));
+    }
+
+
+    /**
+     * 反序列化类型
+     */
+    private static final String DESERIALIZER_CLASS_NAME = "deserializer";
+
+    public void setDeserializerClassName(String deserializerClassName) {
+        addParameter(DESERIALIZER_CLASS_NAME, deserializerClassName);
+    }
+    public String getDeserializerClassName() {
+        return getParameter(DESERIALIZER_CLASS_NAME);
+    }
+
+    /**
+     * 序列化类型
+     */
+    private static final String SERIALIZER_CLASS_NAME = "serializer";
+
+    public void setSerializerClassName(String serialClassName) {
+        addParameter(SERIALIZER_CLASS_NAME, serialClassName);
+    }
+    public String getSerializerClassName() {
+        return getParameter(DESERIALIZER_CLASS_NAME);
+    }
+
 
     /**
      * Parse url string
@@ -1364,6 +1425,8 @@ public final class URL implements Serializable {
     public String getServiceName() {
         return getServiceInterface();
     }
+
+    private static final String EMPTY_STRING = "";
 
     public String getServiceInterface() {
         return getParameter(Constants.INTERFACE_KEY, path);

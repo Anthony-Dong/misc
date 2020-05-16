@@ -9,12 +9,10 @@ package com.misc.server.handler;
 public class DefaultMiscServerContext extends MiscServerContext {
 
 
-    @Override
     public void onBootstrap() {
 
     }
 
-    @Override
     public void onShutdown() {
 
     }

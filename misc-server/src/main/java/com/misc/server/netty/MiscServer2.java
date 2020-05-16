@@ -1,18 +1,22 @@
 package com.misc.server.netty;
 
 
-import java.util.Map;
-import java.util.concurrent.Executor;
-
 import com.misc.core.AbstractMiscNode;
+import com.misc.core.commons.Constants;
+import com.misc.core.context.AbstractServerContext;
+import com.misc.core.env.MiscProperties;
 import com.misc.core.exception.BootstrapException;
+import com.misc.core.func.FunctionType;
+import com.misc.core.func.FunctionTypeAdapter;
 import com.misc.core.handler.MiscEventHandler;
 import com.misc.core.listener.MiscEvent;
 import com.misc.core.listener.MiscEventListener;
 import com.misc.core.listener.MiscEventType;
-import com.misc.core.commons.Constants;
-import com.misc.core.env.MiscProperties;
+import com.misc.core.netty.ChannelHandler;
 import com.misc.core.netty.ProtocolAdapter;
+import com.misc.core.netty.ProtocolHandler;
+import com.misc.core.netty.ServerHandler;
+import com.misc.core.netty.rpc.RpcServerChannelHandler;
 import com.misc.core.proto.ProtocolType;
 import com.misc.server.handler.MiscServerContext;
 import com.misc.server.handler.ServerChatHandlerConstant;
@@ -23,19 +27,21 @@ import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.concurrent.DefaultThreadFactory;
 
-import static com.misc.core.commons.Constants.*;
-import static com.misc.core.commons.PropertiesConstant.*;
+import java.util.Map;
+import java.util.concurrent.Executor;
+
+import static com.misc.core.commons.Constants.DEFAULT_SERVER_HEART_INTERVAL;
+import static com.misc.core.commons.PropertiesConstant.SERVER_HEART_INTERVAL;
 
 
 /**
  * 服务器端
  */
-public class MiscServer extends AbstractMiscNode {
+public class MiscServer2 extends AbstractMiscNode {
     /**
      * boss 组 一般是 一个
      */
@@ -49,8 +55,13 @@ public class MiscServer extends AbstractMiscNode {
     /**
      * 构造方法 , 初始化一堆参数
      */
-    private MiscServer(MiscProperties properties, MiscEventListener listener, Executor executor, ProtocolType protocolType) throws BootstrapException {
-        super(listener, executor, properties, protocolType, null, null);
+    public MiscServer2(MiscProperties properties,
+                        Executor executor,
+                        ProtocolType protocolType,
+                        FunctionType functionType,
+                        ChannelHandler channelHandler
+    ) {
+        super(null, executor, properties, protocolType, functionType, channelHandler);
     }
 
     /**
@@ -61,9 +72,11 @@ public class MiscServer extends AbstractMiscNode {
     @Override
     public void start() throws Exception {
         final ServerBootstrap serverBootstrap = new ServerBootstrap();
-        final MiscServerHandler handler = new MiscServerHandler(listener, executor);
-        final ProtocolAdapter protocolAdapter = new ProtocolAdapter();
-        final int heartInterval = properties.getInt(SERVER_HEART_INTERVAL, DEFAULT_SERVER_HEART_INTERVAL);
+        final ServerHandler handler = new ServerHandler(executor, channelHandler);
+        final ProtocolAdapter protocolCodecAdapter = new ProtocolAdapter();
+        final FunctionTypeAdapter functionTypeAdapter = new FunctionTypeAdapter();
+        functionTypeAdapter.getProtocolHandler(protocolType, functionType);
+        final ProtocolHandler protocolHandler = null;
 
         serverBootstrap
                 .group(bossGroup, workerGroup) // 添加组
@@ -77,7 +90,9 @@ public class MiscServer extends AbstractMiscNode {
                     protected void initChannel(NioSocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
                         // out  编码器
-                        pipeline.addLast(protocolAdapter.getHandler(protocolType, properties, serializeHandlerMap));
+                        pipeline.addLast(protocolCodecAdapter.getHandler(protocolType, properties, serializeHandlerMap));
+
+                        pipeline.addLast(protocolHandler);
                         // 心跳检测
                         pipeline.addLast("idleStateHandler", new IdleStateHandler(0, 0, heartInterval));
                         // handler
@@ -139,34 +154,4 @@ public class MiscServer extends AbstractMiscNode {
     }
 
 
-    /**
-     * 这是个阻塞方法, 只有发生异常, 才会停止
-     *
-     * @param context 上下文
-     * @throws Exception
-     */
-    public static void run(MiscServerContext context) throws Exception {
-
-        final ServerChatHandlerConstant constant = new ServerChatHandlerConstant(context);
-
-        final Map<MiscEventType, MiscEventHandler> handlerMap = constant.getHandlerMap();
-
-        //启动
-        final MiscServer server = new MiscServer(context, event -> {
-            MiscEventHandler handler = handlerMap.get(event.eventType());
-            handler.handler(event);
-        }, context.getThreadPool().getExecutor(), context.getProtocolType());
-        server.start();
-    }
-
-    public static void run(int port, MiscServerContext context) throws Exception {
-        context.setPort(port);
-        run(context);
-    }
-
-    public static void run(String host, int port, MiscServerContext context) throws Exception {
-        context.setPort(port);
-        context.setHost(host);
-        run(context);
-    }
 }

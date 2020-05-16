@@ -51,7 +51,6 @@ public abstract class MiscServerContext extends AbstractContext {
                 registryService.register(address, version);
             }
         } finally {
-            onBootstrap();
         }
     }
 
@@ -65,7 +64,6 @@ public abstract class MiscServerContext extends AbstractContext {
                 registryService.unregister(address, version);
             }
         } finally {
-            onShutdown();
         }
     }
 

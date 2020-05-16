@@ -8,15 +8,4 @@ package com.misc.core.context;
  */
 public interface Context {
 
-    /**
-     * 当上下午启动
-     */
-    void onBootstrap();
-
-
-    /**
-     * 当上下文关闭
-     */
-    void onShutdown();
-
 }

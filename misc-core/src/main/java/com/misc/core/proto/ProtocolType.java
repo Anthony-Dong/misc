@@ -11,6 +11,7 @@ public enum ProtocolType {
     MISC_PROTO((byte) 1, "misc协议"),
     FILE_PROTO((byte) 2, "文件协议"),
     HTTP_PROTO((byte) 3, "http协议"),
+    RPC_PROTO((byte) 4, "rpc"),
     ;
 
     private byte type;
