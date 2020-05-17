@@ -1,6 +1,5 @@
 package com.misc.core.netty;
 
-import com.misc.core.exception.HandlerException;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
@@ -36,7 +35,7 @@ public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
 
 
     /**
-     * 接收
+     * 接收 ， 不向下传递
      */
     @SuppressWarnings("all")
     @Override
@@ -66,7 +65,7 @@ public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
 
 
     /**
-     * 写出
+     * 写出 ，向上传递
      */
     @SuppressWarnings("all")
     @Override
@@ -79,20 +78,16 @@ public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
     }
 
     /**
-     * 异常
+     * 异常 , 不向下传递 ,不然会大量报错
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        try {
-            nettyEventListener.caught(ctx.channel(), cause);
-        } finally {
-            super.exceptionCaught(ctx, cause);
-        }
+        nettyEventListener.caught(ctx.channel(), cause);
     }
 
 
     /**
-     * 连接
+     * 连接 ，向下传递
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -104,7 +99,7 @@ public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
     }
 
     /**
-     * 移除
+     * 移除 ，向下传递
      */
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
@@ -113,5 +108,13 @@ public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
         } finally {
             super.channelInactive(ctx);
         }
+    }
+
+    /**
+     * 事件触发转发，不向下传递
+     */
+    @Override
+    public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        nettyEventListener.eventTriggered(ctx.channel(), evt);
     }
 }

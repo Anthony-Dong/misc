@@ -8,7 +8,10 @@ import com.misc.core.exception.SerializationException;
  * @date: 2020-05-16
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-public interface Serializer<T> {
+public interface Serializer<V> {
 
-    byte[] serialize(T t) throws SerializationException;
+    /**
+     * v 是需要序列化的对象
+     */
+    byte[] serialize(V obj) throws SerializationException;
 }

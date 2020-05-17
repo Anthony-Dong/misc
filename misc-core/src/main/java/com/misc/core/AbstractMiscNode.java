@@ -1,7 +1,6 @@
 package com.misc.core;
 
 import com.misc.core.proto.misc.common.MiscProperties;
-import com.misc.core.func.FunctionType;
 import com.misc.core.listener.MiscEvent;
 import com.misc.core.listener.MiscEventListener;
 import com.misc.core.proto.ProtocolType;
@@ -63,7 +62,7 @@ public abstract class AbstractMiscNode implements MiscNode {
     protected int heartInterval;
 
 
-    public AbstractMiscNode(MiscEventListener listener, ThreadPool threadPool, MiscProperties properties, ProtocolType protocolType, FunctionType functionType) {
+    public AbstractMiscNode(MiscEventListener listener, ThreadPool threadPool, MiscProperties properties, ProtocolType protocolType) {
         this.properties = properties == null ? new MiscProperties() : properties;
         this.address = new InetSocketAddress(this.properties.getProperty(CLIENT_HOST, DEFAULT_HOST), this.properties.getInt(CLIENT_PORT, DEFAULT_PORT));
         this.heartInterval = this.properties.getInt(SERVER_HEART_INTERVAL, DEFAULT_SERVER_HEART_INTERVAL);

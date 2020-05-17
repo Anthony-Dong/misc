@@ -19,6 +19,7 @@ public final class StringUtils {
     public static boolean isEmpty(String str) {
         return str == null || str.isEmpty();
     }
+
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }
@@ -31,7 +32,7 @@ public final class StringUtils {
      * @return String.
      */
     public static String join(String[] array) {
-        if (array==null||array.length==0) {
+        if (array == null || array.length == 0) {
             return EMPTY_STRING;
         }
         StringBuilder sb = new StringBuilder();
@@ -58,6 +59,11 @@ public final class StringUtils {
         return split(str, delim, false);
     }
 
+    public static void main(String[] args) {
+        String str="com.misc.core.serialization.JsonObjectArraySerialization,";
+        String[] split = split(str, ',');
+        System.out.println(split.length);
+    }
 
     /**
      * 这个是commons-long3 包中的. 引用于大多数用 char进行分割的数据

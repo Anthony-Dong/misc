@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.util.concurrent.CountDownLatch;
 
 import static com.misc.core.commons.Constants.*;
 
@@ -36,7 +37,7 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
     private EventLoopGroup bossGroup;
 
     /**
-     * 线程池
+     * 线程池,主要是用来处理拿到响应结果的，
      */
     private ThreadPool threadPool;
 
@@ -80,6 +81,11 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
      * 防止重复初始化
      */
     private volatile boolean init = false;
+
+    /**
+     *
+     */
+    private CountDownLatch channelLock = new CountDownLatch(1);
 
     /**
      * 不允许外部实例化，全部采用build
@@ -136,6 +142,7 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
                 });//设置初始化项目
         try {
             this.channel = bootstrap.connect(address).sync().channel();
+            channelLock.countDown();
             logger.info("Netty-Client[{}] start success", address);
             init = true;
             return this;
@@ -163,7 +170,7 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
     }
 
     /**
-     * 关闭
+     * 正确关闭和释放资源
      */
     @Override
     public synchronized NettyNode close() throws Throwable {
@@ -173,6 +180,8 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
         bossGroup.shutdownGracefully();
         nettyEventListener.disconnected(channel);
         logger.info("Netty-Client[{}] close success", address);
+        // 防止异常
+        channelLock.countDown();
         return this;
     }
 
@@ -203,6 +212,7 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
 
         public Builder() {
             this.server = new NettyClient<>();
+            init();
         }
 
         public Builder setHost(String host) {
@@ -267,11 +277,11 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
          * 主要是继承这个
          */
         public NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> build() {
-            init();
+            check();
             return server;
         }
 
-        private void init() {
+        private void check() {
             if (server.nettyEventListener == null) {
                 throw new NullPointerException("nettyEventListener 不允许为空");
             }
@@ -289,12 +299,17 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
             this.host = host == null || host.length() == 0 ? "localhost" : this.host;
             this.port = this.port == 0 ? 9999 : this.port;
             server.address = server.address == null ? new InetSocketAddress(host, port) : server.address;
+            server.threadPool=new ThreadPool(10,-1,"pool");
             logger.info("Netty-Server[{}] init the config is  {} {} {}",
                     server.address,
                     server.bossGroup,
                     server.heartInterval,
                     server.nettyEventListener
             );
+        }
+
+        protected void init() {
+
         }
     }
 
@@ -332,6 +347,12 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
     }
 
     public Channel getChannel() {
+        try {
+            // 防止没有获取到channel
+            channelLock.await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Server init failed");
+        }
         return channel;
     }
 }

@@ -1,7 +1,5 @@
 package com.misc.core.model;
 
-import com.misc.core.func.FunctionType;
-import com.misc.core.proto.ProtocolType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,10 +23,6 @@ public abstract class MiscResponse extends MiscMessage {
      */
     private URL url;
 
-    /**
-     * 协议类型
-     */
-    private FunctionType protocolType;
 
     /**
      * 服务版本号

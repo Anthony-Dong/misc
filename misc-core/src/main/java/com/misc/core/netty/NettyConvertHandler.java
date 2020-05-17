@@ -6,6 +6,8 @@ import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 这里处理协议
@@ -20,6 +22,7 @@ import io.netty.channel.ChannelPromise;
  */
 @ChannelHandler.Sharable
 public abstract class NettyConvertHandler<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> extends ChannelDuplexHandler {
+    protected static final Logger logger = LoggerFactory.getLogger(NettyConvertHandler.class);
 
     /**
      * 主要是是用于， 比如HTTP拿到请求，然后需要转换成 RPC REQUEST
@@ -37,7 +40,12 @@ public abstract class NettyConvertHandler<ProtoInBound, ProtoOutBound, ChannelIn
     @Override
     @SuppressWarnings("all")
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-        super.write(ctx, encode(ctx.alloc(), (ChannelOutBound) msg), promise);
+        try {
+            super.write(ctx, encode(ctx.alloc(), (ChannelOutBound) msg), promise);
+        } catch (Exception e) {
+            logger.error("NettyConvertHandler encode exception: {}", e.getMessage());
+            throw e;
+        }
     }
 
     /**
@@ -46,6 +54,11 @@ public abstract class NettyConvertHandler<ProtoInBound, ProtoOutBound, ChannelIn
     @SuppressWarnings("all")
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        super.channelRead(ctx, decode((ProtoInBound) msg));
+        try {
+            super.channelRead(ctx, decode((ProtoInBound) msg));
+        } catch (Exception e) {
+            logger.error("NettyConvertHandler decode exception: {}", e.getMessage());
+            throw e;
+        }
     }
 }

@@ -56,7 +56,7 @@ public final class Constants {
     /**
      * 默认大小是100个线程
      */
-    public static final int DEFAULT_THREAD_SIZE = 10;
+    public static final int DEFAULT_THREAD_SIZE = 100;
 
     /**
      * 无界队列,-1
@@ -128,4 +128,6 @@ public final class Constants {
 
 
     public static final int DEFAULT_MIN_WAIT_TIME = 2000;
+
+    public static final int DEFAULT_LRU_CACHE_SIZE = 128;
 }

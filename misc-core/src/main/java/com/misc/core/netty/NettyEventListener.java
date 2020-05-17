@@ -2,6 +2,9 @@ package com.misc.core.netty;
 
 import com.misc.core.exception.HandlerException;
 import io.netty.channel.Channel;
+import io.netty.handler.timeout.IdleStateEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 真正的事件监听器处理器
@@ -10,6 +13,8 @@ import io.netty.channel.Channel;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public interface NettyEventListener<ChannelInBound, ChannelOutBound> {
+    Logger logger = LoggerFactory.getLogger(NettyEventListener.class);
+
 
     /**
      * on channel connected.
@@ -36,4 +41,15 @@ public interface NettyEventListener<ChannelInBound, ChannelOutBound> {
      */
     void caught(Channel channel, Throwable exception) throws HandlerException;
 
+
+    /**
+     * 事件触发（根据业务需要来）
+     * 客户端是发送 消息，
+     * 服务端 是关闭连接
+     */
+    default void eventTriggered(Channel channel, Object event) throws HandlerException {
+        if (event instanceof IdleStateEvent) {
+            logger.warn("Receive heartbeat, please care!");
+        }
+    }
 }

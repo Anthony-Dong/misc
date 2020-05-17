@@ -16,18 +16,14 @@
  */
 package com.misc.core.model;
 
+import com.misc.core.util.LRUCache;
+import com.misc.core.util.ReflectUtil;
 import com.misc.core.util.StringUtils;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -85,11 +81,18 @@ public final class URL implements Serializable {
 
     private final Map<String, String> parameters;
 
+    // 获取参数
+    public Map<String, String> getAllParameters() {
+        return parameters;
+    }
+
     // ==== cache ====
 
     private volatile transient Map<String, Number> numbers;
 
     private volatile transient Map<String, URL> urls;
+
+    private static final LRUCache<String, Class<?>[]> methodTypesMap = new LRUCache<>(com.misc.core.commons.Constants.DEFAULT_LRU_CACHE_SIZE);
 
     private volatile transient String ip;
 
@@ -114,7 +117,7 @@ public final class URL implements Serializable {
     private static final String KEY = "key";
 
     public URL(String protocol, String host, int port, long key) {
-        this(protocol, null, null, host, port, null, Collections.singletonMap(KEY, String.valueOf(key)));
+        this(protocol, null, null, host, port, null, Collections.singletonMap(Constants.KEY_KEY, String.valueOf(key)));
     }
 
 
@@ -173,62 +176,105 @@ public final class URL implements Serializable {
         this.parameters = Collections.unmodifiableMap(parameters);
     }
 
+    /**
+     * 获取类型
+     */
+    public String getType() {
+        return getParameter(Constants.TYPE_KEY);
+    }
+
 
     public static URL valueOfByDecode(String url) {
         return valueOf(decode(url));
     }
 
 
-    /**
-     * 超时
-     */
-    private static final String TIMEOUT = "timeout";
+    public String getMethodName() {
+        return getParameter(Constants.METHOD_KEY);
+    }
 
-    /**
-     * 获取超时时间
-     *
-     * @return
-     */
-    public long getTimeout() {
-        String parameter = getParameter(TIMEOUT);
+
+    public Class<?> getReturnType() throws ClassNotFoundException {
+        String parameter = getParameter(Constants.RETURN_KEY);
         if (StringUtils.isEmpty(parameter)) {
-            return Long.MAX_VALUE;
+            return null;
         }
-        return Long.parseLong(parameter);
+        return ReflectUtil.classForName(parameter);
     }
 
     /**
-     * 设置超时时间
+     * 获取方法的所有属性
      */
-    public void setTimeout(long timeout) {
-        addParameter(TIMEOUT, String.valueOf(timeout));
+    public Map<String, String> getAllMethodParameters(String methodName) {
+        Map<String, String> methodParameters = new HashMap<>(parameters.size());
+        parameters.forEach((k, v) -> {
+            if (k.startsWith(methodName)) {
+                methodParameters.put(k, v);
+            }
+        });
+        return methodParameters;
     }
 
+    public String getKey() {
+        return getParameter(Constants.KEY_KEY);
+    }
 
     /**
-     * 反序列化类型
+     * 是否需要响应
      */
-    private static final String DESERIALIZER_CLASS_NAME = "deserializer";
-
-    public void setDeserializerClassName(String deserializerClassName) {
-        addParameter(DESERIALIZER_CLASS_NAME, deserializerClassName);
+    public boolean getNeedAck() {
+        return getParameter(Constants.ACK_KEY, 0) == 1;
     }
+
+
     public String getDeserializerClassName() {
-        return getParameter(DESERIALIZER_CLASS_NAME);
+        return getParameter(Constants.DESERIALIZER_KEY);
+    }
+
+
+    public String getSerializerClassName() {
+        return getParameter(Constants.SERIALIZER_KEY);
+    }
+
+
+    public String getMethodParamsTypeString(String methodName) {
+        return getParameter(methodName + "." + Constants.PARAMS_KEY);
     }
 
     /**
-     * 序列化类型
+     * 不允许对拿到的 class 数组做任何的修改 ， 比如class[0]=java.lang.string
      */
-    private static final String SERIALIZER_CLASS_NAME = "serializer";
-
-    public void setSerializerClassName(String serialClassName) {
-        addParameter(SERIALIZER_CLASS_NAME, serialClassName);
+    public Class<?>[] getMethodParamsType(String methodName) throws ClassNotFoundException {
+        String parameter = getParameter(methodName + "." + Constants.PARAMS_KEY);
+        if (StringUtils.isEmpty(parameter)) {
+            return Constants.EMPTY_PARAMS_TYPE;
+        }
+        Class<?>[] classes = methodTypesMap.get(parameter);
+        if (classes != null) {
+            return classes;
+        }
+        String[] classNames = StringUtils.split(parameter, ',');
+        classes = new Class<?>[classNames.length];
+        for (int i = 0; i < classNames.length; i++) {
+            String className = classNames[i];
+            classes[i] = Class.forName(className);
+        }
+        methodTypesMap.put(parameter, classes);
+        return methodTypesMap.get(parameter);
     }
-    public String getSerializerClassName() {
-        return getParameter(DESERIALIZER_CLASS_NAME);
-    }
 
+
+    public static String convertMethodParamsTypeToString(Class<?>[] params) {
+        if (params == null || params.length == 0) {
+            return null;
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int x = 0; x < params.length - 1; x++) {
+            builder.append(params[x].getName()).append(",");
+        }
+        builder.append(params[params.length - 1].getName());
+        return builder.toString();
+    }
 
     /**
      * Parse url string
@@ -315,47 +361,6 @@ public final class URL implements Serializable {
             host = url;
         }
         return new URL(protocol, username, password, host, port, path, parameters);
-    }
-
-    public static URL valueOf(String url, String... reserveParams) {
-        URL result = valueOf(url);
-        if (reserveParams == null || reserveParams.length == 0) {
-            return result;
-        }
-        Map<String, String> newMap = new HashMap<>(reserveParams.length);
-        Map<String, String> oldMap = result.getParameters();
-        for (String reserveParam : reserveParams) {
-            String tmp = oldMap.get(reserveParam);
-            if (Commons.isNotEmpty(tmp)) {
-                newMap.put(reserveParam, tmp);
-            }
-        }
-        return result.clearParameters().addParameters(newMap);
-    }
-
-    public static URL valueOf(URL url, String[] reserveParams, String[] reserveParamPrefixs) {
-        Map<String, String> newMap = new HashMap<>();
-        Map<String, String> oldMap = url.getParameters();
-        if (reserveParamPrefixs != null && reserveParamPrefixs.length != 0) {
-            for (Map.Entry<String, String> entry : oldMap.entrySet()) {
-                for (String reserveParamPrefix : reserveParamPrefixs) {
-                    if (entry.getKey().startsWith(reserveParamPrefix) && Commons.isNotEmpty(entry.getValue())) {
-                        newMap.put(entry.getKey(), entry.getValue());
-                    }
-                }
-            }
-        }
-
-        if (reserveParams != null) {
-            for (String reserveParam : reserveParams) {
-                String tmp = oldMap.get(reserveParam);
-                if (Commons.isNotEmpty(tmp)) {
-                    newMap.put(reserveParam, tmp);
-                }
-            }
-        }
-        return newMap.isEmpty() ? new URL(url.getProtocol(), url.getUsername(), url.getPassword(), url.getHost(), url.getPort(), url.getPath())
-                : new URL(url.getProtocol(), url.getUsername(), url.getPassword(), url.getHost(), url.getPort(), url.getPath(), newMap);
     }
 
     public static String encode(String value) {
@@ -466,46 +471,6 @@ public final class URL implements Serializable {
         return new URL(protocol, username, password, host, port, path, getParameters());
     }
 
-//    public String getBackupAddress() {
-//        return getBackupAddress(0);
-//    }
-
-//    public String getBackupAddress(int defaultPort) {
-//        StringBuilder address = new StringBuilder(appendDefaultPort(getAddress(), defaultPort));
-//        String[] backups = getParameter(Constants.BACKUP_KEY, new String[0]);
-//        if (ArrayUtils.isNotEmpty(backups)) {
-//            for (String backup : backups) {
-//                address.append(",");
-//                address.append(appendDefaultPort(backup, defaultPort));
-//            }
-//        }
-//        return address.toString();
-//    }
-
-//    public List<URL> getBackupUrls() {
-//        List<URL> urls = new ArrayList<>();
-//        urls.add(this);
-//        String[] backups = getParameter(Constants.BACKUP_KEY, new String[0]);
-//        if (backups != null && backups.length > 0) {
-//            for (String backup : backups) {
-//                urls.add(this.setAddress(backup));
-//            }
-//        }
-//        return urls;
-//    }
-
-    static String appendDefaultPort(String address, int defaultPort) {
-        if (address != null && address.length() > 0 && defaultPort > 0) {
-            int i = address.indexOf(':');
-            if (i < 0) {
-                return address + ":" + defaultPort;
-            } else if (Integer.parseInt(address.substring(i + 1)) == 0) {
-                return address.substring(0, i + 1) + defaultPort;
-            }
-        }
-        return address;
-    }
-
     public String getPath() {
         return path;
     }
@@ -548,15 +513,6 @@ public final class URL implements Serializable {
             return defaultValue;
         }
         return value;
-    }
-
-
-    public String[] getParameter(String key, String[] defaultValue) {
-        String value = getParameter(key);
-        if (Commons.isEmpty(value)) {
-            return defaultValue;
-        }
-        return Constants.COMMA_SPLIT_PATTERN.split(value);
     }
 
     public List<String> getParameter(String key, List<String> defaultValue) {
@@ -1699,7 +1655,7 @@ public final class URL implements Serializable {
     /**
      * 常量
      */
-    private static class Constants {
+    public static class Constants {
         static final String PROTOCOL_KEY = "protocol";
         static final String USERNAME_KEY = "username";
 
@@ -1716,7 +1672,19 @@ public final class URL implements Serializable {
 
         static final String VERSION_KEY = "version";
         static final String INTERFACE_KEY = "interface";
+        public static final String METHOD_KEY = "method";
+        public static final String DESERIALIZER_KEY = "deserializer";
+        public static final String SERIALIZER_KEY = "serializer";
+        public static final String TIMEOUT_KEY = "timeout";
+        public static final String PARAMS_KEY = "params";
+        public static final String NULL_PARAMS = "[]";
+        public static final String RETURN_KEY = "return";
+        public static final String KEY_KEY = "key";
+        public static final String TYPE_KEY = "type";
+        public static final String ACK_KEY = "ack";
 
+        public static final List<String> EMPTY_LIST = new ArrayList<>(0);
+        public static final Class<?>[] EMPTY_PARAMS_TYPE = new Class<?>[0];
 
         static final Pattern COMMA_SPLIT_PATTERN = Pattern
                 .compile("\\s*[,]+\\s*");

@@ -15,7 +15,7 @@
         <module>misc-core</module>
         <module>misc-server</module>
         <module>misc-client</module>
-        <module>misc-mq</module>
+        <module>misc-rpc</module>
         <module>misc-client-spring-boot-start</module>
         <module>misc-server-spring-boot-start</module>
     </modules>
