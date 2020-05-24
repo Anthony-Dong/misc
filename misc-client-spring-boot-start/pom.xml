@@ -34,10 +34,10 @@
 
         <dependency>
             <groupId>com.misc</groupId>
-            <artifactId>misc-client</artifactId>
+            <artifactId>misc-rpc</artifactId>
             <version>${project-version}</version>
         </dependency>
-
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

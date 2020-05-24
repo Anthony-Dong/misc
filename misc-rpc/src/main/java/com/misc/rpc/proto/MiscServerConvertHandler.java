@@ -33,8 +33,6 @@ public class MiscServerConvertHandler extends NettyConvertHandler<MiscPack, Misc
      */
     @Override
     protected MiscPack encode(ByteBufAllocator allocator, RpcResponse msg) {
-        MiscPack miscPack = rpcServerConfig.convertRpcResponseToMiscPack(msg);
-        msg.release();
-        return miscPack;
+        return rpcServerConfig.convertRpcResponseToMiscPack(msg);
     }
 }

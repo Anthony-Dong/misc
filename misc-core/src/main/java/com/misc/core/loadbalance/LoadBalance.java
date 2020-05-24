@@ -1,14 +1,12 @@
 package com.misc.core.loadbalance;
 
-import com.misc.core.util.Pair;
 
-import java.net.InetSocketAddress;
-import java.util.Optional;
-import java.util.Set;
+import java.util.List;
 
+/**
+ * 简单实现
+ */
+public interface LoadBalance<T> {
 
-public interface LoadBalance {
-
-    Optional<InetSocketAddress> loadBalance(Set<Pair<InetSocketAddress, Integer>> set);
-
+    T loadBalance(List<T> set);
 }

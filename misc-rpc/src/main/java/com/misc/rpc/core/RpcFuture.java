@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @date:2020/2/17 10:48
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-public class RpcFuture{
+public class RpcFuture {
     /**
      * 来累计NPackFuture
      */
@@ -24,7 +24,7 @@ public class RpcFuture{
     /**
      * 请求
      */
-    private final RpcRequest request;
+    private RpcRequest request;
 
     /**
      * 锁
@@ -42,6 +42,9 @@ public class RpcFuture{
      * 为了使得数据准确性足够,我们会必须时间准确
      */
     public RpcFuture(RpcRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("RpcFuture#consuture RpcRequest can not be null");
+        }
         this.request = request;
         FUTURES.put(request.getKey(), this);
     }

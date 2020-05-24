@@ -220,7 +220,7 @@ public final class URL implements Serializable {
     }
 
     /**
-     * 是否需要响应
+     * 是否需要响应,1需要，0不需要
      */
     public boolean getNeedAck() {
         return getParameter(Constants.ACK_KEY, 0) == 1;

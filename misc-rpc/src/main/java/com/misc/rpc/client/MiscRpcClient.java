@@ -1,5 +1,7 @@
 package com.misc.rpc.client;
 
+import com.misc.core.commons.Constants;
+import com.misc.core.commons.PropertiesConstant;
 import com.misc.core.model.MiscPack;
 import com.misc.core.netty.NettyClient;
 import com.misc.core.proto.TypeConstants;
@@ -12,6 +14,7 @@ import com.misc.rpc.proto.MiscClientConvertHandler;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 
+import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,8 +29,8 @@ public class MiscRpcClient extends NettyClient.Builder<MiscPack, MiscPack, RpcRe
     private MiscProperties properties;
 
     @Override
-    protected void init() {
-        super.init();
+    protected void init() throws RuntimeException {
+        properties.initClient(this);
         setNettyCodecProvider(new MiscCodecProvider(properties));
         setNettyConvertHandler(new MiscClientConvertHandler());
         setNettyEventListener(new RpcClientHandler());
@@ -35,34 +38,14 @@ public class MiscRpcClient extends NettyClient.Builder<MiscPack, MiscPack, RpcRe
 
 
     private MiscRpcClient(MiscProperties properties) {
-        this.properties = properties;
+        this.properties = properties == null ? new MiscProperties() : properties;
     }
 
 
     @SuppressWarnings("all")
-    public static NettyClient<MiscPack, MiscPack, RpcResponse, RpcRequest> run() throws Throwable {
-        MiscRpcClient miscRpcClient = new MiscRpcClient(null);
+    public static NettyClient<MiscPack, MiscPack, RpcResponse, RpcRequest> run(MiscProperties properties) throws Throwable {
+        MiscRpcClient miscRpcClient = new MiscRpcClient(properties);
         NettyClient<MiscPack, MiscPack, RpcResponse, RpcRequest> build = miscRpcClient.build();
         return (NettyClient<MiscPack, MiscPack, RpcResponse, RpcRequest>) build.start();
-    }
-
-
-    public static void main(String[] args) throws Throwable {
-        NettyClient<MiscPack, MiscPack, RpcResponse, RpcRequest> run = run();
-        RpcRequest rpcRequest = new RpcRequest();
-        rpcRequest.setInvokeClazz(EchoService.class);
-        HashMap<String, String> objectObjectHashMap = new HashMap<>();
-        objectObjectHashMap.put("1", "2");
-        rpcRequest.setParams(new Object[]{
-                objectObjectHashMap
-        });
-        rpcRequest.setKey("1");
-        rpcRequest.setInvokeMethod(EchoService.class.getMethod("getUses", HashMap.class));
-        run.getChannel().writeAndFlush(rpcRequest).addListener(future -> {
-            if (future.isSuccess()) {
-                System.out.println("success");
-            }
-        });
-        run.sync();
     }
 }

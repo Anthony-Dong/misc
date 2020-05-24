@@ -1,17 +1,17 @@
 package com.misc.rpc.core;
 
 
+import com.alibaba.fastjson.JSON;
 import com.misc.core.exception.ConvertException;
-import com.misc.core.exception.RpcException;
 import com.misc.core.model.Releasable;
 import com.misc.core.model.URL;
+import com.misc.core.proto.ProtocolType;
 import com.misc.core.proto.TypeConstants;
 import com.misc.core.serialization.Deserializer;
 import com.misc.core.serialization.Serializer;
 import com.misc.rpc.config.RpcConvertUtil;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -38,12 +38,14 @@ import static com.misc.core.serialization.SerializationFactory.DEFAULT_SERIALIZA
  * @date: 2020-05-16
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-@Getter
-@Setter
-@ToString
 public class RpcRequest implements Releasable {
 
     private static final long serialVersionUID = -3967657981609594301L;
+
+    /**
+     * 协议类型
+     */
+    private String protocol = ProtocolType.MISC_PROTO.getInfo();
 
     /**
      * type
@@ -86,12 +88,7 @@ public class RpcRequest implements Releasable {
     private int port;
 
     /**
-     * 协议类型
-     */
-    private String protocol;
-
-    /**
-     * 方法的属性
+     * 核心的属性
      */
     private RpcProperties properties;
 
@@ -111,15 +108,6 @@ public class RpcRequest implements Releasable {
      */
     private String key;
 
-    /**
-     * 是否同步 ， 默认同步
-     */
-    private boolean isSync = true;
-
-    /**
-     * 是否需要ack ， 默认需要
-     */
-    private boolean needAck = true;
 
     /**
      * 添加method属性
@@ -138,17 +126,15 @@ public class RpcRequest implements Releasable {
         checkInit();
         this.properties.putAll(properties);
     }
-
-
     /**
      * 检测是否初始化
      */
-    private synchronized void checkInit() {
+    private void checkInit() {
         if (invokeMethod == null) {
             throw new NullPointerException("RpcRequest.method can not be null");
         }
         if (properties == null) {
-            properties = new RpcProperties(invokeMethod.getName());
+            properties = new RpcProperties(invokeMethod);
         }
     }
 
@@ -202,11 +188,7 @@ public class RpcRequest implements Releasable {
             setMethodProperty(PARAMS_KEY, RpcConvertUtil.convertMethodParamsTypeToString(ParamsType));
         }
 
-        if (needAck) {
-            if (key == null) {
-                throw new ConvertException(String.format("RpcRequest need ack but not set key, %s",this));
-            }
-            setProperty(ACK_KEY, needAck ? "1" : "0");
+        if (key != null) {
             setProperty(KEY_KEY, key);
         }
 
@@ -243,5 +225,99 @@ public class RpcRequest implements Releasable {
     }
 
     public RpcRequest() {
+
+    }
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
+    }
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public Class<?> getInvokeClazz() {
+        return invokeClazz;
+    }
+
+    public void setInvokeClazz(Class<?> invokeClazz) {
+        this.invokeClazz = invokeClazz;
+    }
+
+    public Object getInvokeTarget() {
+        return invokeTarget;
+    }
+
+    public void setInvokeTarget(Object invokeTarget) {
+        this.invokeTarget = invokeTarget;
+    }
+
+    public Method getInvokeMethod() {
+        return invokeMethod;
+    }
+
+    public void setInvokeMethod(Method invokeMethod) {
+        this.invokeMethod = invokeMethod;
+    }
+
+    public Class<?>[] getParamsType() {
+        return ParamsType;
+    }
+
+    public Object[] getParams() {
+        return Params;
+    }
+
+    public void setParams(Object[] params) {
+        Params = params;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public Serializer<Object[]> getSerializer() {
+        return serializer;
+    }
+
+    public void setSerializer(Serializer<Object[]> serializer) {
+        this.serializer = serializer;
+    }
+
+    public Deserializer<Object[], Class<?>[]> getDeserializer() {
+        return deserializer;
+    }
+
+    public void setDeserializer(Deserializer<Object[], Class<?>[]> deserializer) {
+        this.deserializer = deserializer;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public RpcProperties getProperties() {
+        return properties;
     }
 }

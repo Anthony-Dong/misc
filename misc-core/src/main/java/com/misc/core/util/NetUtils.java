@@ -23,14 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.Inet4Address;
-import java.net.Inet6Address;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.MulticastSocket;
-import java.net.NetworkInterface;
-import java.net.ServerSocket;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.nio.ByteBuffer;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -617,9 +610,32 @@ public class NetUtils {
     }
 
 
+    public static String formatAddr(InetSocketAddress address) {
+        String host = getIpByHost(address.getHostName());
+        return String.format("MISC %s:%d", host, address.getPort());
+    }
+
+    public static InetSocketAddress getAvailableInetSocketAddress(String host, int port) {
+        if (StringUtils.isEmpty(host)) {
+            host = LOCALHOST_KEY;
+        }
+        if (port == 0 || port == -1) {
+            port = getAvailablePort();
+        }
+        return new InetSocketAddress(getIpByHost(host), port);
+    }
+
+
+    public static InetSocketAddress getInetSocketAddress(String host, int port) {
+        if (StringUtils.isEmpty(host)) {
+            host = LOCALHOST_KEY;
+        }
+        return new InetSocketAddress(getIpByHost(host), port);
+    }
+
+
     public static void main(String[] args) {
-        InetSocketAddress address = new InetSocketAddress(9999);
-        String s = NetUtils.filterLocalHost(address.getHostName());
-        System.out.println(s);
+        String ipByHost = getIpByHost("misc-api.didi.me");
+        System.out.println(ipByHost);
     }
 }

@@ -35,17 +35,12 @@ public abstract class NettyConvertHandler<ProtoInBound, ProtoOutBound, ChannelIn
     protected abstract ProtoOutBound encode(ByteBufAllocator allocator, ChannelOutBound msg) throws ConvertException;
 
     /**
-     * 写出去的是请求
+     * 写出去的是请求，异常需要自己抓去，promise
      */
     @Override
     @SuppressWarnings("all")
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-        try {
-            super.write(ctx, encode(ctx.alloc(), (ChannelOutBound) msg), promise);
-        } catch (Exception e) {
-            logger.error("NettyConvertHandler encode exception: {}", e.getMessage());
-            throw e;
-        }
+        super.write(ctx, encode(ctx.alloc(), (ChannelOutBound) msg), promise);
     }
 
     /**
@@ -54,11 +49,6 @@ public abstract class NettyConvertHandler<ProtoInBound, ProtoOutBound, ChannelIn
     @SuppressWarnings("all")
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        try {
-            super.channelRead(ctx, decode((ProtoInBound) msg));
-        } catch (Exception e) {
-            logger.error("NettyConvertHandler decode exception: {}", e.getMessage());
-            throw e;
-        }
+        super.channelRead(ctx, decode((ProtoInBound) msg));
     }
 }

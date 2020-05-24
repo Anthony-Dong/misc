@@ -50,8 +50,7 @@ public final class PropertiesConstant {
     /**
      * ms ， 连接超时时间
      */
-    public static final String CLIENT_CONNECT_TIMEOUT = "misc.connect.timeout";
-
+    public static final String CLIENT_CONNECT_TIMEOUT = "client.connect.timeout";
 
     /**
      * ms ， 请求超时时间
@@ -63,11 +62,11 @@ public final class PropertiesConstant {
      */
     public static final String CLIENT_HEART_INTERVAL = "misc.client.heart.interval";
 
-
     /**
      * s , 服务器心跳时间
      */
     public static final String SERVER_HEART_INTERVAL = "misc.server.heart.interval";
+
 
     public static final String CLIENT_REGISTER_REDIS_HOST = "client.register.redis.host";
 
@@ -85,8 +84,11 @@ public final class PropertiesConstant {
     public static final String CLIENT_REGISTER_KEY = "register-node";
 
 
-    static final String CLIENT_THREAD_QUEUE_SIZE = "client.thread.queue.size";
+    public static final String CLIENT_THREAD_QUEUE_SIZE = "client.thread.queue.size";
+    public static final String CLIENT_THREAD_POOL_SIZE = "client.thread.pool.size";
+    public static final String CLIENT_THREAD_POOL_NAME = "client.thread.pool.name";
 
-    static final String CLIENT_THREAD_CORE_SIZE = "client.thread.core.size";
-
+    public static final String SERVER_THREAD_POOL_NAME = "server.thread.pool.name";
+    public static final String SERVER_THREAD_QUEUE_SIZE = "server.thread.queue.size";
+    public static final String SERVER_THREAD_POOL_SIZE = "server.thread.pool.size";
 }

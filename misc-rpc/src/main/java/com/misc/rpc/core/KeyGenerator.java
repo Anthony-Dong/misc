@@ -16,8 +16,9 @@ public interface KeyGenerator {
     String getKey();
 
 
+    /**
+     * 默认的生成器,这个必须是全局的自增器
+     */
     AtomicLong counter = new AtomicLong();
-
     KeyGenerator DEFAULT_KEY_GENERATOR = () -> String.valueOf(counter.incrementAndGet());
-
 }

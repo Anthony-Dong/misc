@@ -34,13 +34,13 @@ public final class Constants {
     /**
      * 序列化类型，默认是 message pack
      */
-    public static final MiscSerializableType DEFAULT_SERIALIZABLE_TYPE = MiscSerializableType.MESSAGE_PACK;
+    public static final MiscSerializableType DEFAULT_SERIALIZABLE_TYPE = MiscSerializableType.BYTE_ARRAY;
 
 
     /**
      * 默认的地址
      */
-    public static final String DEFAULT_HOST = System.getProperty(CLIENT_HOST, "0.0.0.0");
+    public static final String DEFAULT_HOST = System.getProperty(CLIENT_HOST, "localhost");
     public static final int DEFAULT_PORT = Integer.getInteger(CLIENT_PORT, 9999);
 
     /**
@@ -56,7 +56,7 @@ public final class Constants {
     /**
      * 默认大小是100个线程
      */
-    public static final int DEFAULT_THREAD_SIZE = 100;
+    public static final int DEFAULT_THREAD_SIZE = 50;
 
     /**
      * 无界队列,-1

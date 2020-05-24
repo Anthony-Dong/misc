@@ -3,6 +3,8 @@ package com.misc.core.netty;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Executor;
 
@@ -15,6 +17,8 @@ import java.util.concurrent.Executor;
  */
 @io.netty.channel.ChannelHandler.Sharable
 public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
+    private static final Logger logger = LoggerFactory.getLogger(ServerHandler.class);
+
     /**
      * 线程池
      */
@@ -43,14 +47,14 @@ public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
         try {
             // 如果我们没有线程池（客户端一般没有）
             if (executor == null) {
-                INBOUND inbound = (INBOUND) msg;
-                nettyEventListener.received(ctx.channel(), inbound);
+                logger.debug("[MISC] received {}", msg);
+                nettyEventListener.received(ctx.channel(), (INBOUND) msg);
             } else {
                 // 有
                 executor.execute(() -> {
-                    INBOUND inbound = (INBOUND) msg;
                     try {
-                        nettyEventListener.received(ctx.channel(), inbound);
+                        logger.debug("[MISC] received {}", msg);
+                        nettyEventListener.received(ctx.channel(), (INBOUND) msg);
                     } catch (Throwable e) {
                         // 发送异常传递
                         nettyEventListener.caught(ctx.channel(), e);
@@ -71,6 +75,7 @@ public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
         try {
+            logger.debug("[MISC] sent {}", msg);
             nettyEventListener.sent(ctx.channel(), (OUTBOUND) msg);
         } finally {
             super.write(ctx, msg, promise);
@@ -82,6 +87,7 @@ public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        logger.warn("[MISC] caught address: {}, exception:{}", ctx.channel().remoteAddress(), cause.getMessage());
         nettyEventListener.caught(ctx.channel(), cause);
     }
 
@@ -92,6 +98,7 @@ public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         try {
+            logger.debug("[MISC] connected {}", ctx.channel().remoteAddress());
             nettyEventListener.connected(ctx.channel());
         } finally {
             super.channelActive(ctx);
@@ -104,6 +111,7 @@ public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         try {
+            logger.debug("[MISC] disconnected {}", ctx.channel().remoteAddress());
             nettyEventListener.disconnected(ctx.channel());
         } finally {
             super.channelInactive(ctx);
@@ -115,6 +123,7 @@ public class ServerHandler<INBOUND, OUTBOUND> extends ChannelDuplexHandler {
      */
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
+        logger.debug("[MISC] event triggered {}", evt);
         nettyEventListener.eventTriggered(ctx.channel(), evt);
     }
 }

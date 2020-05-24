@@ -1,6 +1,7 @@
 package com.misc.core.util;
 
 
+import java.net.InetSocketAddress;
 import java.util.*;
 
 /**
@@ -60,9 +61,28 @@ public final class StringUtils {
     }
 
     public static void main(String[] args) {
-        String str="com.misc.core.serialization.JsonObjectArraySerialization,";
-        String[] split = split(str, ',');
-        System.out.println(split.length);
+        Object obj=new Object();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (obj){
+                    try {
+                        obj.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        },"anthony").start();
+
+        System.out.println("+=========");
+//        InetSocketAddress localhost = new InetSocketAddress("localhost", 1111);
+//        String hostName = localhost.getHostName();
+//        int port = localhost.getPort();
+//        System.out.println(hostName);
+//        System.out.println(port);
+//        System.out.println(localhost.getHostString());
+//        System.out.println(localhost);
     }
 
     /**

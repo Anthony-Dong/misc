@@ -1,7 +1,9 @@
 package com.misc.rpc.core;
 
+import com.alibaba.fastjson.JSON;
 import com.misc.core.model.Releasable;
 import com.misc.core.model.URL;
+import com.misc.core.proto.ProtocolType;
 import com.misc.core.proto.TypeConstants;
 import com.misc.core.serialization.Deserializer;
 import com.misc.core.serialization.SerializationFactory;
@@ -21,7 +23,6 @@ import java.util.Map;
  * @date: 2020-05-16
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-@ToString
 @Getter
 @Setter
 public class RpcResponse implements Releasable {
@@ -30,7 +31,7 @@ public class RpcResponse implements Releasable {
     /**
      * 协议
      */
-    private String protocol;
+    private String protocol = ProtocolType.MISC_PROTO.getInfo();
 
     /**
      * 类型
@@ -96,7 +97,7 @@ public class RpcResponse implements Releasable {
      */
     private synchronized void checkInit() {
         if (properties == null) {
-            properties = new RpcProperties("");
+            properties = new RpcProperties();
         }
     }
 
@@ -134,13 +135,18 @@ public class RpcResponse implements Releasable {
         // return type
         if (resultType == null) {
             resultType = result.getClass();
-            logger.warn("RpcResponse not set resultType , {} will set type {}",result, resultType);
         }
         setProperty(URL.Constants.RETURN_KEY, resultType.getName());
         return new URL(protocol, host, port, properties);
     }
 
     private static Class<?> getAccessClass(Class<?> superClazz) {
-           return null;
+        return null;
+    }
+
+
+    @Override
+    public String toString() {
+        return JSON.toJSONString(this);
     }
 }

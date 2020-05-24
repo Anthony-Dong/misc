@@ -1,9 +1,11 @@
 package com.misc.core.proto.misc.common;
 
 import com.misc.core.commons.PropertiesConstant;
-import com.misc.core.proto.misc.common.MiscSerializableType;
+import com.misc.core.netty.NettyClient;
+import com.misc.core.netty.NettyServer;
+import com.misc.core.util.StringUtils;
 
-import java.util.Properties;
+import static com.misc.core.commons.PropertiesConstant.*;
 
 /**
  * 一个ENV对象
@@ -11,29 +13,20 @@ import java.util.Properties;
  * @date:2020/2/24 20:15
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
-public class MiscProperties extends Properties {
+public class MiscProperties extends TypeProperties {
 
     private static final long serialVersionUID = 5619866598364075132L;
-
-    protected short version;
 
     public void setVersion(short version) {
         setShort(PropertiesConstant.CLIENT_SERVER_VERSION, version);
     }
 
-    public Short getVersion() {
-        String property = getProperty(PropertiesConstant.CLIENT_SERVER_VERSION);
-        if (property == null || property.length() == 0) {
-            return null;
-        }
-        return Short.valueOf(property);
+    public short getVersion() {
+        return getShortProperty(CLIENT_SERVER_VERSION);
     }
 
     /**
      * {@link com.misc.core.proto.misc.common.MiscSerializableType}
-     *
-     * @param type
-     * @return
      */
     public void setSerialType(MiscSerializableType type) {
         setByte(PropertiesConstant.CLIENT_SERIALIZABLE_TYPE, type.getCode());
@@ -41,73 +34,66 @@ public class MiscProperties extends Properties {
 
     public MiscSerializableType getSerialType() {
         String property = getProperty(PropertiesConstant.CLIENT_SERIALIZABLE_TYPE);
-        if (property == null || property.length() == 0) {
+        if (StringUtils.isEmpty(property)) {
             return null;
         }
         return MiscSerializableType.getType(Byte.valueOf(property));
     }
 
+    public String getHost() {
+        return getProperty(CLIENT_HOST);
+    }
+
+    public void setHost(String host) {
+        setString(CLIENT_HOST, host);
+    }
+
+    public int getPort() {
+        return getIntProperty(CLIENT_PORT);
+    }
+
+    public void setPort(int port) {
+        setInt(CLIENT_PORT, port);
+    }
+
 
     /**
-     * Creates an empty property list with no default values.
+     * 初始化服务器
      */
+    public void initServer(NettyServer.Builder builder) {
+        builder.setPort(getPort());
+        builder.setHost(getHost());
+        builder.setThreadPoolSize(getIntProperty(SERVER_THREAD_POOL_SIZE));
+        builder.setThreadQueueSize(getIntProperty(SERVER_THREAD_QUEUE_SIZE));
+        builder.setThreadName(getProperty(SERVER_THREAD_POOL_NAME));
+        builder.setHeartInterval(getIntProperty(SERVER_HEART_INTERVAL));
+    }
+
+    /**
+     * 初始化客户端
+     */
+    public void initClient(NettyClient.Builder builder) {
+        builder.setPort(getPort());
+        builder.setHost(getHost());
+        builder.setConnectTimeout(getIntProperty(CLIENT_CONNECT_TIMEOUT));
+        builder.setThreadName(getProperty(CLIENT_THREAD_POOL_NAME));
+        builder.setThreadPoolSize(getIntProperty(CLIENT_THREAD_POOL_SIZE));
+        builder.setThreadQueueSize(getIntProperty(CLIENT_THREAD_QUEUE_SIZE));
+        builder.setHeartInterval(getIntProperty(CLIENT_HEART_INTERVAL));
+    }
+
     public MiscProperties() {
         super();
     }
 
-    public byte getByte(final String key, final byte defaultValue) {
-        String property = getProperty(key);
-        if (property == null) {
-            return defaultValue;
-        } else {
-            return Byte.parseByte(property);
-        }
+    public MiscProperties(String host, int port) {
+        super();
+        setPort(port);
+        setHost(host);
     }
 
-    public int getInt(final String key, final int defaultValue) {
-        String property = getProperty(key);
-        if (property == null) {
-            return defaultValue;
-        } else {
-            return Integer.parseInt(property);
-        }
-    }
-
-
-    public short getShort(final String key, final short defaultValue) {
-        String property = getProperty(key);
-        if (property == null) {
-            return defaultValue;
-        } else {
-            return Short.parseShort(property);
-        }
-    }
-
-    public long getLong(final String key, final long defaultValue) {
-        String property = getProperty(key);
-        if (property == null) {
-            return defaultValue;
-        } else {
-            return Long.parseLong(property);
-        }
-    }
-
-
-    public void setByte(final String key, final Byte value) {
-        setProperty(key, value.toString());
-    }
-
-
-    public void setShort(final String key, final Short value) {
-        setProperty(key, value.toString());
-    }
-
-
-    public void setInt(final String key, final Integer value) {
-        setProperty(key, value.toString());
-    }
-
-    public void setLong(final String key, final Long value) {
-        setProperty(key, value.toString());
+    public MiscProperties(int port) {
+        super();
+        setPort(port);
     }
 }

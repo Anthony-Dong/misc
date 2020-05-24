@@ -100,14 +100,13 @@ public class RpcConvertUtil {
         rpcRequest.setPort(url.getPort());
         rpcRequest.setType(url.getType());
         rpcRequest.setKey(url.getKey());
-        rpcRequest.setNeedAck(url.getNeedAck());
 
         // 这里只处理 请求方法
         rpcRequest.setParamsType(methodInfo.getParamsType());
         rpcRequest.setInvokeTarget(invokerInfo.getInvokerTarget());
         rpcRequest.setInvokeClazz(invokerInfo.getInvokerClass());
         rpcRequest.setInvokeMethod(methodInfo.getMethod());
-        rpcRequest.setProperties(url.getAllMethodParameters(methodName));
+        rpcRequest.setProperties(url.getAllParameters());
         return rpcRequest;
     }
 

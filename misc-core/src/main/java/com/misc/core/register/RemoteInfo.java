@@ -1,23 +1,44 @@
 package com.misc.core.register;
 
-import java.net.SocketAddress;
+import com.misc.core.model.URL;
+import com.misc.core.proto.ProtocolType;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Set;
 
 /**
- * todo
- *
  * @date: 2020-05-16
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
+@Getter
+@Setter
 public class RemoteInfo {
 
-    private SocketAddress address;
+    private ProtocolType protocolType;
 
+    private String host;
 
-    public SocketAddress getAddress() {
-        return address;
+    private int port;
+
+    private String serviceInterface;
+
+    /**
+     * 转换
+     */
+    public URL toUrl() {
+        return new URL(protocolType.getInfo(), host, port);
     }
 
-    public void setAddress(SocketAddress address) {
-        this.address = address;
+    /**
+     * 转换
+     */
+    public static RemoteInfo makeInfo(URL url) {
+        RemoteInfo remoteInfo = new RemoteInfo();
+        remoteInfo.setHost(url.getHost());
+        remoteInfo.setPort(url.getPort());
+        remoteInfo.setServiceInterface(url.getServiceInterface());
+        remoteInfo.setProtocolType(ProtocolType.MISC_PROTO);
+        return remoteInfo;
     }
 }

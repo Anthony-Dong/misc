@@ -32,10 +32,6 @@ public class MiscClientConvertHandler extends NettyConvertHandler<MiscPack, Misc
      */
     @Override
     protected MiscPack encode(ByteBufAllocator allocator, RpcRequest msg) throws ConvertException {
-        try {
-            return RpcConvertUtil.convertRpcRequestToMiscPack(msg);
-        } catch (Exception e) {
-            throw e;
-        }
+        return RpcConvertUtil.convertRpcRequestToMiscPack(msg);
     }
 }

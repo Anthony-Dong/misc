@@ -45,7 +45,7 @@
 
         <dependency>
             <groupId>com.misc</groupId>
-            <artifactId>misc-server</artifactId>
+            <artifactId>misc-rpc</artifactId>
 			<version>${project-version}</version>
 		</dependency>
 		<dependency>

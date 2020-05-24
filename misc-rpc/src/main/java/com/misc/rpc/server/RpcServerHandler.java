@@ -5,8 +5,12 @@ import com.misc.core.netty.NettyEventListener;
 import com.misc.rpc.core.RpcRequest;
 import com.misc.rpc.core.RpcResponse;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.handler.timeout.IdleStateEvent;
+import io.netty.util.internal.ConcurrentSet;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Set;
 
 /**
  * rpc 处理器
@@ -15,40 +19,70 @@ import java.lang.reflect.InvocationTargetException;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public class RpcServerHandler implements NettyEventListener<RpcRequest, RpcResponse> {
+    private final Set<Channel> channels = new ConcurrentSet<>();
 
     @Override
     public void connected(Channel channel) throws HandlerException {
-        logger.info("{} connect", channel.remoteAddress());
+        channels.add(channel);
+        logger.info("the client {} connected", channel.remoteAddress());
     }
 
     @Override
     public void disconnected(Channel channel) throws HandlerException {
-        logger.info("{} disconnected", channel.remoteAddress());
+        channels.remove(channel);
+        logger.info("the client {} disconnected", channel.remoteAddress());
     }
 
     @Override
     public void sent(Channel channel, RpcResponse message) throws HandlerException {
-        //
     }
 
     @Override
     public void received(Channel channel, RpcRequest request) throws HandlerException {
-        logger.info("{} receive", request);
-        try {
-            Object invoke = request.getInvokeMethod().invoke(request.getInvokeTarget(), request.getParams());
-            RpcResponse response = new RpcResponse();
-            response.setResult(invoke);
-            response.setResultType(request.getInvokeMethod().getReturnType());
-            response.setKey(request.getKey());
-            request.release();
-            channel.writeAndFlush(response).addListener(future -> System.out.println(future.isSuccess()));
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        handlerRpcInvoker(channel, request);
     }
 
     @Override
     public void caught(Channel channel, Throwable exception) throws HandlerException {
-        System.out.println("exception  " + exception.getMessage());
+        logger.error("happened exception {}", exception.getMessage());
+    }
+
+    @Override
+    public void eventTriggered(Channel channel, Object event) throws HandlerException {
+        if (event instanceof IdleStateEvent) {
+            logger.info("close client {} because heart beat timeout", channel.remoteAddress());
+            channel.close();
+        }
+    }
+
+    /**
+     * 获取连接数
+     */
+    public int getClientCount() {
+        return channels.size();
+    }
+
+    private void handlerRpcInvoker(Channel channel, RpcRequest request) {
+        try {
+            Object invoke = request.getInvokeMethod().invoke(request.getInvokeTarget(), request.getParams());
+            if (request.getProperties().needAck()) {
+                // 设置响应结果
+                RpcResponse response = new RpcResponse();
+                response.setHost(request.getHost());
+                response.setPort(request.getPort());
+                response.setResult(invoke);
+                response.setKey(request.getKey());
+                // 清空request
+                request.release();
+                channel.writeAndFlush(response).addListener((ChannelFutureListener) future -> {
+                    if (future.cause() != null) {
+                        // 调用异常接口
+                        RpcServerHandler.this.caught(channel, future.cause());
+                    }
+                });
+            }
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }

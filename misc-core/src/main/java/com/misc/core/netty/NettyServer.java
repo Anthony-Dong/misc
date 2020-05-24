@@ -2,6 +2,8 @@ package com.misc.core.netty;
 
 
 import com.misc.core.commons.Constants;
+import com.misc.core.util.NetUtils;
+import com.misc.core.util.StringUtils;
 import com.misc.core.util.ThreadPool;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -52,7 +54,7 @@ public final class NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
     /**
      * 远程地址
      */
-    private SocketAddress address;
+    private InetSocketAddress address;
 
 
     /**
@@ -89,7 +91,7 @@ public final class NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
      * @throws Exception 服务器异常关闭
      */
     @Override
-    public synchronized NettyNode start() throws Throwable {
+    public synchronized NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> start() throws Throwable {
         if (init) {
             logger.warn("Netty-Server[{}] already started", address);
             return this;
@@ -147,7 +149,7 @@ public final class NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
      * 同步
      */
     @Override
-    public synchronized NettyNode sync() throws Throwable {
+    public synchronized NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> sync() throws Throwable {
         try {
             this.channel.closeFuture().sync();
         } catch (InterruptedException e) {
@@ -163,7 +165,7 @@ public final class NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
      * 关闭
      */
     @Override
-    public NettyNode close() throws Throwable {
+    public NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> close() throws Throwable {
         if (channel != null) {
             channel.close();
         }
@@ -202,11 +204,13 @@ public final class NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
          */
         private String host;
         private int port;
+        private int threadPoolSize;
+        private int threadQueueSize;
+        private String threadName;
 
 
         public Builder() {
             this.server = new NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound>();
-            init();
         }
 
         public Builder setHost(String host) {
@@ -225,11 +229,6 @@ public final class NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
             return this;
         }
 
-        public Builder setAddress(SocketAddress address) {
-            server.address = address;
-            return this;
-        }
-
         public Builder setBossGroup(EventLoopGroup bossGroup) {
             server.bossGroup = bossGroup;
             return this;
@@ -240,12 +239,20 @@ public final class NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
             return this;
         }
 
-
-        public Builder setThreadPool(ThreadPool threadPool) {
-            server.threadPool = threadPool;
+        public Builder setThreadPoolSize(int threadPoolSize) {
+            this.threadPoolSize = threadPoolSize;
             return this;
         }
 
+        public Builder setThreadQueueSize(int threadQueueSize) {
+            this.threadQueueSize = threadQueueSize;
+            return this;
+        }
+
+        public Builder setThreadName(String threadName) {
+            this.threadName = threadName;
+            return this;
+        }
 
         public Builder setHeartInterval(int heartInterval) {
             server.heartInterval = heartInterval;
@@ -269,11 +276,13 @@ public final class NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
         }
 
         public NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> build() {
+            init();
             check();
             return server;
         }
 
         private void check() {
+            // 子类可以做一些初始化的事情
             if (server.nettyEventListener == null) {
                 throw new NullPointerException("nettyEventListener 不允许为空");
             }
@@ -284,16 +293,14 @@ public final class NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
             if (server.codecProvider == null) {
                 logger.warn("The codecProvider is null , please careful !");
             }
-            server.bossGroup = server.bossGroup == null ? new NioEventLoopGroup(1, new DefaultThreadFactory("MiscServerBoss", true)) : server.bossGroup;
-            server.workerGroup = server.workerGroup == null ? new NioEventLoopGroup(Constants.DEFAULT_IO_THREADS, new DefaultThreadFactory("NettyServerWorker", true)) : server.workerGroup;
-            server.threadPool = server.threadPool == null ? new ThreadPool(DEFAULT_THREAD_SIZE, DEFAULT_THREAD_QUEUE_SIZE, DEFAULT_THREAD_NAME) : server.threadPool;
+            server.address = NetUtils.getAvailableInetSocketAddress(this.host, this.port);
+            server.bossGroup = server.bossGroup == null ? new NioEventLoopGroup(1, new DefaultThreadFactory(NetUtils.formatAddr(server.address), true)) : server.bossGroup;
+            server.workerGroup = server.workerGroup == null ? new NioEventLoopGroup(Constants.DEFAULT_IO_THREADS, new DefaultThreadFactory(NetUtils.formatAddr(server.address), true)) : server.workerGroup;
+            server.threadPool = new ThreadPool(this.threadPoolSize == 0 ? DEFAULT_THREAD_SIZE : this.threadPoolSize, this.threadQueueSize == 0 ? DEFAULT_THREAD_QUEUE_SIZE : threadQueueSize, StringUtils.isEmpty(this.threadName) ? NetUtils.formatAddr(server.address) : this.threadName);
             server.heartInterval = server.heartInterval < 30 ? DEFAULT_SERVER_HEART_INTERVAL : server.heartInterval;
-            this.host = host == null || host.length() == 0 ? "localhost" : this.host;
-            this.port = this.port == 0 ? 9999 : this.port;
-            server.address = server.address == null ? new InetSocketAddress(host, port) : server.address;
 
-            logger.info("Netty-Server[{}] init the config is {} {} {} {} {}",
-                    server.address,
+            logger.info("{} init the config is {} {} {} {} {}",
+                    NetUtils.formatAddr(server.address),
                     server.bossGroup,
                     server.workerGroup,
                     server.threadPool,
@@ -326,7 +333,7 @@ public final class NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
         return heartInterval;
     }
 
-    public SocketAddress getAddress() {
+    public InetSocketAddress getAddress() {
         return address;
     }
 

@@ -27,10 +27,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-        </dependency>
     </dependencies>
 
     <properties>
@@ -48,6 +44,7 @@
         <spring-boot-version>2.0.4.RELEASE</spring-boot-version>
         <commons-lang3-version>3.9</commons-lang3-version>
         <guava-version>28.0-jre</guava-version>
+        <curator-framework-version>4.0.1</curator-framework-version>
     </properties>
 
     <!--统一的依赖管理，必须全部注册在这里-->
@@ -117,10 +114,14 @@
                 <artifactId>guava</artifactId>
                 <version>${guava-version}</version>
             </dependency>
-
+            <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-framework -->
+            <!--zk-->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator-framework-version}</version>
+            </dependency>
         </dependencies>
-
-
     </dependencyManagement>
 
 

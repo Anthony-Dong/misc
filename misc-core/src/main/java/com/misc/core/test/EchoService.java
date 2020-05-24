@@ -10,7 +10,7 @@ import java.util.Map;
  * @author: <a href='mailto:fanhaodong516@qq.com'>Anthony</a>
  */
 public interface EchoService {
-    int hash(String str);
+    int[] hash(String str);
 
     default List<User> getUses(HashMap<String, String> value) {
         return null;

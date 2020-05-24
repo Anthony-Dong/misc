@@ -2,6 +2,9 @@ package com.misc.core.netty;
 
 
 import com.misc.core.exception.BootstrapException;
+import com.misc.core.proto.misc.common.MiscProperties;
+import com.misc.core.util.NetUtils;
+import com.misc.core.util.StringUtils;
 import com.misc.core.util.ThreadPool;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -99,7 +102,7 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
      * @throws BootstrapException 启动
      */
     @Override
-    public synchronized NettyNode start() throws Throwable {
+    public synchronized NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> start() throws Throwable {
         if (init) {
             logger.warn("Netty-Client[{}] already started", address);
             return this;
@@ -157,7 +160,7 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
      * 等待关闭
      */
     @Override
-    public synchronized NettyNode sync() throws Throwable {
+    public synchronized NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> sync() throws Throwable {
         try {
             this.channel.closeFuture().sync();
         } catch (InterruptedException e) {
@@ -173,7 +176,7 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
      * 正确关闭和释放资源
      */
     @Override
-    public synchronized NettyNode close() throws Throwable {
+    public synchronized NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> close() throws Throwable {
         if (channel != null) {
             channel.close();
         }
@@ -204,35 +207,38 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
     public static abstract class Builder<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> {
         private final NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> server;
 
-        /**
-         * 优先级小于直接设置address
-         */
         private String host;
         private int port;
+        private int threadPoolSize;
+        private int threadQueueSize;
+        private String threadName;
 
         public Builder() {
             this.server = new NettyClient<>();
-            init();
         }
 
         public Builder setHost(String host) {
-            if (server.address != null) {
-                logger.warn("address {} already set !", server.address);
-            }
             this.host = host;
             return this;
         }
 
         public Builder setPort(int port) {
-            if (server.address != null) {
-                logger.warn("address {} already set !", server.address);
-            }
             this.port = port;
             return this;
         }
 
-        public Builder setAddress(SocketAddress address) {
-            server.address = address;
+        public Builder setThreadPoolSize(int threadPoolSize) {
+            this.threadPoolSize = threadPoolSize;
+            return this;
+        }
+
+        public Builder setThreadQueueSize(int threadQueueSize) {
+            this.threadQueueSize = threadQueueSize;
+            return this;
+        }
+
+        public Builder setThreadName(String threadName) {
+            this.threadName = threadName;
             return this;
         }
 
@@ -282,6 +288,7 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
         }
 
         private void check() {
+            init();
             if (server.nettyEventListener == null) {
                 throw new NullPointerException("nettyEventListener 不允许为空");
             }
@@ -293,14 +300,14 @@ public final class NettyClient<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
             if (server.codecProvider == null) {
                 logger.warn("The codecProvider is null , please careful !");
             }
-
-            server.bossGroup = server.bossGroup == null ? new NioEventLoopGroup(1, new DefaultThreadFactory("MiscServerBoss", true)) : server.bossGroup;
-            server.heartInterval = server.heartInterval < 30 ? DEFAULT_SERVER_HEART_INTERVAL : server.heartInterval;
-            this.host = host == null || host.length() == 0 ? "localhost" : this.host;
-            this.port = this.port == 0 ? 9999 : this.port;
-            server.address = server.address == null ? new InetSocketAddress(host, port) : server.address;
-            server.threadPool=new ThreadPool(10,-1,"pool");
-            logger.info("Netty-Server[{}] init the config is  {} {} {}",
+            server.address = NetUtils.getInetSocketAddress(this.host, this.port);
+            server.bossGroup = server.bossGroup == null ? new NioEventLoopGroup(1, new DefaultThreadFactory(NetUtils.formatAddr((InetSocketAddress) server.address), true)) : server.bossGroup;
+            server.heartInterval = server.heartInterval < 30 ? DEFAULT_CLIENT_HEART_INTERVAL : server.heartInterval;
+            if (threadPoolSize != 0) {
+                server.threadPool = new ThreadPool(this.threadPoolSize, this.threadQueueSize == 0 ? DEFAULT_THREAD_QUEUE_SIZE : threadQueueSize, StringUtils.isEmpty(this.threadName) ? NetUtils.formatAddr((InetSocketAddress) server.address) : this.threadName);
+            }
+            logger.info("{} init the config is  {} {} {}",
+                    NetUtils.formatAddr((InetSocketAddress) server.address),
                     server.address,
                     server.bossGroup,
                     server.heartInterval,
