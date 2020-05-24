@@ -2,6 +2,7 @@ package com.misc.rpc.server;
 
 import com.misc.core.exception.HandlerException;
 import com.misc.core.netty.NettyEventListener;
+import com.misc.core.proto.TypeConstants;
 import com.misc.rpc.core.RpcRequest;
 import com.misc.rpc.core.RpcResponse;
 import io.netty.channel.Channel;
@@ -39,7 +40,9 @@ public class RpcServerHandler implements NettyEventListener<RpcRequest, RpcRespo
 
     @Override
     public void received(Channel channel, RpcRequest request) throws HandlerException {
-        handlerRpcInvoker(channel, request);
+        if (request.getType().equals(TypeConstants.RPC_TYPE)) {
+            handlerRpcInvoker(channel, request);
+        }
     }
 
     @Override

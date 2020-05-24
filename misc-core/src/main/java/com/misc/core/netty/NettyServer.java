@@ -66,7 +66,6 @@ public final class NettyServer<ProtoInBound, ProtoOutBound, ChannelInBound, Chan
      */
     private NettyConvertHandler<ProtoInBound, ProtoOutBound, ChannelInBound, ChannelOutBound> nettyConvertHandler;
 
-
     /**
      * 事件处理器（共享）
      */

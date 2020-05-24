@@ -76,7 +76,7 @@ public class RpcProperties extends HashMap<String, String> {
 
 
     public boolean needAck() {
-        return getOrDefault(URL.Constants.ACK_KEY, "0").equals("1");
+        return getOrDefault(URL.Constants.ACK_KEY, "1").equals("1");
     }
 
     public void setAck(boolean needAck) {

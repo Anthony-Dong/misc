@@ -175,7 +175,6 @@ public class RpcRequest implements Releasable {
         if (invokeMethod == null) {
             throw new ConvertException(String.format("RpcRequest.invokeMethod can not be NULL, %s", this));
         }
-        ParamsType = invokeMethod.getParameterTypes();
 
         // 没有设置序列化
         if (serializer == null || deserializer == null) {
@@ -183,6 +182,8 @@ public class RpcRequest implements Releasable {
             deserializer = DEFAULT_SERIALIZATION;
         }
 
+
+        ParamsType = invokeMethod.getParameterTypes();
         // 设置方法属性
         if (ParamsType != null && ParamsType.length > 0) {
             setMethodProperty(PARAMS_KEY, RpcConvertUtil.convertMethodParamsTypeToString(ParamsType));

@@ -6,14 +6,15 @@ import com.misc.core.register.ZKRegistryService;
 import com.misc.core.test.EchoService;
 import com.misc.rpc.client.ReferenceBean;
 import com.misc.rpc.core.RpcProperties;
+import com.misc.rpc.server.MiscRpcServer;
+import com.misc.rpc.server.RpcServerConfig;
+import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 /**
@@ -57,7 +58,7 @@ public class ClientAPP {
     // task
     private static Runnable getJob(int start, int times, List<EchoService> echoServices, LoadBalance<EchoService> loadBalance) {
         return () -> IntStream.range(start, times).forEach(value -> {
-            int[] hash = loadBalance.loadBalance(echoServices).hash(String.format("number=%d", value));
+            int[] hash = loadBalance.loadBalance(echoServices).hashCodes(1, "2", Arrays.asList(3));
             System.out.println(String.format("times=%d hashcode=%s", value, Arrays.toString(hash)));
         });
     }
@@ -81,5 +82,19 @@ public class ClientAPP {
         List<EchoService> echoServices = new ArrayList<>(time);
         IntStream.range(0, time).forEach(value -> echoServices.add(bean.get()));
         return echoServices;
+    }
+
+    @Test
+    public void runClient() {
+        EchoService echoService = new ReferenceBean<>(EchoService.class, new ZKRegistryService()).get();
+        int[] hash = echoService.hashCodes(1, "Hello Misc!", Collections.singletonList(1));
+        System.out.printf("rpc invoke success , hash=%s", Arrays.toString(hash));
+    }
+
+    @Test
+    public void runServer() throws Throwable {
+        RpcServerConfig config = new RpcServerConfig();
+        config.addInvoker(EchoService.class, (EchoService) (_int, _string, list) -> new int[]{_int, _string.hashCode(), list.hashCode()});
+        MiscRpcServer.runSync(new ZKRegistryService(), config);
     }
 }

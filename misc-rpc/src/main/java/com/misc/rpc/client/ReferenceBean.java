@@ -60,6 +60,11 @@ public class ReferenceBean<T> implements RpcInvokeHandler {
         this.reference = reference;
     }
 
+    public ReferenceBean(Class<T> reference, RegistryService registryService) {
+        this.reference = reference;
+        this.registryService = registryService;
+    }
+
     public T get() throws RpcException {
         /**
          * 注册中心
